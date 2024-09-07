@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('genres');
             $table->text('synopsis')->nullable();
             $table->string('classification', 2);
-            $table->integer('episodes')->nullable();
-            $table->integer('season')->nullable();
+            $table->integer('episodes');
+            $table->integer('season');
             $table->date('release_date')->nullable();
             $table->string('status');
             $table->integer('rating')->nullable();
