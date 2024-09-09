@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.input{
+ @apply  border-0 focus:border-2 focus:border-primary focus:outline-none;
+
+}
+main {
+    background-image: url(../img/blue_night.jpg);
+    background-size: cover; /* Adjusts to cover the entire area */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Doesn't repeat */
+    background-attachment: fixed; /* Stays fixed while scrolling */
+
+}

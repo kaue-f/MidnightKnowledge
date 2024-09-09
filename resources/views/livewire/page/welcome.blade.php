@@ -1,16 +1,7 @@
-<div>
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
-    <div class="card bg-base-100 w-96 shadow-xl">
-        <figure>
-            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
-        </figure>
-        <div class="card-body">
-            <h2 class="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-end">
-                <button class="btn btn-primary">Buy Now</button>
-            </div>
-        </div>
+<article class="flex flex-col w-1/5 gap-4 justify-center rounded-lg bg-opacity-60 items-center bg-accent px-10 py-6">
+    <h1 class="w-full text-center font-bold text-2xl">Midnight Knowleadge</h1>
+
+    <div class="w-full">
+        <livewire:components.login />
     </div>
-    <livewire:components.login />
-</div>
+</article>

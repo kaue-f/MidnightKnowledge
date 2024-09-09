@@ -11,7 +11,8 @@
 
 <body class="flex flex-col w-screen h-screen  antialiased">
 
-    <main class="flex h-full justify-center items-center">
+    <main class="w-full flex h-full justify-center items-center">
+        
         {{ $slot }}
     </main>
 
