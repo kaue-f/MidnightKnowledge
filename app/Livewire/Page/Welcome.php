@@ -13,6 +13,7 @@ class Welcome extends Component
     #[Title('Welcome')]
     public function render()
     {
+
         return view('livewire.page.welcome');
     }
 }

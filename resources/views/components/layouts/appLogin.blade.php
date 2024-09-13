@@ -9,10 +9,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex flex-col w-screen h-screen  antialiased">
+<body class="flex flex-col w-screen h-screen antialiased bg-center bg-no-repeat bg-cover"
+    style="background-image: url('images/layouts/blue_night.jpg')"">
 
     <main class="w-full flex h-full justify-center items-center">
-        
+
         {{ $slot }}
     </main>
 
