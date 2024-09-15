@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -11,27 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mangas', function(Blueprint $table){
+        Schema::create('mangas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('image')->nullable();
             $table->string('genre');
-            $table->string('classification',2);
-            $table->text('synopsis');
+            $table->string('classification', 2);
+            $table->text('synopsis')->nullable();
             $table->integer('chapter');
             $table->integer('volume');
-            $table->string('author');
+            $table->string('author')->nullable();
             $table->date('publication_date')->nullable();
             $table->string('status');
             $table->integer('rating')->nullable();
             $table->boolean('favorite')->nullable();
             $table->text('comment')->nullable();
-            $table->string('developed_by');
-            $table->string('plataform');
+            $table->string('published_by')->nullable();
             $table->foreignUuid('user_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 
