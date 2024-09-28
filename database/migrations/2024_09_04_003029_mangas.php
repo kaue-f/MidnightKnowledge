@@ -51,5 +51,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('mangas');
+        Schema::dropIfExists('manga_genre');
+        Schema::dropIfExists('manga_user');
     }
 };

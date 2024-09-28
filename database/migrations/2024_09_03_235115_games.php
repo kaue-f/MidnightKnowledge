@@ -49,5 +49,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('games');
+        Schema::dropIfExists('game_genre');
+        Schema::dropIfExists('game_user');
     }
 };
