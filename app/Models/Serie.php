@@ -15,19 +15,13 @@ class Serie extends Model
         'image',
         'genres',
         'synopsis',
-        'classification',
+        'classification_id',
         'episodes',
         'season',
         'release_date',
-        'status',
         'rating',
         'favorite',
         'comment',
-        'user_id',
-    ];
-
-    protected $hidden = [
-        'user_id'
     ];
 
     protected function casts(): array
@@ -35,5 +29,21 @@ class Serie extends Model
         return [
             'release_date' => 'date:d/m/Y',
         ];
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'serie_genre');
+    }
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'serie_user');
     }
 }

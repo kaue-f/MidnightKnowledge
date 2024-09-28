@@ -48,4 +48,46 @@ class User extends Model
             'password' => 'hashed',
         ];
     }
+
+    public function animes()
+    {
+        return $this->belongsToMany(Anime::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function series()
+    {
+        return $this->belongsToMany(Serie::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function books()
+    {
+        return $this->belongsToMany(Book::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function mangas()
+    {
+        return $this->belongsToMany(Manga::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
 }

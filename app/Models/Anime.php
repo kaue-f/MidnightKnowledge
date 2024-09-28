@@ -13,21 +13,14 @@ class Anime extends Model
     protected $fillable = [
         'title',
         'image',
-        'genres',
         'synopsis',
-        'classification',
+        'classification_id',
         'episodes',
         'season',
         'release_date',
-        'status',
         'rating',
         'favorite',
         'comment',
-        'user_id',
-    ];
-
-    protected $hidden = [
-        'user_id'
     ];
 
     protected function casts(): array
@@ -35,5 +28,22 @@ class Anime extends Model
         return [
             'release_date' => 'date:d/m/Y',
         ];
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'anime_genre');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'anime_user');
     }
 }

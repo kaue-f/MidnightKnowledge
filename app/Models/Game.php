@@ -13,21 +13,14 @@ class Game extends Model
     protected $fillable = [
         'title',
         'image',
-        'genre',
-        'classification',
+        'classification_id',
         'duration',
         'release_date',
-        'status',
         'rating',
         'favorite',
         'comment',
         'developed_by',
         'plataform',
-        'user_id',
-    ];
-
-    protected $hidden = [
-        'user_id'
     ];
 
     protected function casts(): array
@@ -35,5 +28,22 @@ class Game extends Model
         return [
             'release_date' => 'date:d/m/Y',
         ];
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'games_genre');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'games_user');
     }
 }

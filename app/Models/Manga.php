@@ -13,23 +13,16 @@ class Manga extends Model
     protected $fillable = [
         'title',
         'image',
-        'genre',
-        'classification',
+        'classification_id',
         'synopsis',
         'chapter',
         'volume',
         'author',
         'publication_date',
-        'status',
         'rating',
         'favorite',
         'comment',
         'published_by',
-        'user_id',
-    ];
-
-    protected $hidden = [
-        'user_id'
     ];
 
     protected function casts(): array
@@ -37,5 +30,22 @@ class Manga extends Model
         return [
             'publication_date' => 'date:d/m/Y',
         ];
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'manga_genre');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'manga_user');
     }
 }

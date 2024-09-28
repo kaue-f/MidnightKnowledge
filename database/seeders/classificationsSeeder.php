@@ -6,14 +6,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class classificationSeeder extends Seeder
+class classificationsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('classification')->insert([
+        DB::table('classifications')->insert([
             ['classification' => 'Livre (L)',  'description' => 'Indicado para todas as idades.', 'image' => 'image/classification/livre.png'],
             ['classification' => '10 anos (10+)', 'description' => 'Adequado para crianças a partir de 10 anos.', 'image' => 'image/classification/10.png'],
             ['classification' => '12 anos (12+)', 'description' => 'Recomendado para pessoas a partir de 12 anos.', 'image' => 'image/classification/12.png'],

@@ -13,8 +13,7 @@ class Book extends Model
     protected $fillable = [
         'title',
         'image',
-        'genre',
-        'classification',
+        'classification_id',
         'synopsis',
         'chapter',
         'pages',
@@ -22,16 +21,10 @@ class Book extends Model
         'series',
         'author',
         'publication_date',
-        'status',
         'rating',
         'favorite',
         'comment',
         'published_by',
-        'user_id',
-    ];
-
-    protected $hidden = [
-        'user_id'
     ];
 
     protected function casts(): array
@@ -39,5 +32,22 @@ class Book extends Model
         return [
             'publication_date' => 'date:d/m/Y',
         ];
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withTimestamps();
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'book_genre');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'book_user');
     }
 }
