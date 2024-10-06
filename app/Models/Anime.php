@@ -18,9 +18,7 @@ class Anime extends Model
         'episodes',
         'season',
         'release_date',
-        'rating',
-        'favorite',
-        'comment',
+        'user_id'
     ];
 
     protected function casts(): array
@@ -33,7 +31,7 @@ class Anime extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
@@ -45,5 +43,15 @@ class Anime extends Model
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'anime_user');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(AnimeRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(AnimeComment::class);
     }
 }

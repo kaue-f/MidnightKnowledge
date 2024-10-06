@@ -16,11 +16,9 @@ class Game extends Model
         'classification_id',
         'duration',
         'release_date',
-        'rating',
-        'favorite',
-        'comment',
         'developed_by',
         'plataform',
+        'user_id'
     ];
 
     protected function casts(): array
@@ -33,7 +31,7 @@ class Game extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
@@ -45,5 +43,15 @@ class Game extends Model
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'games_user');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(GameRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(GameComment::class);
     }
 }

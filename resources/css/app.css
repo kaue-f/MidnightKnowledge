@@ -10,3 +10,15 @@
 .btn {
     @apply border-0;
 }
+
+.navbar-dropdown {
+
+    ul,
+    .menu {
+        @apply rounded-md;
+
+        a {
+            @apply active:bg-transparent;
+        }
+    }
+}
