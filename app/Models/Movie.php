@@ -17,9 +17,7 @@ class Movie extends Model
         'classification_id',
         'duration',
         'release_date',
-        'rating',
-        'favorite',
-        'comment',
+        'user_id'
     ];
 
     protected function casts(): array
@@ -32,7 +30,7 @@ class Movie extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
@@ -44,5 +42,15 @@ class Movie extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'movie_genre');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(MovieRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(MovieComment::class);
     }
 }

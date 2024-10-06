@@ -20,10 +20,12 @@ class User extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
         'image',
         'password',
+        'role',
     ];
 
     /**
@@ -49,45 +51,46 @@ class User extends Model
         ];
     }
 
+
     public function animes()
     {
-        return $this->belongsToMany(Anime::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
-            ->withTimestamps();
-    }
-
-    public function series()
-    {
-        return $this->belongsToMany(Serie::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
-            ->withTimestamps();
-    }
-
-    public function movies()
-    {
-        return $this->belongsToMany(Movie::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
-            ->withTimestamps();
-    }
-
-    public function games()
-    {
-        return $this->belongsToMany(Game::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+        return $this->belongsToMany(Anime::class, 'anime_user')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
     public function books()
     {
-        return $this->belongsToMany(Book::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+        return $this->belongsToMany(Book::class, 'book_user')
+            ->withPivot('library', 'status_id', 'favorite')
+            ->withTimestamps();
+    }
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class, 'game_user')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
     public function mangas()
     {
-        return $this->belongsToMany(Manga::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+        return $this->belongsToMany(Manga::class, 'manga_user')
+            ->withPivot('library', 'status_id', 'favorite')
+            ->withTimestamps();
+    }
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class, 'movie_user')
+            ->withPivot('library', 'status_id', 'favorite')
+            ->withTimestamps();
+    }
+
+    public function series()
+    {
+        return $this->belongsToMany(Serie::class, 'serie_user')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 }

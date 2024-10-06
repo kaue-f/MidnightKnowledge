@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Page\Games;
 use App\Livewire\Page\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -8,3 +9,4 @@ Route::get('/', function () {
 });
 
 Route::get('/', Welcome::class)->name('welcome');
+Route::get('/games', Games::class)->name('games');

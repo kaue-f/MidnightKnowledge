@@ -13,15 +13,12 @@ class Serie extends Model
     protected $fillable = [
         'title',
         'image',
-        'genres',
         'synopsis',
         'classification_id',
         'episodes',
         'season',
         'release_date',
-        'rating',
-        'favorite',
-        'comment',
+        'user_id'
     ];
 
     protected function casts(): array
@@ -34,7 +31,7 @@ class Serie extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
@@ -45,5 +42,15 @@ class Serie extends Model
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'serie_user');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(SerieRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(SerieComment::class);
     }
 }

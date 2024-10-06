@@ -21,10 +21,8 @@ class Book extends Model
         'series',
         'author',
         'publication_date',
-        'rating',
-        'favorite',
-        'comment',
         'published_by',
+        'user_id'
     ];
 
     protected function casts(): array
@@ -37,7 +35,7 @@ class Book extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('status_id', 'rating', 'favorite', 'comment')
+            ->withPivot('library', 'status_id', 'favorite')
             ->withTimestamps();
     }
 
@@ -49,5 +47,15 @@ class Book extends Model
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'book_user');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(BookRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(BookComment::class);
     }
 }

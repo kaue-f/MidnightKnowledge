@@ -4,8 +4,10 @@ namespace App\DTO;
 
 class UserDTO
 {
-    public $name;
-    public $email;
-    public $image;
-    public $password;
+    public string $username;
+    public string $name;
+    public string $email;
+    public string $image;
+    public string $password;
+    public string $role;
 }
