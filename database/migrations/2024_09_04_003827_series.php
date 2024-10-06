@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('image')->nullable();
             $table->text('synopsis')->nullable();
-            $table->foreignId('classification_id')->constrained()->onDelete('set null');
+            $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('episodes');
             $table->integer('season');
             $table->date('release_date')->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('set null');
+            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,7 +28,7 @@ return new class extends Migration
         schema::create('serie_genre', function (Blueprint $table) {
             $table->id();
             $table->foreignId('serie_id')->constrained()->onDelete('cascade');
-            $table->foreignId('genre_id')->constrained()->onDelete('set null');
+            $table->foreignId('genre_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
 
@@ -45,7 +45,7 @@ return new class extends Migration
         Schema::create('serie_comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('serie_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('set null');
+            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
             $table->timestamps();
         });
@@ -53,7 +53,7 @@ return new class extends Migration
         Schema::create('serie_ratings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('serie_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('set null');
+            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
             $table->unique(['serie_id', 'user_id']);
