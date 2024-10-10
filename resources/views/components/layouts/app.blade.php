@@ -10,14 +10,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="h-screen font-sans antialiased text-base-content bg-base-300">
-
-    @livewire('components.navbar')
-
+<body class="h-screen font-sans antialiased text-base-content bg-base-100" x-data>
+    <div class="w-full bg-base-300 border-b-2 border-b-secondary sticky top-0 z-10">
+        @livewire('components.navbar')
+    </div>
     <main class="max-w-screen-2xl w-full mx-auto p-6 lg:px-10 lg:py-6">
         {{ $slot }}
     </main>
-    {{-- <footer class="mx-auto w-full max-w-screen-2xl"></footer> --}}
+    <x-spotlight shortcut="shift.space" search-text="" no-results-text="Ops! Nenhum conteúdo encontrado" />
 </body>
 
 </html>
