@@ -1,7 +1,7 @@
 <?php
 
-use App\Livewire\Page\Games;
-use App\Livewire\Page\Welcome;
+use App\Livewire\Pages\Games;
+use App\Livewire\Pages\Welcome;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

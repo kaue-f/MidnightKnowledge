@@ -3,12 +3,21 @@
 @tailwind utilities;
 
 
+
 .input {
-    @apply border-0 focus:border-2 focus:border-primary focus:outline-none;
+    @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none;
 }
 
 .btn {
     @apply border-0;
+}
+
+.select {
+    @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none;
+
+    option {
+        @apply bg-base-200 font-semibold
+    }
 }
 
 .navbar-dropdown {

@@ -51,7 +51,7 @@
                 </x-slot:trigger>
                 <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-60 w-48" @click.stop="">
                     <x-avatar class="lg:!w-32 !w-20 hover:cursor-pointer" :image="$avatar" />
-                    <div class="text-sm font-semibold text-center pt-3">
+                    <div class="font-semibold text-center pt-3">
                         Usuário
                     </div>
                 </x-menu-item>

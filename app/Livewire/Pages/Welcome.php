@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Page;
+namespace App\Livewire\Pages;
 
 use App\DTO\StatusDTO;
 use Livewire\Component;
@@ -14,6 +14,6 @@ class Welcome extends Component
     #[Title('Welcome')]
     public function render()
     {
-        return view('livewire.page.welcome');
+        return view('livewire.pages.welcome');
     }
 }

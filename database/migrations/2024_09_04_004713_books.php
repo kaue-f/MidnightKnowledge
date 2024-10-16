@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('volume');
             $table->string('series');
             $table->string('author')->nullable();
-            $table->date('publication_date')->nullable();
+            $table->date('release_date')->nullable();
             $table->string('published_by')->nullable();
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
@@ -34,6 +34,7 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->foreignId('genre_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('book_user', function (Blueprint $table) {
@@ -44,6 +45,7 @@ return new class extends Migration
             $table->foreignId('status_id')->constrained();
             $table->boolean('favorite')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('book_comments', function (Blueprint $table) {
@@ -52,6 +54,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('book_ratings', function (Blueprint $table) {
@@ -60,6 +63,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->unique(['book_id', 'user_id']);
         });
     }

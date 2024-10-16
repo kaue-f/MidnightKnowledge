@@ -30,6 +30,7 @@ return new class extends Migration
             $table->foreignId('anime_id')->constrained()->onDelete('cascade');
             $table->foreignId('genre_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('anime_user', function (Blueprint $table) {
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->foreignId('status_id')->constrained();
             $table->boolean('favorite')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('anime_comments', function (Blueprint $table) {
@@ -48,6 +50,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('anime_ratings', function (Blueprint $table) {
@@ -56,6 +59,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->unique(['anime_id', 'user_id']);
         });
     }
