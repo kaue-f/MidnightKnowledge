@@ -9,10 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "davidhsianturi/blade-bootstrap-icons": "^1.5",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
-        "robsontenorio/mary": "^1.35"
+        "owenvoke/blade-fontawesome": "^2.6",
+        "robsontenorio/mary": "^1.40"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

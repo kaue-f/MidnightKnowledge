@@ -18,7 +18,7 @@ class Manga extends Model
         'chapter',
         'volume',
         'author',
-        'publication_date',
+        'release_date',
         'published_by',
         'user_id'
     ];
@@ -26,7 +26,7 @@ class Manga extends Model
     protected function casts(): array
     {
         return [
-            'publication_date' => 'date:d/m/Y',
+            'release_date' => 'date:d/m/Y',
         ];
     }
 

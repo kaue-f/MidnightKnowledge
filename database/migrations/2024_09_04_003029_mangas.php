@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('chapter');
             $table->integer('volume');
             $table->string('author')->nullable();
-            $table->date('publication_date')->nullable();
+            $table->date('release_date')->nullable();
             $table->string('published_by')->nullable();
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
