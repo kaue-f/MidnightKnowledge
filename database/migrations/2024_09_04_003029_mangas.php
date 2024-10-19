@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mangas', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->text('image')->nullable();
             $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
@@ -29,7 +29,7 @@ return new class extends Migration
 
         Schema::create('manga_genre', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('manga_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
             $table->foreignId('genre_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
@@ -37,7 +37,7 @@ return new class extends Migration
         Schema::create('manga_user', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('manga_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
             $table->boolean('library');
             $table->foreignId('status_id')->constrained();
             $table->boolean('favorite')->nullable();
@@ -46,7 +46,7 @@ return new class extends Migration
 
         Schema::create('manga_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('manga_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
             $table->timestamps();
@@ -54,7 +54,7 @@ return new class extends Migration
 
         Schema::create('manga_ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('manga_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
