@@ -8,7 +8,11 @@ export default {
         "./vendor/robsontenorio/mary/src/View/Components/**/*.php",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                noto: ["Noto Sans", "sans-serif"],
+            },
+        },
     },
     daisyui: {
         themes: [

@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+body {
+    @apply font-noto;
+}
 
 .input {
     @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none;
