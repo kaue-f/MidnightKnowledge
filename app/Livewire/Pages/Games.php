@@ -4,7 +4,6 @@ namespace App\Livewire\Pages;
 
 use App\Models\Game;
 use App\Models\Genre;
-use App\DTO\SortByDTO;
 use Livewire\Component;
 use App\DTO\PlataformDTO;
 use App\Models\Classification;
@@ -17,7 +16,6 @@ class Games extends Component
     public array $genre = [];
     public array $plataform = [];
     public array $classification = [];
-    public string $assortment = 'title|asc';
     public array $sortBy = ['column' => 'title', 'direction' => 'asc'];
 
     #[Layout('components.layouts.app')]
@@ -27,7 +25,6 @@ class Games extends Component
         return view('livewire.pages.games', [
             'genres' => $this->genres(),
             'plataforms' => $this->plataforms(),
-            'assortments' => $this->assortments(),
             'classifications' => $this->classifications(),
             'games' => $this->games()
         ]);
@@ -83,23 +80,13 @@ class Games extends Component
         return Classification::get();
     }
 
-    public function assortments()
-    {
-        $assortment = new SortByDTO();
-        return $assortment->assortment;
-    }
-
     public function filter()
     {
-        [$this->sortBy['column'], $this->sortBy['direction']] = explode('|', $this->assortment);
+        $this->games();
     }
 
     public function resetFilter()
     {
-        $this->genre = [];
-        $this->plataform = [];
-        $this->classification = [];
-        $this->assortment = 'title|asc';
-        $this->sortBy = ['column' => 'title', 'direction' => 'asc'];
+        $this->reset();
     }
 }

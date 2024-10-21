@@ -14,7 +14,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "owenvoke/blade-fontawesome": "^2.6",
-        "robsontenorio/mary": "^1.40"
+        "robsontenorio/mary": "^1.41"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
