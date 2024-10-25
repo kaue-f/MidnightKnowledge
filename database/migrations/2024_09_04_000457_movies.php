@@ -37,7 +37,13 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('movie_id')->constrained()->onDelete('cascade');
             $table->boolean('library');
-            $table->foreignId('status_id')->constrained();
+            $table->enum('status', [
+                'Progresso',
+                'Lista',
+                'Finalizado',
+                'Pausado',
+                'Dropado',
+            ])->nullable();
             $table->boolean('favorite')->nullable();
             $table->timestamps();
             $table->softDeletes();

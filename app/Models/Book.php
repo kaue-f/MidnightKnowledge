@@ -38,18 +38,13 @@ class Book extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'book_genre');
-    }
-
-    public function statuses()
-    {
-        return $this->belongsToMany(Status::class, 'book_user');
     }
 
     public function ratings()
