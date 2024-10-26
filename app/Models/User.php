@@ -55,42 +55,42 @@ class User extends Model
     public function animes()
     {
         return $this->belongsToMany(Anime::class, 'anime_user')
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function books()
     {
         return $this->belongsToMany(Book::class, 'book_user')
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function games()
     {
         return $this->belongsToMany(Game::class, 'game_user')
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function mangas()
     {
         return $this->belongsToMany(Manga::class, 'manga_user')
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function movies()
     {
         return $this->belongsToMany(Movie::class, 'movie_user')
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function series()
     {
         return $this->belongsToMany(Serie::class, 'serie_user')
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 }

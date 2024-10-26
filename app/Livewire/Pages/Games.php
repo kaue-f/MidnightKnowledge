@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\Genre;
 use Livewire\Component;
 use App\DTO\PlataformDTO;
+use App\Enum\Status;
 use App\Models\Classification;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;

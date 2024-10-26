@@ -36,18 +36,8 @@ class Manga extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
-    }
-
-    public function genres()
-    {
-        return $this->belongsToMany(Genre::class, 'manga_genre');
-    }
-
-    public function statuses()
-    {
-        return $this->belongsToMany(Status::class, 'manga_user');
     }
 
     public function ratings()

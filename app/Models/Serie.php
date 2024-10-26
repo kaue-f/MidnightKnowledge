@@ -34,17 +34,13 @@ class Serie extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }
 
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'serie_genre');
-    }
-    public function statuses()
-    {
-        return $this->belongsToMany(Status::class, 'serie_user');
     }
 
     public function ratings()

@@ -34,13 +34,8 @@ class Movie extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('library', 'status_id', 'favorite')
+            ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
-    }
-
-    public function statuses()
-    {
-        return $this->belongsToMany(Status::class, 'movie_user');
     }
 
     public function genres()
