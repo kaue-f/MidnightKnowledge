@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Game;
 
+use App\Model\Genre;
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Anime extends Model
+class Game extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -16,11 +18,10 @@ class Anime extends Model
     protected $fillable = [
         'title',
         'image',
-        'synopsis',
         'classification_id',
-        'episodes',
-        'season',
+        'duration',
         'release_date',
+        'developed_by',
         'user_id'
     ];
 
@@ -40,16 +41,21 @@ class Anime extends Model
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class, 'anime_genre');
+        return $this->belongsToMany(Genre::class, 'game_genre');
     }
 
     public function ratings()
     {
-        return $this->hasMany(AnimeRating::class);
+        return $this->hasMany(GameRating::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(AnimeComment::class);
+        return $this->hasMany(GameComment::class);
+    }
+
+    public function plataforms()
+    {
+        return $this->hasMany(GamePlataform::class);
     }
 }

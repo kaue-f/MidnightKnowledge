@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Manga;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Serie extends Model
+class Manga extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -16,11 +17,13 @@ class Serie extends Model
     protected $fillable = [
         'title',
         'image',
-        'synopsis',
         'classification_id',
-        'episodes',
-        'season',
+        'synopsis',
+        'chapter',
+        'volume',
+        'author',
         'release_date',
+        'published_by',
         'user_id'
     ];
 
@@ -38,18 +41,13 @@ class Serie extends Model
             ->withTimestamps();
     }
 
-    public function genres()
-    {
-        return $this->belongsToMany(Genre::class, 'serie_genre');
-    }
-
     public function ratings()
     {
-        return $this->hasMany(SerieRating::class);
+        return $this->hasMany(MangaRating::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(SerieComment::class);
+        return $this->hasMany(MangaComment::class);
     }
 }

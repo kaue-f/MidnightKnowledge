@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Movie;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AnimeRating extends Model
+class MovieComment extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['anime_id', 'user_id', 'rating'];
+    protected $fillable = ['movie_id', 'user_id', 'comment'];
 
-    public function anime()
+    public function movie()
     {
-        return $this->belongsTo(Anime::class);
+        return $this->belongsTo(Movie::class);
     }
 
     public function user()
