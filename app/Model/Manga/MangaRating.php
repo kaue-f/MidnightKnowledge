@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Manga;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MovieComment extends Model
+class MangaRating extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['movie_id', 'user_id', 'comment'];
+    protected $fillable = ['manga_id', 'user_id', 'rating'];
 
-    public function movie()
+    public function manga()
     {
-        return $this->belongsTo(Movie::class);
+        return $this->belongsTo(Manga::class);
     }
 
     public function user()

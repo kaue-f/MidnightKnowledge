@@ -1,26 +1,32 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Book;
 
+use App\Model\Genre;
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Movie extends Model
+class Book extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
     protected $keyType = 'string';
 
-
     protected $fillable = [
         'title',
         'image',
-        'synopsis',
         'classification_id',
-        'duration',
+        'synopsis',
+        'chapter',
+        'pages',
+        'volume',
+        'series',
+        'author',
         'release_date',
+        'published_by',
         'user_id'
     ];
 
@@ -40,16 +46,16 @@ class Movie extends Model
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class, 'movie_genre');
+        return $this->belongsToMany(Genre::class, 'book_genre');
     }
 
     public function ratings()
     {
-        return $this->hasMany(MovieRating::class);
+        return $this->hasMany(BookRating::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(MovieComment::class);
+        return $this->hasMany(BookComment::class);
     }
 }

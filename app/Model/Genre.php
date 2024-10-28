@@ -1,7 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Model;
 
+use App\Model\Anime\Anime;
+use App\Model\Book\Book;
+use App\Model\Game\Game;
+use App\Model\Manga\Manga;
+use App\Model\Movie\Movie;
+use App\Model\Serie\Serie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

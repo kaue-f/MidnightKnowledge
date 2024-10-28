@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Game;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SerieComment extends Model
+class GameRating extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['serie_id', 'user_id', 'comment'];
+    protected $fillable = ['game_id', 'user_id', 'rating'];
 
-    public function serie()
+    public function game()
     {
-        return $this->belongsTo(Serie::class);
+        return $this->belongsTo(Game::class);
     }
 
     public function user()

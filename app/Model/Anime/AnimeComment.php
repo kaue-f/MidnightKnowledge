@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Anime;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

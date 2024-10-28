@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Model\Serie;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MangaRating extends Model
+class SerieComment extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['manga_id', 'user_id', 'rating'];
+    protected $fillable = ['serie_id', 'user_id', 'comment'];
 
-    public function manga()
+    public function serie()
     {
-        return $this->belongsTo(Manga::class);
+        return $this->belongsTo(Serie::class);
     }
 
     public function user()
