@@ -7,17 +7,22 @@ body {
     @apply font-noto;
 }
 
+<<<<<<< HEAD
 .input,
 .textarea {
     @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none;
+=======
+.input {
+    @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none rounded; 
+>>>>>>> origin/main
 }
 
 .btn {
-    @apply border-0;
+    @apply border-0 rounded;
 }
 
 .select {
-    @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none;
+    @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none rounded;
 
     option {
         @apply bg-base-200 font-semibold
@@ -28,7 +33,7 @@ body {
 
     ul,
     .menu {
-        @apply rounded-md;
+        @apply rounded;
 
         a {
             @apply active:bg-transparent;
