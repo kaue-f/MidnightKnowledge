@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Pages;
 
-use App\Models\Game;
-use App\Models\Genre;
 use Livewire\Component;
 use App\DTO\PlataformDTO;
-use App\Enum\Status;
-use App\Models\Classification;
+use App\Model\Classification;
+use App\Model\Game\Game;
+use App\Model\Genre;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 
@@ -18,6 +17,7 @@ class Games extends Component
     public array $plataform = [];
     public array $classification = [];
     public array $sortBy = ['column' => 'title', 'direction' => 'asc'];
+    public bool $modalGame = false;
 
     #[Layout('components.layouts.app')]
     #[Title('Games')]
@@ -25,7 +25,7 @@ class Games extends Component
     {
         return view('livewire.pages.games', [
             'genres' => $this->genres(),
-            'plataforms' => $this->plataforms(),
+            'platforms' => $this->platforms(),
             'classifications' => $this->classifications(),
             'games' => $this->games()
         ]);
@@ -34,7 +34,7 @@ class Games extends Component
     public function games()
     {
         return Game::query()->select('games.*')
-            ->with(['genres'])
+            ->with(['genres', 'platforms'])
             ->withAvg('ratings as average_rating', 'rating')
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', "%{$this->search}%");
@@ -45,7 +45,9 @@ class Games extends Component
                 });
             })
             ->when($this->plataform, function ($query) {
-                $query->whereIn('plataform', $this->plataform);
+                $query->whereHas('platforms', function ($query) {
+                    $query->whereIn('plataform', $this->plataform);
+                });
             })
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
@@ -67,13 +69,15 @@ class Games extends Component
 
     public function genres()
     {
-        return Genre::where('category', 'Games')->get();
+        return Genre::where('category', 'Games')
+            ->orderBy('genre', 'asc')
+            ->get();
     }
 
-    public function plataforms()
+    public function platforms()
     {
-        $plataforms = new PlataformDTO();
-        return $plataforms->plataforms;
+        $platforms = new PlataformDTO();
+        return $platforms->plataforms;
     }
 
     public function classifications()

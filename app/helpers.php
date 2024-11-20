@@ -7,9 +7,20 @@ if (!function_exists('isNullOrEmpty')) {
     }
 }
 
-if (!function_exists('phonePattern')) {
-    function phonePattern($ddd, $phone): string
+if (!function_exists('hasValue')) {
+    function hasValue($var): string
     {
-        return $ddd . " " . $phone;
+        return isNullOrEmpty($var)
+            ? 'N/A'
+            : $var;
+    }
+}
+
+if (!function_exists('hasDate')) {
+    function hasDate($var): string
+    {
+        return isNullOrEmpty($var)
+            ? 'N/A'
+            : date_format($var, 'd F Y');
     }
 }

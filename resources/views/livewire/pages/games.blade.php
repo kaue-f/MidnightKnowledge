@@ -1,6 +1,10 @@
 <section class="flex flex-col gap-6">
-    <div class="flex flex-row flex-1 sjustify-between">
+    <div class="flex flex-row flex-1 justify-between items-center">
         <h1 class="text-2xl font-bold">Games</h1>
+        <div class="px-4">
+            <x-icon class="h-8 text-primary hover:text-primary/75 hover:cursor-pointer" name="m-plus"
+                @click="$wire.modalGame = true" />
+        </div>
     </div>
     <div x-data="{ open: false }" class="flex flex-col gap-4">
         <div class="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center gap-4">
@@ -26,7 +30,7 @@
                     </div>
                     <div>
                         <x-choices class="w-full" label="Plataforma" option-sub-label="plataform"
-                            placeholder="Selecione plataforma" placeholder-value="" :options="$plataforms"
+                            placeholder="Selecione plataforma" placeholder-value="" :options="$platforms"
                             wire:model="plataform" />
                     </div>
                     <div>
@@ -48,4 +52,8 @@
             <livewire:components.ui.cove :item="$game" :key="$game['id']" />
         @endforeach
     </article>
+    <x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur"
+        box-class="p-6 w-11/12 max-w-4xl rounded-md">
+        <livewire:components.modals.add-game :$genres :$platforms :$classifications />
+    </x-modal>
 </section>

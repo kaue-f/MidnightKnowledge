@@ -16,7 +16,6 @@ class databaseSeeder extends Seeder
         $this->call([
             classificationsSeeder::class,
             genresSeeder::class,
-            statusesSeeder::class,
         ]);
     }
 }

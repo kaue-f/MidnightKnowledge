@@ -1,10 +1,10 @@
 <nav class="flex justify-between items-center max-w-screen-2xl mx-auto py-3 px-6 navbar-dropdown">
     <div class="flex w-1/2 items-center lg:w-auto">
         <div class="lg:hidden justify-start">
-            <img src="images/layouts/Logo3.png" wire:click="$toggle('showDrawer')" style="width:6rem">
+            <img src="{{ asset('images/layouts/Logo3.png') }}" wire:click="$toggle('showDrawer')" style="width:6rem">
         </div>
         <div class="hidden lg:flex">
-            <img src="images/layouts/Logo3.png" style="width:5rem">
+            <img src="{{ asset('images/layouts/Logo3.png') }}" style="width:5rem">
         </div>
     </div>
     <div class="hidden gap-4 text-lg font-semibold lg:flex">
@@ -13,19 +13,22 @@
         </div>
         <x-dropdown>
             <x-slot:trigger>
-                <div class="label py-0 gap-1 hover:text-primary">
+                <div class="label py-0 gap-1 hover:text-primary hover:cursor-pointer">
                     Explorar
                     <x-icon name="s-chevron-down" />
                 </div>
             </x-slot:trigger>
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes e Mangás"
-                {{-- link="" --}} no-wire-navigate />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes e Séries"
-                {{-- link="" --}} no-wire-navigate />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes"
+                {{-- link="" --}} />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes"
+                {{-- link="" --}} />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games" link="/games" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Mangás"
+                {{-- link="" --}} />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Livros"
-                {{-- link="" --}} no-wire-navigate />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games" link="/games"
-                no-wire-navigate />
+                {{-- link="" --}} />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Séries"
+                {{-- link="" --}} />
         </x-dropdown>
         <div class="hover:text-primary hover:cursor-pointer">
             Biblioteca
@@ -56,7 +59,7 @@
                     </div>
                 </x-menu-item>
                 <x-menu-separator />
-                <x-menu-item icon="o-user" title="Meu Perfil" {{-- link="" --}} no-wire-navigate />
+                <x-menu-item icon="o-user" title="Meu Perfil" {{-- link="" --}} />
                 <x-menu-item @click.stop="">
                     <x-button class="btn-xs text-base btn-ghost w-full font-normal hover:bg-transparent" label="Logout"
                         wire:click="" icon-right="m-arrow-right-end-on-rectangle" spinner />
@@ -66,7 +69,7 @@
     </div>
     <x-drawer wire:model="showDrawer" class="w-1/3 gap-4 !px-4">
         <div class="flex justify-center">
-            <img src="images/layouts/Logo3.png" @click="$wire.showDrawer = false" style="width:40%">
+            <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:40%">
         </div>
         <x-menu class="w-full">
             <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown">
@@ -76,10 +79,12 @@
                 <li>
                     <h2 class="menu-title">Explorar</h2>
                     <ul>
-                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Animes e Mangás</a></li>
-                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Filmes e Séries</a></li>
-                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Livros</a></li>
+                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Animes</a></li>
+                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Filmes</a></li>
                         <li><a class="font-medium hover:text-primary hover:bg-transparent">Games</a></li>
+                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Mangás</a></li>
+                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Livros</a></li>
+                        <li><a class="font-medium hover:text-primary hover:bg-transparent">Séries</a></li>
                     </ul>
                 </li>
             </ul>
