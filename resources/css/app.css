@@ -7,7 +7,8 @@ body {
     @apply font-noto;
 }
 
-.input {
+.input,
+.textarea {
     @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none;
 }
 

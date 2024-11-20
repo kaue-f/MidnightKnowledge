@@ -2,6 +2,7 @@
 
 namespace App\Model\Manga;
 
+use App\Model\Classification;
 use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,5 +50,10 @@ class Manga extends Model
     public function comments()
     {
         return $this->hasMany(MangaComment::class);
+    }
+
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class, 'classification_id');
     }
 }

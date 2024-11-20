@@ -2,6 +2,7 @@
 
 namespace App\Model\Movie;
 
+use App\Model\Classification;
 use App\Model\Genre;
 use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
@@ -53,5 +54,10 @@ class Movie extends Model
     public function comments()
     {
         return $this->hasMany(MovieComment::class);
+    }
+
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class, 'classification_id');
     }
 }

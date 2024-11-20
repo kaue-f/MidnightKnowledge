@@ -2,6 +2,7 @@
 
 namespace App\Model\Book;
 
+use App\Model\Classification;
 use App\Model\Genre;
 use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
@@ -57,5 +58,10 @@ class Book extends Model
     public function comments()
     {
         return $this->hasMany(BookComment::class);
+    }
+
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class, 'classification_id');
     }
 }

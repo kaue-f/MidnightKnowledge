@@ -2,6 +2,7 @@
 
 namespace App\Model\Game;
 
+use App\Model\Classification;
 use App\Model\Genre;
 use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
@@ -22,13 +23,14 @@ class Game extends Model
         'duration',
         'release_date',
         'developed_by',
+        'synopsis',
         'user_id'
     ];
 
     protected function casts(): array
     {
         return [
-            'release_date' => 'date:d/m/Y',
+            'release_date' => 'date',
         ];
     }
 
@@ -54,8 +56,13 @@ class Game extends Model
         return $this->hasMany(GameComment::class);
     }
 
-    public function plataforms()
+    public function platforms()
     {
-        return $this->hasMany(GamePlataform::class);
+        return $this->hasMany(GamePlatform::class);
+    }
+
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class, 'classification_id');
     }
 }
