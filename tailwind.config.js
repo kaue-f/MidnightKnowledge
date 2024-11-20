@@ -27,7 +27,7 @@ export default {
                     neutral: "#010039",
                     "neutral-content": "#f7f7f7",
                     "base-100": "#0d0036",
-                    "base-200": "#030113",
+                    "base-200": "#07011f",
                     "base-300": "#02010f",
                     "base-content": "#f7f7f7",
                     info: "#1849de",

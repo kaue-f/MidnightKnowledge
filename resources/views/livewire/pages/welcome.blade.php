@@ -1,7 +1,7 @@
 <article class="flex flex-col w-1/5 gap-4 justify-center items-center">
-    <div class="-mt-40">
+    <a href="/" wire:navigate class="-mt-40">
         <img src="{{ asset('images/layouts/Logo2.png') }}" style="height: 10rem;">
-    </div>
+    </a>
 
     <div x-data="{ open: false }" class="w-full rounded-lg bg-base-100/45 p-8 shadow-lg shadow-black/10">
         <div class="flex justify-center space-x-10 pb-3">

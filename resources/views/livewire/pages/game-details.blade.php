@@ -7,7 +7,7 @@
             </div>
             <div>
                 <div class="flex flex-wrap justify-center gap-2">
-                    @foreach ($this->game->platforms()->get() as $item)
+                    @foreach ($game->platforms()->get() as $item)
                         <x-badge value="{{ $item->plataform }}"
                             class="badge-sm font-medium hover:bg-[#13138c] border-0 rounded shadow shadow-black hover:cursor-default" />
                     @endforeach
@@ -92,7 +92,7 @@
             <div class="flex gap-2">
                 <div class="flex flex-col gap-4 w-full">
                     <div class="flex flex-wrap gap-2">
-                        @foreach ($this->game->genres()->get() as $item)
+                        @foreach ($game->genres()->get() as $item)
                             <x-badge value="{{ $item->genre }}"
                                 class="badge-sm font-medium hover:bg-[#11650bbf] border-0 rounded shadow shadow-black hover:cursor-default" />
                         @endforeach

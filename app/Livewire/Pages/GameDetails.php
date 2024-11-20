@@ -24,9 +24,7 @@ class GameDetails extends Component
 
     public function mount()
     {
-        $this->ratings['avg'] = isNullOrEmpty($this->game->ratings()->avg('rating'))
-            ? 0
-            : $this->game->ratings()->avg('rating');
+        $this->ratings['avg'] = $this->game->ratings()->avg('rating') ?? 0;
     }
     public function handleLibrary($library, $status = null)
     {
