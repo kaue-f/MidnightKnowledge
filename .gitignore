@@ -3,7 +3,11 @@
 /public/build
 /public/hot
 /public/storage
+/public/covers
 /storage/*.key
+/storage/app/livewire-tmp
+/storage/app/covers/*/*.png
+/storage/app/avatars/*.png
 /vendor
 .env
 .env.backup

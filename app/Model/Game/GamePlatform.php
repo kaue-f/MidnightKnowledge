@@ -5,11 +5,11 @@ namespace App\Model\Game;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GamePlataform extends Model
+class GamePlatform extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['game_id', 'plataform', 'comment'];
+    protected $fillable = ['game_id', 'plataform'];
 
     public function game()
     {
