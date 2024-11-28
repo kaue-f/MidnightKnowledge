@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Game\Game;
+use App\Models\Game\Game;
 use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
@@ -21,7 +21,7 @@ class GameController extends Controller
         ]);
         $this->saveImage($game, $gameDTO['image']);
         $this->attachGenresToGame($game, $gameDTO['genres']);
-        $this->attachPlataformsToGame($game, $gameDTO['plataforms']);
+        $this->attachPlatformsToGame($game, $gameDTO['platforms']);
 
         return $game;
     }
@@ -39,11 +39,11 @@ class GameController extends Controller
             $game->genres()->attach($genres);
     }
 
-    public function attachPlataformsToGame(Game $game, array $plataforms)
+    public function attachPlatformsToGame(Game $game, array $platforms)
     {
-        if (!isNullOrEmpty($plataforms)) {
-            foreach ($plataforms as $plataform) {
-                $game->plataforms()->create([
+        if (!isNullOrEmpty($platforms)) {
+            foreach ($platforms as $plataform) {
+                $game->platforms()->create([
                     'plataform' => $plataform
                 ]);
             }

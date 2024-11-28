@@ -110,6 +110,6 @@ return new class extends Migration
         Schema::dropIfExists('game_user');
         Schema::dropIfExists('game_comments');
         Schema::dropIfExists('game_ratings');
-        Schema::dropIfExists('game_plataforms');
+        Schema::dropIfExists('game_platforms');
     }
 };

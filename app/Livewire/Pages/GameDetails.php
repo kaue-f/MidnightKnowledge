@@ -3,8 +3,8 @@
 namespace App\Livewire\Pages;
 
 use App\Enums\Status;
-use App\Model\Classification;
-use App\Model\Game\Game;
+use App\Models\Classification;
+use App\Models\Game\Game;
 use Livewire\Component;
 
 class GameDetails extends Component

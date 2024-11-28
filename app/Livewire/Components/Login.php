@@ -2,27 +2,22 @@
 
 namespace App\Livewire\Components;
 
-use App\DTO\UserDTO;
 use Livewire\Component;
 use App\Http\Controllers\AuthController;
+use App\Livewire\Forms\LoginDTO;
 
 class Login extends Component
 {
-    public array $userDTO;
-    public $remember;
+    public LoginDTO $loginDTO;
 
     public function render()
     {
         return view('livewire.components.login');
     }
 
-    public function mount()
+    public function login(AuthController $auth)
     {
-        $this->userDTO = (array) new UserDTO;
-    }
-
-    public function login(AuthController $authController)
-    {
-        $authController->authenticate($this->userDTO, $this->remember);
+        $this->validate();
+        $auth->authenticate($this->loginDTO->all());
     }
 }

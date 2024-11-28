@@ -36,7 +36,7 @@
                 <x-file class="space-y-2" wire:model.blur="gameDTO.image" crop-after-change
                     accept="image/png, image/jpeg" change-text="Seleciona capa" crop-title-text="Cortar imagem"
                     crop-cancel-text="Cancelar" crop-save-text="Corta">
-                    <img src="{{ $gameDTO['image'] ?? asset('/images/layouts/Logo2.png') }}"
+                    <img src="{{ $gameDTO->image ?? asset('/images/layouts/Logo2.png') }}"
                         class="bg-contain rounded-md border border-accent shadow-sm max-h-96" alt="Imagem do Game" />
                     <p class="px-1 py-2 text-base">
                         Selecione imagem do game

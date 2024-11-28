@@ -18,7 +18,7 @@
             <livewire:components.login />
         </div>
         <div :class="{ 'hidden': !open }" class="w-full">
-            <livewire:components.registre>
+            <livewire:components.register>
         </div>
     </div>
 </article>

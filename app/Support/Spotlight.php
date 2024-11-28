@@ -2,12 +2,12 @@
 
 namespace App\Support;
 
-use App\Model\Anime\Anime;
-use App\Model\Book\Book;
-use App\Model\Game\Game;
-use App\Model\Manga\Manga;
-use App\Model\Movie\Movie;
-use App\Model\Serie\Serie;
+use App\Models\Anime\Anime;
+use App\Models\Book\Book;
+use App\Models\Game\Game;
+use App\Models\Manga\Manga;
+use App\Models\Movie\Movie;
+use App\Models\Serie\Serie;
 use Illuminate\Http\Request;
 
 class Spotlight

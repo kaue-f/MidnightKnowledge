@@ -3,10 +3,10 @@
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
-use App\DTO\PlataformDTO;
-use App\Model\Classification;
-use App\Model\Game\Game;
-use App\Model\Genre;
+use App\DTO\PlatformsDTO;
+use App\Models\Classification;
+use App\Models\Game\Game;
+use App\Models\Genre;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 
@@ -25,7 +25,7 @@ class Games extends Component
     {
         return view('livewire.pages.games', [
             'genres' => $this->genres(),
-            'platforms' => $this->platforms(),
+            'platforms' => PlatformsDTO::getPlatforms(),
             'classifications' => $this->classifications(),
             'games' => $this->games()
         ]);
@@ -72,12 +72,6 @@ class Games extends Component
         return Genre::where('category', 'Games')
             ->orderBy('genre', 'asc')
             ->get();
-    }
-
-    public function platforms()
-    {
-        $platforms = new PlataformDTO();
-        return $platforms->plataforms;
     }
 
     public function classifications()
