@@ -1,26 +1,56 @@
 <?php
 
-if (!function_exists('isNullOrEmpty')) {
-    function isNullOrEmpty($var): bool
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
+if (!function_exists('imageNoneUser')) {
+    function imageNoneUser(): string
     {
-        return empty($var) || !isset($var);
+        return asset('images/none-user.jpg');
+    }
+}
+
+if (!function_exists('isNullOrEmpty')) {
+    function isNullOrEmpty($value): bool
+    {
+        return empty($value) || !isset($value);
     }
 }
 
 if (!function_exists('hasValue')) {
-    function hasValue($var): string
+    function hasValue($value): string
     {
-        return isNullOrEmpty($var)
+        return isNullOrEmpty($value)
             ? 'N/A'
-            : $var;
+            : $value;
     }
 }
 
 if (!function_exists('hasDate')) {
-    function hasDate($var): string
+    function hasDate($value): string
     {
-        return isNullOrEmpty($var)
+        return isNullOrEmpty($value)
             ? 'N/A'
-            : date_format($var, 'd F Y');
+            : Carbon::parse($value)->translatedFormat('d F Y');
+    }
+}
+
+if (!function_exists('saveCover')) {
+    function saveCover($category, $content, $image)
+    {
+        try {
+            $path = $image->storeAs("covers/$category", "$content->id.{$image->extension()}");
+            $content->update(['image' => $path]);
+        } catch (\Throwable $th) {
+            notyf()->erro("Não foi possível salvar image inserida.");
+        }
+    }
+}
+
+if (!function_exists('attachGenres')) {
+    function attachGenres($content, array $genres)
+    {
+        if (!isNullOrEmpty($genres))
+            $content->genres()->attach($genres);
     }
 }

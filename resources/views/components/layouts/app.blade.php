@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -19,10 +20,18 @@
     </div>
     <main class="max-w-screen-2xl w-full mx-auto p-8 lg:px-10 lg:py-12">
         {{ $slot }}
+        @include('components.modals.isLoggedUser')
     </main>
 
     <x-spotlight shortcut="shift.space" search-text="" no-results-text="Ops! Nenhum conteúdo encontrado" />
     @stack('scripts')
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('noLogged', () => {
+                document.getElementById('noLogged').showModal();
+            });
+        })
+    </script>
 </body>
 
 </html>

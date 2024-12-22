@@ -2,15 +2,38 @@
 
 namespace App\Livewire\Components\Layouts;
 
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Navbar extends Component
 {
     public bool $showDrawer = false;
-
-    public $avatar = 'https://i.pinimg.com/564x/82/0d/5e/820d5e7f8a6fa35d2f96bbb4876e75bb.jpg';
+    public string $avatar;
+    public string $name;
     public function render()
     {
         return view('livewire.components.layouts.navbar');
+    }
+
+    public function mount()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $this->avatar = $user->image ?? imageNoneUser();
+            $this->name = $user->username ?? '';
+        } else {
+            $this->avatar = imageNoneUser();
+            $this->name = "Convidado";
+        }
+    }
+
+    public function logout(AuthController $authController)
+    {
+        try {
+            $authController->logout();
+        } catch (\Throwable $th) {
+            notyf()->error("Não foi  possível desconecta usuário. Tente novamente mais tarde.");
+        }
     }
 }

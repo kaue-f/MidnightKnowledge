@@ -45,16 +45,20 @@
                 </x-slot:trigger>
                 <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-60 w-48" @click.stop="">
                     <x-avatar class="lg:!w-32 !w-20 hover:cursor-pointer" :image="$avatar" />
-                    <div class="font-semibold text-center pt-3">
-                        Usuário
+                    <div class="font-semibold text-lg text-center pt-3">
+                        {{ $name }}
                     </div>
                 </x-menu-item>
                 <x-menu-separator />
-                <x-menu-item icon="o-user" title="Meu Perfil" link="/" />
-                <x-menu-item @click.stop="">
-                    <x-button class="btn-xs text-base btn-ghost w-full font-normal hover:bg-transparent" label="Logout"
-                        wire:click="" icon-right="m-arrow-right-end-on-rectangle" spinner />
-                </x-menu-item>
+                <x-menu-item icon="o-user" title="Meu Perfil" link="/user/profile" />
+                @auth
+                    <x-menu-item @click.stop="">
+                        <x-button class="btn-xs text-base btn-ghost w-full font-normal hover:bg-transparent" label="Logout"
+                            wire:click="logout" icon-right="m-arrow-right-end-on-rectangle" spinner />
+                    </x-menu-item>
+                @else
+                    <x-menu-item icon="m-arrow-right-start-on-rectangle" title="Entrar" link="/welcome" />
+                @endauth
             </x-dropdown>
         </div>
     </div>

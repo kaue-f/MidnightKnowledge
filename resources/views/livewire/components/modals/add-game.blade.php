@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4">
         <div class="flex gap-4 justify-center">
             <div class="flex flex-col gap-4 w-2/3">
-                <x-input label="Título" placeholder="Título do game" wire:model='gameDTO.title' />
+                <x-input label="Título" placeholder="Título do game" wire:model='gameDTO.title' autocomplete="off" />
                 <div class="w-full">
                     <x-choices label="Gêneros" placeholder="Selecione gênero" placeholder-value="" :options="$genres"
                         option-label="genre" wire:model='gameDTO.genres' />
@@ -19,7 +19,7 @@
                     </div>
                     <div class="w-1/2">
                         <x-input label="Desenvolvedora" placeholder="Desenvolvedora" placeholder-value=""
-                            wire:model='gameDTO.developed_by' />
+                            wire:model='gameDTO.developed_by' autocomplete="off" />
                     </div>
                 </div>
                 <div class="flex space-x-4 w-full">
@@ -28,7 +28,8 @@
                             wire:model='gameDTO.release_date' />
                     </div>
                     <div class="w-1/2">
-                        <x-input label="Duração" placeholder="Duração" wire:model='gameDTO.duration' x-mask="999" />
+                        <x-input label="Duração" placeholder="Duração" wire:model='gameDTO.duration' x-mask="999"
+                            autocomplete="off" />
                     </div>
                 </div>
             </div>

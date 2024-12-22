@@ -10,6 +10,7 @@ class RegisterDTO extends Form
     #[Validate('required', message: 'Nome de usuário obrigatório.')]
     #[Validate('min:3', message: 'Nome de usuário deve ter no minimo 3 caracteres.')]
     #[Validate('max:20', message: 'Nome de usuário deve ter no máximo 20 caracteres.')]
+    #[Validate('unique:users,username', message: 'Nome de usuário já está cadastrado.')]
     public string $username;
 
     #[Validate('required', message: 'E-mail obrigatório.')]
@@ -23,6 +24,8 @@ class RegisterDTO extends Form
     public string $password;
 
     #[Validate('required', message: 'Confirmar senha obrigatório.')]
+    #[Validate('min:8', message: 'Sua senha deve ter no minimo 8 caracteres.')]
+    #[Validate('max:25', message: 'Sua senha deve ter no máximo 25 caracteres.')]
     #[Validate('same:password', message: 'Senha não coincide.')]
     public string $confirmPassword;
 }

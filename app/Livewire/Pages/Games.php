@@ -19,7 +19,6 @@ class Games extends Component
     public array $sortBy = ['column' => 'title', 'direction' => 'asc'];
     public bool $modalGame = false;
 
-    #[Layout('components.layouts.app')]
     #[Title('Games')]
     public function render()
     {
@@ -35,9 +34,9 @@ class Games extends Component
     {
         return Game::query()->select('games.*')
             ->with(['genres', 'platforms'])
-            ->withAvg('ratings as average_rating', 'rating')
+            ->withAvg('ratings', 'rating')
             ->when($this->search, function ($query) {
-                $query->where('title', 'like', "%{$this->search}%");
+                $query->where('title', 'LIKE', "%$this->search%");
             })
             ->when($this->genre, function ($query) {
                 $query->whereHas('genres', function ($query) {
@@ -51,20 +50,11 @@ class Games extends Component
             })
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
-            })
-            ->when(
-                $this->sortBy['column'] === 'rating',
-                function ($query) {
-                    $query->leftJoin('game_ratings', 'games.id', '=', 'game_ratings.game_id')
-                        ->selectRaw('AVG(game_ratings.rating) as average_rating')
-                        ->groupBy('games.id')
-                        ->orderBy('average_rating', $this->sortBy['direction']);
-                },
-                function ($query) {
-                    $query->orderBy($this->sortBy['column'], $this->sortBy['direction']);
-                }
+            })->orderBy(
+                $this->sortBy['column'] === 'rating' ? 'ratings_avg_rating' : $this->sortBy['column'],
+                $this->sortBy['direction']
             )
-            ->get();
+            ->paginate(15);
     }
 
     public function genres()

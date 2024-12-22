@@ -16,27 +16,17 @@ class GameController extends Controller
             'duration' => $gameDTO['duration'],
             'release_date' => $gameDTO['release_date'],
             'developed_by' => $gameDTO['developed_by'],
-            // 'user_id' => Auth::id(),
-            'user_id' => '7753cca1-94d0-11ef-8f44-04d4c457a3bb',  #Usuário de teste
+            'user_id' => Auth::id(),
         ]);
-        $this->saveImage($game, $gameDTO['image']);
-        $this->attachGenresToGame($game, $gameDTO['genres']);
+
+        saveCover('games', $game, $gameDTO['image']);
+        attachGenres($game, $gameDTO['genres']);
         $this->attachPlatformsToGame($game, $gameDTO['platforms']);
 
-        return $game;
-    }
-    public function saveImage(Game $game, $image)
-    {
-        if (!isNullOrEmpty($image)) {
-            $path = $image->storeAs('covers/games', "{$game['id']}.{$image->extension()}");
-            $game->update(['image' => $path,]);
+        if (!isNullOrEmpty($game)) {
+            return notyf()->success("Game $game->title foi adicionado ao acervo Midnight Knowledge.");
         }
-    }
-
-    public function attachGenresToGame(Game $game, array $genres)
-    {
-        if (!isNullOrEmpty($genres))
-            $game->genres()->attach($genres);
+        return notyf()->erro("Não foi possível cadastrar o game inserido. Verifique os dados e tente novamente.");
     }
 
     public function attachPlatformsToGame(Game $game, array $platforms)

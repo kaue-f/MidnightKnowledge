@@ -5,21 +5,24 @@ namespace App\Livewire\Pages;
 use App\Enums\Status;
 use App\Models\Classification;
 use App\Models\Game\Game;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class GameDetails extends Component
 {
     public Game $game;
-    public array $ratings = ['avg' => 0, 'rating' => 0, 'open' => false];
+    public array $ratings = ['avg' => 0, 'value' => 0, 'open' => false];
     public bool $favorite = false;
     public bool $library = false;
     public string $status;
+
     public function render()
     {
         return view('livewire.pages.game-details', [
             'statuses' => Status::array(),
             'classification' => Classification::find($this->game->classification_id)
-        ])->title($this->game->title);
+        ])
+            ->title($this->game->title);
     }
 
     public function mount()
@@ -28,15 +31,22 @@ class GameDetails extends Component
     }
     public function handleLibrary($library, $status = null)
     {
-        return;
+        if (!Auth::check()) {
+            return $this->dispatch('noLogged');
+        }
     }
 
-    public function updatedFavorite() {}
-
-    public function updateRatings()
+    public function updatedFavorite()
     {
-        $this->ratings['open'] = false;
+        if (!Auth::check()) {
+            return $this->dispatch('noLogged');
+        }
     }
 
-    public function handleStatus($status) {}
+    public function updatedRatingsValue()
+    {
+        if (!Auth::check()) {
+            return $this->dispatch('noLogged');
+        }
+    }
 }

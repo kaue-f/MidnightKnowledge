@@ -2,8 +2,10 @@
     <div class="flex flex-row flex-1 justify-between items-center">
         <h1 class="text-2xl font-bold">Games</h1>
         <div class="px-4">
-            <x-icon class="h-8 text-primary hover:text-primary/75 hover:cursor-pointer" name="m-plus"
-                @click="$wire.modalGame = true" />
+            @auth
+                <x-icon class="h-8 text-primary hover:text-primary/75 hover:cursor-pointer" name="m-plus"
+                    @click="$wire.modalGame = true" />
+            @endauth
         </div>
     </div>
     <div x-data="{ open: false }" class="flex flex-col gap-4">

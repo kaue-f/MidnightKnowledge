@@ -3,8 +3,8 @@
 
         <x-input label="Nome de usuário" wire:model='registerDTO.username' />
         <x-input label="E-mail" wire:model='registerDTO.email' />
-        <x-password label="Senha" wire:model="registerDTO.password" right />
-        <x-password label="Confirmar senha" wire:model="registerDTO.confirmPassword" right />
+        <x-password maxlength="25" label="Senha" wire:model="registerDTO.password" right />
+        <x-password maxlength="25" label="Confirmar senha" wire:model="registerDTO.confirmPassword" right />
 
     </div>
 

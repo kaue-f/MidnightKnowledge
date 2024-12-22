@@ -15,7 +15,7 @@ class GameDTO extends Form
 
     #[Validate('nullable')]
     #[Validate('image', message: 'O arquivo enviado deve ser uma imagem válida.')]
-    #[Validate('max:2048', message: 'A imagem deve ter no máximo 2MB.')]
+    #[Validate('max:2560', message: 'A imagem deve ter no máximo 2.50MB.')]
     #[Validate('mimes:jpg,jpeg,png', message: 'Imagem deve ser no formato: jpg, jpeg ou png.')]
     public $image;
 

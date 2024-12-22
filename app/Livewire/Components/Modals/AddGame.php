@@ -31,12 +31,10 @@ class AddGame extends Component
     {
         $this->validate();
         try {
-            $game = $gameController->create($this->gameDTO->all());
-            (isNullOrEmpty($game))
-                ? "Não foi possível cadastrar o game inserido."
-                : "Game {$game['title']} foi adicionado ao acervo Midnight Knowledge.";
-            return $this->redirect('/games', navigate: true);
+            $gameController->create($this->gameDTO->all());
+            return redirect()->refresh();
         } catch (\Throwable $th) {
+            notyf()->erro("Falha no cadastrameto do game inserido. Verifique os dados e tente novamente.");
         }
     }
 }
