@@ -18,10 +18,6 @@ class Login extends Component
     public function login(AuthController $auth)
     {
         $this->validate();
-        try {
-            $auth->authenticate($this->loginDTO->all());
-        } catch (\Throwable $th) {
-            notyf()->error(message: "Não foi possível realizar o login no momento, tente mais tarde.");
-        }
+        $auth->authenticate($this->loginDTO->all());
     }
 }

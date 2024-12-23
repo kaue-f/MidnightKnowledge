@@ -17,17 +17,11 @@ class Register extends Component
 
     public function register(AuthController $auth)
     {
-        try {
-            $this->validate();
-            $auth->create($this->registerDTO->only(
-                'username',
-                'email',
-                'password'
-            ));
-            $this->reset();
-        } catch (\Throwable $th) {
-            notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
-            return back();
-        }
+        $this->validate();
+        $auth->create($this->registerDTO->only(
+            'username',
+            'email',
+            'password'
+        ));
     }
 }

@@ -16,31 +16,37 @@ class AuthController extends Controller
     }
     public function create(array $user)
     {
-        $user = User::create([
-            'username' => $user['username'],
-            'email' => $user['email'],
-            'password' => $user['password'],
-        ]);
+        try {
+            $user = User::create([
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+            ]);
 
-        if (!isNullOrEmpty($user)) {
+            if (isNullOrEmpty($user)) {
+                notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+                return back();
+            }
+
+            Auth::login($user);
+            $this->request->session()->regenerate();
             notyf()->success("Seja bem-vindo ao Midnight Knowledge! Prepare-se para explorar um vasto acervo de animes, filmes, séries, livros, games e muito mais.");
             return redirect()->intended('/');
+        } catch (\Throwable $th) {
+            notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+            return back();
         }
-        notyf()->error("Não foi possível criar sua conta. Verifique os dados e tente novamente.");
-        return back();
     }
 
 
     public function authenticate(array $login)
     {
-        if (isNullOrEmpty($login))
-            return;
+        if (isNullOrEmpty($login)) return;
 
-        if (Auth::attempt(['email' => $login['user'], 'password' => $login['password']], $login['remember'])) {
-            $this->request->session()->regenerate();
-            notyf()->success("Bem-vindo de volta ao Midnight Knowledge!");
-            return redirect()->intended('/');
-        } elseif (Auth::attempt(['username' => $login['user'], 'password' => $login['password']], $login['remember'])) {
+        if (
+            Auth::attempt(['email' => $login['user'], 'password' => $login['password']], $login['remember']) ||
+            Auth::attempt(['username' => $login['user'], 'password' => $login['password']], $login['remember'])
+        ) {
             $this->request->session()->regenerate();
             notyf()->success("Bem-vindo de volta ao Midnight Knowledge!");
             return redirect()->intended('/');
