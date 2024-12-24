@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('imageNoneUser')) {
     function imageNoneUser(): string
@@ -39,7 +40,11 @@ if (!function_exists('saveCover')) {
     function saveCover($category, $content, $image)
     {
         try {
-            $path = $image->storeAs("covers/$category", "$content->id.{$image->extension()}");
+            $path = "covers/$category";
+            if (Storage::exists($path))
+                Storage::makeDirectory($path);
+
+            $path = $image->storeAs($path, "$content->id.{$image->extension()}");
             $content->update(['image' => $path]);
         } catch (\Throwable $th) {
             notyf()->erro("Não foi possível salvar image inserida.");
