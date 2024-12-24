@@ -1,6 +1,6 @@
 <nav class="flex justify-between items-center max-w-screen-2xl mx-auto py-3 px-6 navbar-dropdown">
     <div class="flex w-1/2 items-center lg:w-auto">
-        <a href="/" wire:navigate class="lg:hidden justify-start">
+        <a class="lg:hidden justify-start">
             <img src="{{ asset('images/layouts/Logo3.png') }}" wire:click="$toggle('showDrawer')" style="width:6rem">
         </a>
         <a href="/" wire:navigate class="hidden lg:flex">
@@ -50,21 +50,20 @@
                     </div>
                 </x-menu-item>
                 <x-menu-separator />
-                <x-menu-item icon="o-user" title="Meu Perfil" link="/user/profile" />
                 @auth
-                    <x-menu-item @click.stop="">
-                        <x-button class="btn-xs text-base btn-ghost w-full font-normal hover:bg-transparent" label="Logout"
-                            wire:click="logout" icon-right="m-arrow-right-end-on-rectangle" spinner />
-                    </x-menu-item>
+                    <x-menu-item icon="o-user" title="Meu Perfil" link="/user/profile" />
+                    <x-menu-item icon="m-arrow-right-end-on-rectangle" title="Logout" wire:click="logout" spinner
+                        @click.stop="" />
                 @else
-                    <x-menu-item icon="m-arrow-right-start-on-rectangle" title="Entrar" link="/welcome" />
+                    <x-menu-item class="!justify-center" title="Entrar" link="/login" />
+                    <x-menu-item class="!justify-center" title="Cadastrar" link="/sign" />
                 @endauth
             </x-dropdown>
         </div>
     </div>
     <x-drawer wire:model="showDrawer" class="w-1/3 gap-4 !px-4">
         <div class="flex justify-center">
-            <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:40%">
+            <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:100%">
         </div>
         <x-menu class="w-full">
             <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown" title="Home"

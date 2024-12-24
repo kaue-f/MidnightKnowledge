@@ -14,7 +14,9 @@ Route::get('/', function () {
 
 Route::get('/', Home::class)->name('home');
 
-Route::get('/welcome', Welcome::class)->name('welcome')->middleware(CheckIfLoggedIn::class);
+Route::get('/{welcome}', Welcome::class)->name('welcome')
+    ->whereIn('welcome', ['login', 'sign'])
+    ->middleware(CheckIfLoggedIn::class);
 
 Route::get('/games', Games::class)->name('games');
 Route::get('/game/{game}/{title}', GameDetails::class)->name('game.details');
