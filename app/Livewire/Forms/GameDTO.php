@@ -13,7 +13,7 @@ class GameDTO extends Form
     #[Validate('unique:games,title', message: 'Já existe um jogo cadastrado com este título.')]
     public $title;
 
-    #[Validate('nullable')]
+    #[Validate('required', message: 'Adicionar uma imagem de capa é obrigatório.')]
     #[Validate('image', message: 'O arquivo enviado deve ser uma imagem válida.')]
     #[Validate('max:2560', message: 'A imagem deve ter no máximo 2.50MB.')]
     #[Validate('mimes:jpg,jpeg,png', message: 'Imagem deve ser no formato: jpg, jpeg ou png.')]
