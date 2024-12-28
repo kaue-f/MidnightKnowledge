@@ -51,7 +51,7 @@
     </div>
     <article class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 w-full gap-6 py-4 px-8">
         @foreach ($games as $game)
-            <livewire:components.ui.cover :item="$game" :key="$game['id']" />
+            <livewire:components.ui.cover :item="$game" :key="$game->id" />
         @endforeach
     </article>
     <x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur"

@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game\Game;
+use App\Services\ContentService;
 use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
+    public ContentService $contentService;
+
+    public function __construct()
+    {
+        $this->contentService = app(ContentService::class);
+    }
+
     public function create(array $gameDTO)
     {
         $game = Game::create([
@@ -19,8 +27,8 @@ class GameController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        saveCover('games', $game, $gameDTO['image']);
-        attachGenres($game, $gameDTO['genres']);
+        $this->contentService->saveCover('games', $game, $gameDTO['image']);
+        $this->contentService->attachGenres($game, $gameDTO['genres']);
         $this->attachPlatformsToGame($game, $gameDTO['platforms']);
 
         if (!isNullOrEmpty($game)) {

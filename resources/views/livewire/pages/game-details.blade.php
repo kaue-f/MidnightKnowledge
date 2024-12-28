@@ -2,8 +2,8 @@
     <div class="flex flex-row justify-center space-x-6">
         <div class="flex flex-col gap-4 w-2/5">
             <div class="flex h-[450px]">
-                <img class="h-full w-full bg-center rounded shadow-md shadow-black" src="{{ asset($game['image']) }}"
-                    alt="{{ $game['title'] }}">
+                <img class="h-full w-full bg-center rounded shadow-md shadow-black hover:cursor-zoom-in"
+                    onclick="imageViewer.showModal()" src="{{ asset($game->image) }}" alt="{{ $game->title }}">
             </div>
             <div class="flex flex-col px-1 space-y-2">
                 <div class="flex flex-wrap gap-2 w-full">
@@ -13,7 +13,7 @@
                     @endforeach
                 </div>
                 <div class="flex flex-row h-16 w-40 gap-2 items-center">
-                    <img class="h-12 w-auto" src="{{ asset($classification['image']) }}"
+                    <img class="h-12 w-auto" src="{{ asset($classification->image) }}"
                         alt="{{ $classification->classification }}">
                     <p class="text-xs font-light">{{ $classification->description }}</p>
                 </div>
@@ -42,14 +42,14 @@
                 <div class="flex flex-col w-full">
                     <div class="flex justify-between items-center">
                         <div class="flex flex-1 flex-row space-x-4 items-center">
-                            <p class="text-3xl font-semibold">{{ $game->title }} </p>
+                            <h1 class="text-3xl font-semibold">{{ $game->title }}</h1>
                         </div>
                         <div class="flex gap-4">
                             <div class="dropdown dropdown-bottom">
                                 <div tabindex="0" role="button" class="flex flex-row space-x-1 items-center">
                                     <x-icon name="{{ $library ? 'bi.bookmark-fill' : 'bi.bookmark' }}"
                                         class="h-7 w-7 hover:text-primary" />
-                                    <div class="font-medium items-center">{{ $library ?? $status }}</div>
+                                    <div class="font-medium items-center">{{ $library ? $status : '' }}</div>
                                 </div>
                                 <ul tabindex="0"
                                     class="dropdown-content menu bg-base-300 rounded z-[1] w-52 p-2 shadow">
@@ -59,13 +59,13 @@
                                     @foreach ($statuses as $key => $value)
                                         <li>
                                             <div wire:click='handleLibrary(true,"{{ $key }}")'
-                                                class="flex justify-between hover:text-primary hover:bg-transparent active:bg-transparent py-1 px-2 hover:cursor-pointer">
+                                                class="flex justify-between {{ $status === $value ? 'text-success' : '' }} hover:text-primary hover:bg-transparent active:bg-transparent py-1 px-2 hover:cursor-pointer">
                                                 {{ $value }}
                                                 <x-icon name="bi.bookmark-plus" class="hover:text-primary" />
                                             </div>
                                         </li>
                                     @endforeach
-                                    @if ($library == true)
+                                    @if ($library)
                                         <hr class="rounded-none my-2">
                                         <li>
                                             <div wire:click='handleLibrary(false)'
@@ -90,16 +90,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between" x-data="{ open: $wire.entangle('ratings.open') }">
-                        <div role="button" class="flex space-x-1 items-center" :class="{ 'hidden': open }"
-                            x-on:click="open = ! open">
-                            <x-icon name="bi.star" class="w-4 h-4 text-yellow-500" />
-                            <p class="text-yellow-500">{{ $ratings['avg'] }}</p>
-                        </div>
-                        <div :class="{ 'hidden': !open }">
-                            <x-rating wire:model.live="ratings.value" class="bg-yellow-500" total="10"
-                                x-on:click.debounce.500ms="open = ! open" />
-                        </div>
+                    <div class="flex space-x-2 items-center justify-start">
+                        <x-rating wire:model.live="ratings.value" class="rating-sm bg-yellow-500" total="10" />
+                        <p class="font-medium text-yellow-500">{{ $ratings['avg'] }}</p>
                     </div>
                 </div>
                 <div class="flex gap-2">
@@ -138,4 +131,5 @@
             </div>
         </div>
     </div>
+    <livewire:components.ui.image-viewer :image="$game->image" :title="$game->title" />
 </section>
