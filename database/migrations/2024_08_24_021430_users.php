@@ -19,7 +19,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text('image')->nullable();
             $table->string('password');
-            $table->string('role')->nullable();
+            $table->date('birthday')->nullable();
+            $table->enum('role', [
+                'Member',
+                'VIP',
+            ])->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
