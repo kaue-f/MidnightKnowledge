@@ -1,4 +1,4 @@
-<section class="flex flex-col gap-6 py-6 px-10 ">
+<section>
     <div class="flex flex-row justify-center space-x-6">
         <div class="flex flex-col gap-4 w-2/5">
             <div class="flex h-[450px]">
@@ -77,17 +77,19 @@
                                     @endif
                                 </ul>
                             </div>
-                            <div>
-                                <x-swap wire:model.live="favorite" id="custom">
-                                    <x-slot:true>
-                                        <x-icon name="bi.heart-fill"
-                                            class="w-7 h-7 hover:cursor-pointer text-red-600 hover:text-red-600/75" />
-                                    </x-slot:true>
-                                    <x-slot:false>
-                                        <x-icon name="bi.heart" class="w-7 h-7 hover:cursor-pointer" />
-                                    </x-slot:false>
-                                </x-swap>
-                            </div>
+                            @if ($library)
+                                <div>
+                                    <x-swap wire:model.live="favorite" id="custom">
+                                        <x-slot:true>
+                                            <x-icon name="bi.heart-fill"
+                                                class="w-7 h-7 hover:cursor-pointer text-red-600 hover:text-red-600/75" />
+                                        </x-slot:true>
+                                        <x-slot:false>
+                                            <x-icon name="bi.heart" class="w-7 h-7 hover:cursor-pointer" />
+                                        </x-slot:false>
+                                    </x-swap>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="flex space-x-2 items-center justify-start">

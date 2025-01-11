@@ -45,4 +45,9 @@ class GameDTO extends Form
     #[Validate('required', message: 'Selecione pelo menos uma plataforma.')]
     #[Validate('max:20', message: 'Você pode selecionar no máximo 20 plataformas.')]
     public $platforms = [];
+
+    public function resetForm()
+    {
+        $this->reset();
+    }
 }

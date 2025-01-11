@@ -7,6 +7,14 @@ body {
     @apply font-noto;
 }
 
+section {
+    @apply flex flex-col gap-6;
+}
+
+article {
+    @apply grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 w-full gap-6 py-4 px-8;
+}
+
 .input,
 .textarea {
     @apply bg-accent border-0 focus:border-2 focus:border-primary focus:outline-none rounded;

@@ -21,8 +21,8 @@ class ContentLibraryService
                 : notyf()->info("{$content->title} foi removido da sua biblioteca.");
         } catch (\Throwable $th) {
             ($library)
-                ? notyf()->error("Não foi possível adicionar {$content->title} a sua biblioteca. Tente novamente mais tarde.")
-                : notyf()->error("Não foi possível remover {$content->title} de sua biblioteca. Tente novamente mais tarde.");
+                ? notyf()->warning("Não foi possível adicionar {$content->title} a sua biblioteca. Tente novamente mais tarde.")
+                : notyf()->warning("Não foi possível remover {$content->title} de sua biblioteca. Tente novamente mais tarde.");
         }
     }
 
@@ -40,8 +40,8 @@ class ContentLibraryService
                 : notyf()->info("{$content->title} foi removido dos favoritos.");
         } catch (\Throwable $th) {
             ($favorite)
-                ? notyf()->error("Não foi possível adicionar {$content->title} aos favoritos. Tente novamente mais tarde.")
-                : notyf()->error("Não foi possível remover {$content->title} dos favoritos. Tente novamente mais tarde.");
+                ? notyf()->warning("Não foi possível adicionar {$content->title} aos favoritos. Tente novamente mais tarde.")
+                : notyf()->warning("Não foi possível remover {$content->title} dos favoritos. Tente novamente mais tarde.");
         }
     }
 

@@ -10,13 +10,13 @@ class ContentService
     {
         try {
             $path = "covers/$category";
-            if (Storage::exists($path))
+            if (!Storage::exists($path))
                 Storage::makeDirectory($path);
 
             $path = $image->storeAs($path, "$content->id.{$image->extension()}");
             $content->update(['image' => $path]);
         } catch (\Throwable $th) {
-            notyf()->erro("Não foi possível salvar image inserida.");
+            notyf()->warning("Não foi possível salvar imagem.");
         }
     }
 

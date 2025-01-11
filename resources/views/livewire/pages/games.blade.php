@@ -1,4 +1,4 @@
-<section class="flex flex-col gap-6">
+<section>
     <div class="flex flex-row flex-1 justify-between items-center">
         <h1 class="text-2xl font-bold">Games</h1>
         <div class="px-4">
@@ -49,13 +49,10 @@
             </x-form>
         </div>
     </div>
-    <article class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 w-full gap-6 py-4 px-8">
+    <article>
         @foreach ($games as $game)
             <livewire:components.ui.cover :item="$game" :key="$game->id" />
         @endforeach
     </article>
-    <x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur"
-        box-class="p-6 w-11/12 max-w-4xl rounded-md">
-        <livewire:components.modals.add-game :$genres :$platforms :$classifications />
-    </x-modal>
+    <livewire:components.modals.add-game :$genres :$platforms :$classifications wire:model.live='modalGame' />
 </section>

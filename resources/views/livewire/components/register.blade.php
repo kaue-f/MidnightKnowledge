@@ -10,7 +10,7 @@
 
     <x-slot:actions>
         <div class="py-3 w-full">
-            <x-button label="Registrar" class="w-full btn-secondary" type="submit" spinner="register" />
+            <x-button label="Registrar" class="w-full btn-success" type="submit" spinner="register" />
         </div>
     </x-slot:actions>
 </x-form>
