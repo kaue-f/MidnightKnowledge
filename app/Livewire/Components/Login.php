@@ -3,7 +3,6 @@
 namespace App\Livewire\Components;
 
 use Livewire\Component;
-use App\Http\Controllers\AuthController;
 use App\Livewire\Forms\LoginDTO;
 
 class Login extends Component
@@ -15,9 +14,8 @@ class Login extends Component
         return view('livewire.components.login');
     }
 
-    public function login(AuthController $auth)
+    public function login()
     {
-        $this->validate();
-        $auth->authenticate($this->loginDTO->all());
+        $this->loginDTO->authenticate();
     }
 }

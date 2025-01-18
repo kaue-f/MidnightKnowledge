@@ -1,4 +1,4 @@
-<article class="flex flex-col w-1/5 gap-4 justify-center items-center">
+<article class="flex flex-col w-1/4 gap-4 justify-center items-center">
     <a href="/" wire:navigate class="-mt-40">
         <img src="{{ asset('images/layouts/Logo2.png') }}" style="height: 10rem;">
     </a>

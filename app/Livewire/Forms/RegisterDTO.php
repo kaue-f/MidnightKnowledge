@@ -21,6 +21,10 @@ class RegisterDTO extends Form
     #[Validate('required', message: 'Senha obrigatório.')]
     #[Validate('min:8', message: 'Sua senha deve ter no minimo 8 caracteres.')]
     #[Validate('max:25', message: 'Sua senha deve ter no máximo 25 caracteres.')]
+    #[Validate('regex:/[a-z]/', message: 'Sua senha precisa conter pelo menos uma letra minúscula.')]
+    #[Validate('regex:/[A-Z]/', message: 'Sua senha precisa conter pelo menos uma letra maiúscula.')]
+    #[Validate('regex:/[0-9]/', message: 'Sua senha precisa conter pelo menos um número.')]
+    #[Validate('regex:/[@$!%*?&]/', message: 'Sua senha precisa conter pelo menos um caractere especial.')]
     public string $password;
 
     #[Validate('required', message: 'Confirmar senha obrigatório.')]

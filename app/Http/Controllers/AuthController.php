@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class AuthController extends Controller
                 'username' => $user['username'],
                 'email' => $user['email'],
                 'password' => $user['password'],
+                'role' => Roles::Member,
             ]);
 
             if (isNullOrEmpty($user)) {
@@ -31,9 +33,9 @@ class AuthController extends Controller
             Auth::login($user);
             $this->request->session()->regenerate();
             notyf()->success("Seja bem-vindo ao Midnight Knowledge! Prepare-se para explorar um vasto acervo de animes, filmes, séries, livros, games e muito mais.");
-            return redirect()->intended('/');
+            return redirect('/');
         } catch (\Throwable $th) {
-            notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+            notyf()->warning("Falha ao criar sua conta. Verifique os dados e tente novamente.");
             return back();
         }
     }
@@ -49,11 +51,10 @@ class AuthController extends Controller
         ) {
             $this->request->session()->regenerate();
             notyf()->success("Bem-vindo de volta ao Midnight Knowledge!");
-            return redirect()->intended('/');
+            return redirect('/');
         }
 
-        notyf()->error("Falha na autenticação usuário ou senha inválidos. Verifique e tente novamente.");
-        return back();
+        return false;
     }
 
     public function logout()
