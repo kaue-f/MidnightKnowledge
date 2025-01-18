@@ -4,11 +4,13 @@ namespace App\Livewire\Components\Layouts;
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Navbar extends Component
 {
     public bool $showDrawer = false;
+    public bool $passwordModal = false;
     public string $avatar;
     public string $name;
     public function render()
@@ -33,7 +35,13 @@ class Navbar extends Component
         try {
             $authController->logout();
         } catch (\Throwable $th) {
-            notyf()->error("Não foi  possível desconecta usuário. Tente novamente mais tarde.");
+            notyf()->warning("Não foi  possível desconecta usuário. Tente novamente mais tarde.");
         }
+    }
+
+    #[On('updateAvatar')]
+    public function changeAvatar()
+    {
+        $this->avatar = Auth::user()->image;
     }
 }

@@ -41,10 +41,10 @@
         <div>
             <x-dropdown right>
                 <x-slot:trigger>
-                    <x-avatar class="!w-12 hover:cursor-pointer" :image="$avatar" />
+                    <img src="{{ asset($avatar) }}" class="size-14 rounded-full hover:cursor-pointer" />
                 </x-slot:trigger>
-                <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-60 w-48" @click.stop="">
-                    <x-avatar class="lg:!w-32 !w-20 hover:cursor-pointer" :image="$avatar" />
+                <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-72 w-52" @click.stop="">
+                    <img src="{{ asset($avatar) }}" class="lg:size-52 size-36 rounded-full" />
                     <div class="font-semibold text-lg text-center pt-3">
                         {{ $name }}
                     </div>
@@ -52,7 +52,8 @@
                 <x-menu-separator />
                 @auth
                     <x-menu-item icon="o-user" title="Meu Perfil" link="/user/profile" />
-                    <x-menu-item icon="m-arrow-right-end-on-rectangle" title="Logout" wire:click="logout" spinner
+                    <x-menu-item icon="o-cog-8-tooth" title="Configurações" link="/settings" />
+                    <x-menu-item icon="o-arrow-right-end-on-rectangle" title="Logout" wire:click="logout" spinner
                         @click.stop="" />
                 @else
                     <x-menu-item class="!justify-center" title="Entrar" link="/login" />

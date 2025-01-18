@@ -7,7 +7,7 @@
             {{ $item->ratings_avg_rating ?? 0 }}
         </div>
         <img class="absolute w-full h-full group-hover:mix-blend-overlay group-hover:scale-110 transition-transform duration-300 object-cover"
-            src="{{ asset($item->image) }}" alt="">
+            src="{{ asset($item->image) }}" alt="{{ $item->title }}">
     </a>
     <p class="font-medium px-2">{{ $item->title }}</p>
 </div>

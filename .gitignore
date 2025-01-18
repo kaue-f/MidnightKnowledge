@@ -4,10 +4,13 @@
 /public/hot
 /public/storage
 /public/covers
+/public/avatars
+
 /storage/*.key
 /storage/app/livewire-tmp
-/storage/app/covers/*/*.png
+/storage/app/covers/*
 /storage/app/avatars/*.png
+/public/old-avatars/*.png
 /vendor
 .env
 .env.backup

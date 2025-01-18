@@ -4,6 +4,7 @@ use App\Http\Middleware\CheckIfLoggedIn;
 use App\Livewire\Pages\GameDetails;
 use App\Livewire\Pages\Games;
 use App\Livewire\Pages\Home;
+use App\Livewire\Pages\Settings;
 use App\Livewire\Pages\UserProfile;
 use App\Livewire\Pages\Welcome;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,5 @@ Route::get('/game/{game}/{title}', GameDetails::class)->name('game.details');
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/user/profile', UserProfile::class)->name('user.profile');
+    Route::get('/settings', Settings::class)->name('settings');
 });
