@@ -23,11 +23,11 @@
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="rating" name="options" class="peer hidden" />
-                        <label for="rating" wire:click="filter('rating|desc')"
+                        <label for="rating" wire:click="filter('ratings_avg_rating|desc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Classificação
                             <x-icon
-                                name="{{ $sortBy['direction'] == 'asc' && $sortBy['column'] == 'rating' ? 'fas.sort-amount-up' : 'fas.sort-amount-down-alt' }}" />
+                                name="{{ $sortBy['direction'] == 'asc' && $sortBy['column'] == 'ratings_avg_rating' ? 'fas.sort-amount-up' : 'fas.sort-amount-down-alt' }}" />
                         </label>
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
@@ -41,11 +41,11 @@
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="year" name="options" class="peer hidden" />
-                        <label for="year"wire:click="filter('ratings_avg_rating|desc')"
+                        <label for="year"wire:click="filter('release_date|desc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] max-[600px]:peer-checked:rounded-b peer-checked:rounded-r peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Ano de Lançamento
                             <x-icon
-                                name="{{ $sortBy['direction'] == 'asc' && $sortBy['column'] == 'ratings_avg_rating' ? 'fas.sort-amount-up' : 'fas.sort-amount-down-alt' }}" />
+                                name="{{ $sortBy['direction'] == 'asc' && $sortBy['column'] == 'release_date' ? 'fas.sort-amount-up' : 'fas.sort-amount-down-alt' }}" />
                         </label>
                     </div>
                 </div>
