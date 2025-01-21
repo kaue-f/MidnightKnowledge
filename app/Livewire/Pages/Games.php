@@ -4,33 +4,44 @@ namespace App\Livewire\Pages;
 
 use Livewire\Component;
 use App\DTO\PlatformsDTO;
-use App\Models\Classification;
 use App\Models\Game\Game;
-use App\Models\Genre;
+use App\Services\CacheService;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class Games extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+    private $games;
     public string $search = '';
+    public array $genres;
     public array $genre = [];
+    public array $platforms;
     public array $plataform = [];
+    public array $classifications;
     public array $classification = [];
     public array $sortBy = ['column' => 'title', 'direction' => 'asc'];
+    public int $paginate = 15;
     public bool $modalGame = false;
 
     #[Title('Games')]
     public function render()
     {
         return view('livewire.pages.games', [
-            'genres' => $this->genres(),
-            'platforms' => PlatformsDTO::getPlatforms(),
-            'classifications' => $this->classifications(),
-            'games' => $this->games()
+            'games' => $this->games
         ]);
     }
 
-    public function games()
+    public function mount(CacheService $cacheService, PlatformsDTO $platformsDTO)
+    {
+        $this->games = $this->gamesQuery()->orderBy('title')->paginate($this->paginate);
+        $this->classifications = $cacheService->getClassifications();
+        $this->genres = $cacheService->getGenres('Games');
+        $this->platforms = $platformsDTO->get();
+    }
+
+    public function gamesQuery()
     {
         return Game::query()->select('games.*')
             ->with(['genres', 'platforms'])
@@ -50,32 +61,24 @@ class Games extends Component
             })
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
-            })->orderBy(
-                $this->sortBy['column'] === 'rating' ? 'ratings_avg_rating' : $this->sortBy['column'],
-                $this->sortBy['direction']
-            )
-            ->paginate(15);
+            });
     }
 
-    public function genres()
+    public function filter($assortment = NULL)
     {
-        return Genre::where('category', 'Games')
-            ->orderBy('genre', 'asc')
-            ->get();
-    }
+        if (!isNullOrEmpty($assortment))
+            $this->sortBy = orderSortBy($this->sortBy, $assortment);
 
-    public function classifications()
-    {
-        return Classification::get();
-    }
-
-    public function filter()
-    {
-        $this->games();
+        $this->games = $this->gamesQuery()
+            ->orderBy(...array_values($this->sortBy))
+            ->paginate($this->paginate);
     }
 
     public function resetFilter()
     {
         $this->reset();
+        $this->games = $this->gamesQuery()
+            ->orderBy(...array_values($this->sortBy))
+            ->paginate($this->paginate);
     }
 }
