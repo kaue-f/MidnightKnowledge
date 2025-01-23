@@ -16,7 +16,7 @@
     <main class="w-full flex h-full justify-center items-center">
         {{ $slot }}
     </main>
-
+    @stack('scripts')
 </body>
 
 </html>
