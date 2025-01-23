@@ -33,3 +33,14 @@ if (!function_exists('hasDate')) {
             : Carbon::parse($value)->translatedFormat('d F Y');
     }
 }
+
+if (!function_exists('orderSortBy')) {
+    function orderSortBy($sortBy, $assortment): array
+    {
+        [$column, $direction] = explode('|', $assortment);
+
+        return ($column == $sortBy['column'])
+            ? ['column' => $column, 'direction' => ($sortBy['direction'] == 'desc') ? 'asc' : 'desc']
+            : ['column' => $column, 'direction' => $direction];
+    }
+}

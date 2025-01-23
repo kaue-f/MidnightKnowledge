@@ -2,9 +2,11 @@
 
 namespace App\DTO;
 
+use Illuminate\Support\Facades\Cache;
+
 class PlatformsDTO
 {
-    public static function getPlatforms()
+    public function platforms()
     {
         return [
             ['id' => 'Android', 'name' => 'Android', 'plataform' => 'Mobile'],
@@ -29,5 +31,12 @@ class PlatformsDTO
             ['id' => 'Xbox One', 'name' => 'Xbox One', 'plataform' => 'Consoles'],
             ['id' => 'Xbox Series X/S', 'name' => 'Xbox Series X/S', 'plataform' => 'Consoles'],
         ];
+    }
+
+    public function get()
+    {
+        return Cache::remember('platforms', 3600, function () {
+            return $this->platforms();
+        });
     }
 }

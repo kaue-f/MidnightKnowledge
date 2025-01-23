@@ -30,8 +30,6 @@ class AddGame extends Component
         ]);
     }
 
-    public function mount() {}
-
     public function save(GameController $gameController)
     {
         $this->validate();
