@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const capsFlag = document.getElementById("capslockAlert");
-    const passwordInput = document.getElementById("passwordInput");
+    const passwordInput = document.querySelector("#passwordInput input");
+    console.log(passwordInput);
+    
 
-    passwordInput.addEventListener('focus', () => {
+    passwordInput.addEventListener('click', () => {
         document.addEventListener('keyup', (event) => {
             const isCapsLockOn = event.getModifierState && event.getModifierState('CapsLock');
             capsFlag.classList.toggle("tooltip", isCapsLockOn);

@@ -2,7 +2,7 @@
     <div class="space-y-4">
         <x-input label="Nome de usuário ou e-mail" wire:model='loginDTO.user' />
         <div class="tooltip-secondary" id="capslockAlert" data-tip="CapsLock Ativo">
-            <x-password id="passwordInput" onfocus="piru()"  maxlength="25" label="Senha" wire:model='loginDTO.password' right/>
+            <x-password id="passwordInput" maxlength="25" label="Senha" wire:model='loginDTO.password' right/>
         </div>
         <div class="flex justify-between text-xs py-2 text-base-content/75">
             <x-checkbox class="border-0 checkbox-sm rounded-md bg-accent" label="Lembre-me"
