@@ -72,13 +72,14 @@
             <x-form wire:submit="filter">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     <div>
-                        <x-choices class="w-full" label="Gêneros" placeholder="Selecione gênero" placeholder-value=""
-                            :options="$genres" option-label="genre" wire:model="genre" />
+                        <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
+                            option-sub-label="description" placeholder-value="" :options="$genres" option-label="genre"
+                            wire:model="genre" searchable />
                     </div>
                     <div>
-                        <x-choices class="w-full" label="Plataforma" option-sub-label="plataform"
+                        <x-choices-offline class="w-full" label="Plataforma" option-sub-label="plataform"
                             placeholder="Selecione plataforma" placeholder-value="" :options="$platforms"
-                            wire:model="plataform" />
+                            wire:model="plataform" searchable />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
@@ -100,5 +101,8 @@
             <livewire:components.ui.cover :item="$game" :key="$game->id" />
         @endforeach
     </article>
-    <livewire:components.modals.add-game :$genres :$platforms :$classifications wire:model.live='modalGame' />
+    <x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur"
+        box-class="p-6 w-11/12 max-w-4xl rounded-md">
+        <livewire:components.modals.add-game :$genres :$platforms :$classifications wire:model.live='modalGame' />
+    </x-modal>
 </section>

@@ -12,9 +12,4 @@ class Cover extends Component
     {
         return view('livewire.components.ui.cover');
     }
-
-    public function mount($item)
-    {
-        $this->item = $item;
-    }
 }
