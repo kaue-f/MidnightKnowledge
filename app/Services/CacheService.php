@@ -15,11 +15,10 @@ class CacheService
         });
     }
 
-    public function getGenres(string $content)
+    public function getGamesGenre()
     {
-        $genres =  Cache::remember('genres', 3600, function () {
-            return Genre::orderBy('genre')->get();
+        return Cache::remember('gamesGenre', 3600, function () {
+            return Genre::where('category', 'Games')->orderBy('genre')->get();
         });
-        return $genres->where('category',  $content)->toArray();
     }
 }

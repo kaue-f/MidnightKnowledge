@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use Livewire\Component;
 use App\DTO\PlatformsDTO;
 use App\Models\Game\Game;
+use App\Models\Genre;
 use App\Services\CacheService;
 use Livewire\Attributes\Title;
 use Livewire\WithoutUrlPagination;
@@ -15,7 +16,7 @@ class Games extends Component
     use WithPagination, WithoutUrlPagination;
     private $games;
     public string $search = '';
-    public array $genres;
+    public $genres;
     public array $genre = [];
     public array $platforms;
     public array $plataform = [];
@@ -35,10 +36,10 @@ class Games extends Component
 
     public function mount(CacheService $cacheService, PlatformsDTO $platformsDTO)
     {
-        $this->games = $this->gamesQuery()->orderBy('title')->paginate($this->paginate);
+        $this->genres = $cacheService->getGamesGenre();
         $this->classifications = $cacheService->getClassifications();
-        $this->genres = $cacheService->getGenres('Games');
         $this->platforms = $platformsDTO->get();
+        $this->games = $this->gamesQuery()->orderBy('title')->paginate($this->paginate);
     }
 
     public function gamesQuery()
