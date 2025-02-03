@@ -13,6 +13,8 @@ class PlatformsDTO
             ['id' => 'Battle.net', 'name' => 'Battle.net', 'plataform' => 'PC'],
             ['id' => 'Epic Games Store', 'name' => 'Epic Games Store', 'plataform' => 'PC'],
             ['id' => 'iOS', 'name' => 'iOS', 'plataform' => 'Mobile'],
+            ['id' => 'Mac OS', 'name' => 'Mac OS', 'plataform' => 'PC'],
+            ['id' => 'Microsoft Windows', 'name' => 'Microsoft Windows', 'plataform' => 'PC'],
             ['id' => 'Nintendo 3DS', 'name' => 'Nintendo 3DS', 'plataform' => 'Consoles'],
             ['id' => 'Nintendo DS', 'name' => 'Nintendo DS', 'plataform' => 'Consoles'],
             ['id' => 'Nintendo Switch', 'name' => 'Nintendo Switch', 'plataform' => 'Consoles'],

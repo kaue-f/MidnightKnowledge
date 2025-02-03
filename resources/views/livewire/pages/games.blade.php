@@ -14,7 +14,7 @@
                 <div class="join max-[600px]:join-vertical join-horizontal">
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="title" name="options" class="peer hidden" checked />
-                        <label for="title" wire:click="filter('title|asc')"
+                        <label for="title" wire:click="gamesQuery('title|asc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] max-[600px]:peer-checked:rounded-t peer-checked:rounded-l peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Título
                             <x-icon
@@ -23,7 +23,7 @@
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="rating" name="options" class="peer hidden" />
-                        <label for="rating" wire:click="filter('ratings_avg_rating|desc')"
+                        <label for="rating" wire:click="gamesQuery('ratings_avg_rating|desc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Classificação
                             <x-icon
@@ -32,7 +32,7 @@
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="add" name="options" class="peer hidden" />
-                        <label for="add" wire:click="filter('created_at|desc')"
+                        <label for="add" wire:click="gamesQuery('created_at|desc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Recentemente
                             <x-icon
@@ -41,7 +41,7 @@
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="year" name="options" class="peer hidden" />
-                        <label for="year"wire:click="filter('release_date|desc')"
+                        <label for="year"wire:click="gamesQuery('release_date|desc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] max-[600px]:peer-checked:rounded-b peer-checked:rounded-r peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Ano de Lançamento
                             <x-icon
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="flex flex-row items-center space-x-4">
-                <x-form wire:submit="filter">
+                <x-form wire:submit="gamesQuery">
                     <x-input class="max-[424px]:w-56 w-80 sm:w-96 !rounded-e-none" wire:model="search"
                         placeholder="Search" autocomplete="off" clearable>
                         <x-slot:append>
@@ -69,7 +69,7 @@
             x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-90">
-            <x-form wire:submit="filter">
+            <x-form wire:submit="gamesQuery">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
@@ -87,22 +87,30 @@
                             :options="$classifications" wire:model="classification" />
                     </div>
                     <div class="flex gap-x-4 items-end h-full place-self-end pb-2">
-                        <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' />
-                        <x-button label="Filtrar" class="btn-sm btn-primary" type="submit" spinner="filter"
+                        <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
+                        <x-button label="Filtrar" class="btn-sm btn-primary" type="submit"
                             x-on:click="open = ! open" />
                     </div>
                 </div>
             </x-form>
         </div>
-        <x-hr target="filter" />
+        <x-hr target="gamesQuery" />
     </div>
-    <article>
+    <article wire:loading.remove wire:target.except="gamesQuery">
         @foreach ($games as $game)
-            <livewire:components.ui.cover :item="$game" :key="$game->id" />
+            <x-ui.cover :item="$game" />
         @endforeach
     </article>
-    <x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur"
-        box-class="p-6 w-11/12 max-w-4xl rounded-md">
-        <livewire:components.modals.add-game :$genres :$platforms :$classifications wire:model.live='modalGame' />
-    </x-modal>
+    <div wire:loading class="flex w-full text-center h-full" wire:target.except="gamesQuery">
+        <span class="loading loading-spinner w-32 text-primary/75"></span>
+    </div>
+    <div class="flex gap-6 w-full">
+        <div>
+            <x-select class="select-sm !border-none" :options="$numbersPage" wire:model.live="page" />
+        </div>
+        <div class="w-full">
+            {{ $games->links() }}
+        </div>
+    </div>
+    <livewire:components.modals.add-game :$genres :$platforms :$classifications wire:model.live='modalGame' />
 </section>

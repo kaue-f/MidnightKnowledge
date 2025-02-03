@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Components\Modals;
 
-use App\Http\Controllers\GameController;
-use App\Livewire\Forms\GameDTO;
-use Livewire\Attributes\Modelable;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Livewire\Forms\GameDTO;
+use Livewire\Attributes\Modelable;
+use App\Http\Controllers\GameController;
 
 class AddGame extends Component
 {

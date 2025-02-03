@@ -5,32 +5,39 @@ namespace App\Livewire\Pages;
 use Livewire\Component;
 use App\DTO\PlatformsDTO;
 use App\Models\Game\Game;
-use App\Models\Genre;
+use Livewire\WithPagination;
 use App\Services\CacheService;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
 
 class Games extends Component
 {
     use WithPagination, WithoutUrlPagination;
-    private $games;
     public string $search = '';
-    public $genres;
+    public Collection $genres;
     public array $genre = [];
     public array $platforms;
     public array $plataform = [];
     public array $classifications;
     public array $classification = [];
     public array $sortBy = ['column' => 'title', 'direction' => 'asc'];
-    public int $paginate = 15;
+    public array $numbersPage = [
+        ['id' => 10, 'name' => 10],
+        ['id' => 15, 'name' => 15],
+        ['id' => 30, 'name' => 30],
+        ['id' => 50, 'name' => 50],
+        ['id' => 75, 'name' => 75],
+        ['id' => 100, 'name' => 100]
+    ];
+    public int $page = 15;
     public bool $modalGame = false;
 
     #[Title('Games')]
     public function render()
     {
         return view('livewire.pages.games', [
-            'games' => $this->games
+            'games' => $this->gamesQuery()
         ]);
     }
 
@@ -39,11 +46,13 @@ class Games extends Component
         $this->genres = $cacheService->getGamesGenre();
         $this->classifications = $cacheService->getClassifications();
         $this->platforms = $platformsDTO->get();
-        $this->games = $this->gamesQuery()->orderBy('title')->paginate($this->paginate);
     }
 
-    public function gamesQuery()
+    public function gamesQuery($assortment = NULL)
     {
+        if (!isNullOrEmpty($assortment))
+            $this->sortBy = orderSortBy($this->sortBy, $assortment);
+
         return Game::query()->select('games.*')
             ->with(['genres', 'platforms'])
             ->withAvg('ratings', 'rating')
@@ -62,24 +71,15 @@ class Games extends Component
             })
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
-            });
-    }
-
-    public function filter($assortment = NULL)
-    {
-        if (!isNullOrEmpty($assortment))
-            $this->sortBy = orderSortBy($this->sortBy, $assortment);
-
-        $this->games = $this->gamesQuery()
-            ->orderBy(...array_values($this->sortBy))
-            ->paginate($this->paginate);
+            })->orderBy(...array_values($this->sortBy))
+            ->paginate($this->page);
     }
 
     public function resetFilter()
     {
-        $this->reset();
-        $this->games = $this->gamesQuery()
-            ->orderBy(...array_values($this->sortBy))
-            ->paginate($this->paginate);
+        $this->reset('genre');
+        $this->reset('plataform');
+        $this->reset('classification');
+        $this->resetPage();
     }
 }
