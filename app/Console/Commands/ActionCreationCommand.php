@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use InvalidArgumentException;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ActionCreationCommand extends Command
@@ -29,7 +29,7 @@ class ActionCreationCommand extends Command
     public function handle()
     {
         try {
-            $name = $this->argument('name');
+            $name = str_replace(' ', '', ucfirst($this->argument('name')));
 
             $path = app_path("Actions/{$name}.php");
 
