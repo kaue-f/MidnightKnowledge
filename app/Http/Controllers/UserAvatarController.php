@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class UserAvatarController extends Controller
 {
@@ -19,14 +19,16 @@ class UserAvatarController extends Controller
             Storage::makeDirectory($this->oldPath);
     }
 
-    public function updateImage($id, $image)
+    public function updateImage(User $user, $image)
     {
-        $user = User::find($id);
         try {
             $old = $user->image;
             $this->oldImage($old);
-            $path = $image->storeAs($this->path, "{$id}.{$image->extension()}");
 
+            $imageWebp = Image::read($image);
+            $path = "$this->path/$user->id.webp";
+
+            Storage::put($path, $imageWebp->toWebp(80));
             if ($user->update(['image' => $path])) {
                 $this->deleteImage($user);
                 notyf()->success("Imagem de perfil atualizada.");
@@ -42,7 +44,7 @@ class UserAvatarController extends Controller
         }
     }
 
-    public function deleteImage($user)
+    public function deleteImage(User $user)
     {
         if (!isNullOrEmpty($user->image)) {
             $files = Storage::files($this->oldPath);
@@ -57,7 +59,7 @@ class UserAvatarController extends Controller
         return;
     }
 
-    public function cancelUpdateImage($user, $oldImage)
+    public function cancelUpdateImage(User $user, $oldImage)
     {
         if (isNullOrEmpty($user->image))
             return;
@@ -70,7 +72,7 @@ class UserAvatarController extends Controller
             $user->update(['image' => $oldImage]);
         }
 
-        $this->deleteImage($user->image);
+        $this->deleteImage($user);
     }
 
     public function oldImage($image)

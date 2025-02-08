@@ -2,13 +2,11 @@
 
 namespace App\Livewire\Components;
 
-use App\Http\Controllers\UserAvatarController;
-use App\Http\Controllers\UserController;
-use Livewire\Attributes\Modelable;
-use Livewire\Attributes\Validate;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Mary\Traits\WithMediaSync;
+use Livewire\Attributes\Validate;
+use App\Http\Controllers\UserAvatarController;
 
 class AvatarChanger extends Component
 {
@@ -23,7 +21,7 @@ class AvatarChanger extends Component
     ])]
     public $image;
     public string $avatar;
-    public $user;
+    public User $user;
     public array $config = ['guides' => false];
 
     public function render()
@@ -34,7 +32,7 @@ class AvatarChanger extends Component
     public function changeImage(UserAvatarController $useAvatarrController)
     {
         $this->validate();
-        $useAvatarrController->updateImage($this->user->id, $this->image);
+        $useAvatarrController->updateImage($this->user, $this->image);
         $this->image = "";
         $this->dispatch('updateAvatar');
     }
