@@ -11,6 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        schema::create('manga_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('mangas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
@@ -19,6 +27,7 @@ return new class extends Migration
             $table->text('synopsis')->nullable();
             $table->integer('chapter');
             $table->integer('volume');
+            $table->foreignId('manga_type_id')->nullable()->constrained()->onDelete('set null');
             $table->string('author')->nullable();
             $table->date('release_date')->nullable();
             $table->string('published_by')->nullable();
@@ -78,5 +87,6 @@ return new class extends Migration
         Schema::dropIfExists('manga_user');
         Schema::dropIfExists('manga_comments');
         Schema::dropIfExists('manga_ratings');
+        Schema::dropIfExists('manga_types');
     }
 };

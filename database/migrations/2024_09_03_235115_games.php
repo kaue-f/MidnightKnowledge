@@ -69,32 +69,18 @@ return new class extends Migration
             $table->unique(['game_id', 'user_id']);
         });
 
+        schema::create('platforms', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('category');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         schema::create('game_platforms', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('game_id')->constrained()->onDelete('cascade');
-            $table->enum('plataform', [
-                'Android',
-                'Battle.net',
-                'Epic Games Store',
-                'iOS',
-                'Nintendo 3DS',
-                'Nintendo DS',
-                'Nintendo Switch',
-                'Origin',
-                'Outros',
-                'PlayStation 1',
-                'PlayStation 2',
-                'PlayStation 3',
-                'PlayStation 4',
-                'PlayStation 5',
-                'PlayStation Vita',
-                'PSP',
-                'Steam',
-                'Ubisoft Connect',
-                'Xbox 360',
-                'Xbox One',
-                'Xbox Series X/S',
-            ]);
+            $table->foreignId('platform_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -110,6 +96,7 @@ return new class extends Migration
         Schema::dropIfExists('game_user');
         Schema::dropIfExists('game_comments');
         Schema::dropIfExists('game_ratings');
+        Schema::dropIfExists('platforms');
         Schema::dropIfExists('game_platforms');
     }
 };

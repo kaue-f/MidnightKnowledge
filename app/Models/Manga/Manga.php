@@ -2,8 +2,8 @@
 
 namespace App\Models\Manga;
 
-use App\Models\Classification;
 use App\Models\User;
+use App\Models\Classification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -55,5 +55,10 @@ class Manga extends Model
     public function classification()
     {
         return $this->belongsTo(Classification::class, 'classification_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(MangaType::class, 'manga_type_id');
     }
 }

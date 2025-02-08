@@ -14,12 +14,15 @@ class databaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            AnimeTypesSeeder::class,
             ClassificationsSeeder::class,
             GenresAnimeSeeder::class,
             GenresBookSeeder::class,
             GenresGameSeeder::class,
             GenresMangaSeeder::class,
-            GenresMovieSerieSeeder::class
+            GenresMovieSerieSeeder::class,
+            MangaTypesSeeder::class,
+            PlatformsSeeder::class
         ]);
     }
 }

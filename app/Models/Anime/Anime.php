@@ -2,9 +2,9 @@
 
 namespace App\Models\Anime;
 
-use App\Models\Classification;
-use App\Models\Genre;
 use App\Models\User;
+use App\Models\Genre;
+use App\Models\Classification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -59,5 +59,10 @@ class Anime extends Model
     public function classification()
     {
         return $this->belongsTo(Classification::class, 'classification_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(AnimeType::class, 'anime_types_id');
     }
 }

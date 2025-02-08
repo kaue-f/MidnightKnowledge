@@ -5,14 +5,12 @@ namespace App\Models\Game;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GamePlatform extends Model
+class Platform extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['game_id', 'plataform'];
-
     public function game()
     {
-        return $this->belongsTo(Game::class);
+        return $this->belongsToMany(Game::class);
     }
 }

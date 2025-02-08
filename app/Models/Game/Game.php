@@ -2,9 +2,9 @@
 
 namespace App\Models\Game;
 
-use App\Models\Classification;
-use App\Models\Genre;
 use App\Models\User;
+use App\Models\Genre;
+use App\Models\Classification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -58,7 +58,7 @@ class Game extends Model
 
     public function platforms()
     {
-        return $this->hasMany(GamePlatform::class);
+        return $this->belongsToMany(Platform::class, 'game_platforms');
     }
 
     public function classification()

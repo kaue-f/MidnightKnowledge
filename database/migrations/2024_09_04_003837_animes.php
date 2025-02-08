@@ -11,14 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
+        schema::create('anime_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('animes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
             $table->text('image')->nullable();
             $table->text('synopsis')->nullable();
             $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
-            $table->integer('episodes');
-            $table->integer('season');
+            $table->integer('episodes')->nullable();
+            $table->integer('season')->nullable();
+            $table->foreignId('anime_types_id')->nullable()->constrained()->onDelete('set null');
             $table->date('release_date')->nullable();
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
@@ -80,5 +89,6 @@ return new class extends Migration
         Schema::dropIfExists('anime_user');
         Schema::dropIfExists('anime_comments');
         Schema::dropIfExists('anime_ratings');
+        Schema::dropIfExists('anime_types');
     }
 };
