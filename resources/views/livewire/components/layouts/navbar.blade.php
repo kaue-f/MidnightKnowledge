@@ -43,8 +43,8 @@
                 <x-slot:trigger>
                     <img src="{{ asset($avatar) }}" class="size-14 rounded-full hover:cursor-pointer" />
                 </x-slot:trigger>
-                <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-72 w-52" @click.stop="">
-                    <img src="{{ asset($avatar) }}" class="lg:size-52 size-36 rounded-full" />
+                <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-64 w-52" @click.stop="">
+                    <img src="{{ asset($avatar) }}" class="lg:size-40 size-32 rounded-full" />
                     <div class="font-semibold text-lg text-center pt-3">
                         {{ $name }}
                     </div>

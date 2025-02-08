@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Components\Layouts;
 
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthController;
 
 class Navbar extends Component
 {
@@ -23,7 +23,7 @@ class Navbar extends Component
         if (Auth::check()) {
             $user = Auth::user();
             $this->avatar = $user->image ?? imageNoneUser();
-            $this->name = $user->username ?? '';
+            $this->name = $user->nickname ?? '';
         } else {
             $this->avatar = imageNoneUser();
             $this->name = "Convidado";

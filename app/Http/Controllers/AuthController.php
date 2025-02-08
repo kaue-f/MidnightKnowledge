@@ -9,24 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    private $request;
-
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+    public function __construct(private readonly Request $request) {}
     public function create(array $user)
     {
         try {
             $user = User::create([
-                'username' => $user['username'],
+                'nickname' => $user['nickname'],
                 'email' => $user['email'],
                 'password' => $user['password'],
                 'role' => Roles::Member,
             ]);
 
             if (isNullOrEmpty($user)) {
-                notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+                notyf()->warning("Falha ao criar sua conta. Verifique os dados e tente novamente.");
                 return back();
             }
 
@@ -35,11 +30,10 @@ class AuthController extends Controller
             notyf()->success("Seja bem-vindo ao Midnight Knowledge! Prepare-se para explorar um vasto acervo de animes, filmes, séries, livros, games e muito mais.");
             return redirect('/');
         } catch (\Throwable $th) {
-            notyf()->warning("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+            notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
             return back();
         }
     }
-
 
     public function authenticate(array $login)
     {
@@ -47,7 +41,7 @@ class AuthController extends Controller
 
         if (
             Auth::attempt(['email' => $login['user'], 'password' => $login['password']], $login['remember']) ||
-            Auth::attempt(['username' => $login['user'], 'password' => $login['password']], $login['remember'])
+            Auth::attempt(['nickname' => $login['user'], 'password' => $login['password']], $login['remember'])
         ) {
             $this->request->session()->regenerate();
             notyf()->success("Bem-vindo de volta ao Midnight Knowledge!");

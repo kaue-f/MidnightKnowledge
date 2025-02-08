@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Components;
 
-use App\Livewire\Forms\RegisterDTO;
 use Livewire\Component;
+use App\Livewire\Forms\RegisterForm;
 use App\Http\Controllers\AuthController;
 
 class Register extends Component
 {
-    public RegisterDTO $registerDTO;
+    public RegisterForm $registerForm;
 
     public function render()
     {
@@ -18,8 +18,8 @@ class Register extends Component
     public function register(AuthController $auth)
     {
         $this->validate();
-        $auth->create($this->registerDTO->only(
-            'username',
+        $auth->create($this->registerForm->only(
+            'nickname',
             'email',
             'password'
         ));

@@ -3,9 +3,9 @@
     <x-button class="btn-accent" icon="o-key" label="Alterar Senha" @click="$wire.passwordModal = true" />
     <x-modal wire:model="passwordModal" class="backdrop-blur" box-class="w-96 rounded" title="Alterar Senha">
         <div class="flex flex-col space-y-2 px-2">
-            <x-password label="Senha atual" wire:model="passwordDTO.currentPassword" clearable />
-            <x-password label="Nova senha" wire:model="passwordDTO.password" clearable />
-            <x-password label="Confirmar senha" wire:model="passwordDTO.confirmPassword" clearable />
+            <x-password label="Senha atual" wire:model="passwordForm.currentPassword" clearable />
+            <x-password label="Nova senha" wire:model="passwordForm.password" clearable />
+            <x-password label="Confirmar senha" wire:model="passwordForm.confirmPassword" clearable />
         </div>
         <x-slot:actions>
             <div class="flex justify-between w-full">

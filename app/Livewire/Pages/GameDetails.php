@@ -3,11 +3,11 @@
 namespace App\Livewire\Pages;
 
 use App\Enums\Status;
-use App\Models\Classification;
-use App\Models\Game\Game;
-use App\Services\ContentLibraryService;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\Game\Game;
+use App\Models\Classification;
+use Illuminate\Support\Facades\Auth;
+use App\Services\ContentLibraryService;
 
 class GameDetails extends Component
 {
@@ -26,9 +26,9 @@ class GameDetails extends Component
             ->title($this->game->title);
     }
 
-    public function boot()
+    public function boot(ContentLibraryService $contentLibraryService)
     {
-        $this->contentLibraryService = app(ContentLibraryService::class);
+        $this->contentLibraryService = $contentLibraryService;
     }
 
     public function mount()
@@ -59,9 +59,9 @@ class GameDetails extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->library($this->game, $library, $status);
         $this->library = $library;
         $this->status = Status::set($status);
+        $this->contentLibraryService->library($this->game, $library, $status);
     }
 
     public function updatedFavorite()

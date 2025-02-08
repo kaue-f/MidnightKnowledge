@@ -4,10 +4,10 @@
 
     <x-modal wire:model="modalUser" title="Editar Usuário" class="backdrop-blur" box-class="w-100 rounded">
         <x-form class="flex flex-col gap-5" wire:submit="edit">
-            <x-input label="Nome de usuário" wire:model='userDTO.username' />
-            <x-input label="Nome do usuário" wire:model='userDTO.name' />
-            <x-input label="E-mail" wire:model='userDTO.email' />
-            <x-datepicker label="Data de nascimento" wire:model="userDTO.birthday" icon="o-calendar"
+            <x-input label="Nickname" wire:model='userForm.nickname' />
+            <x-input label="Nome do usuário" wire:model='userForm.username' />
+            <x-input label="E-mail" wire:model='userForm.email' />
+            <x-datepicker label="Data de nascimento" wire:model="userForm.birthday" icon="o-calendar"
                 :config="$config" />
             <x-slot:actions>
                 <div class="flex justify-between w-full">

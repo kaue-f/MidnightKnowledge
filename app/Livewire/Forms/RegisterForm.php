@@ -2,16 +2,16 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\Attributes\Validate;
 
-class RegisterDTO extends Form
+class RegisterForm extends Form
 {
-    #[Validate('required', message: 'Nome de usuário obrigatório.')]
-    #[Validate('min:3', message: 'Nome de usuário deve ter no minimo 3 caracteres.')]
-    #[Validate('max:20', message: 'Nome de usuário deve ter no máximo 20 caracteres.')]
-    #[Validate('unique:users,username', message: 'Nome de usuário já está cadastrado.')]
-    public string $username;
+    #[Validate('required', message: 'Nickname obrigatório.')]
+    #[Validate('min:3', message: 'Nickname deve ter no minimo 3 caracteres.')]
+    #[Validate('max:20', message: 'Nickname deve ter no máximo 20 caracteres.')]
+    #[Validate('unique:users,username', message: 'Nickname já está cadastrado.')]
+    public string $nickname;
 
     #[Validate('required', message: 'E-mail obrigatório.')]
     #[Validate('email', message: 'Padrão de email inválido.')]

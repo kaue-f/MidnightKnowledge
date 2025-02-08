@@ -2,27 +2,28 @@
 
 namespace App\Livewire\Components;
 
-use App\Http\Controllers\UserController;
-use App\Livewire\Forms\PasswordDTO;
 use Livewire\Component;
+use App\Livewire\Forms\PasswordForm;
+use App\Actions\ChangePasswordAction;
 
 class PasswordChanger extends Component
 {
-    public bool $passwordModal = false;
-    public PasswordDTO $passwordDTO;
     public $user;
+    public PasswordForm $passwordForm;
+    public bool $passwordModal = false;
 
     public function render()
     {
         return view('livewire.components.password-changer');
     }
 
-    public function changerPassword(UserController $userController)
+    public function changerPassword(ChangePasswordAction $changePasswordAction)
     {
-        $password = $this->passwordDTO->validatePassword($this->user->password);
+        $password = $this->passwordForm->validatePassword($this->user->password);
         if (!isNullOrEmpty($password)) {
-            $userController->password($this->user->id, $password);
-            $this->reset();
+            $changePasswordAction->execute($this->user, $password);
+            $this->reset('passwordForm');
+            $this->passwordModal = false;
         }
     }
 }

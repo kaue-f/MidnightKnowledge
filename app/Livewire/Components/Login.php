@@ -3,11 +3,11 @@
 namespace App\Livewire\Components;
 
 use Livewire\Component;
-use App\Livewire\Forms\LoginDTO;
+use App\Livewire\Forms\LoginForm;
 
 class Login extends Component
 {
-    public LoginDTO $loginDTO;
+    public LoginForm $loginForm;
 
     public function render()
     {
@@ -16,6 +16,6 @@ class Login extends Component
 
     public function login()
     {
-        $this->loginDTO->authenticate();
+        $this->loginForm->authenticate();
     }
 }

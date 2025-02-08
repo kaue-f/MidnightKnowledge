@@ -3,7 +3,6 @@
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
-use App\DTO\PlatformsDTO;
 use App\Models\Game\Game;
 use Livewire\WithPagination;
 use App\Services\CacheService;
@@ -41,11 +40,11 @@ class Games extends Component
         ]);
     }
 
-    public function mount(CacheService $cacheService, PlatformsDTO $platformsDTO)
+    public function mount(CacheService $cacheService)
     {
         $this->genres = $cacheService->getGamesGenre();
         $this->classifications = $cacheService->getClassifications();
-        $this->platforms = $platformsDTO->get();
+        $this->platforms = $cacheService->getPlatforms();
     }
 
     public function gamesQuery($assortment = NULL)

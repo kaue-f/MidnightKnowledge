@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Components;
 
-use App\Http\Controllers\UserController;
 use Livewire\Component;
+use App\Actions\DeleteUserAction;
 
 class DeleteAccount extends Component
 {
@@ -14,8 +14,9 @@ class DeleteAccount extends Component
         return view('livewire.components.delete-account');
     }
 
-    public function deleteUser(UserController $userController)
+    public function deleteUser(DeleteUserAction $deleteUserAction)
     {
-        $userController->delete($this->user->id);
+        $deleteUserAction->execute($this->user);
+        $this->modalUserDelete = false;
     }
 }

@@ -8,7 +8,7 @@
             <div class="flex flex-col px-1 space-y-2">
                 <div class="flex flex-wrap gap-2 w-full">
                     @foreach ($game->platforms()->get() as $item)
-                        <x-badge value="{{ $item->plataform }}"
+                        <x-badge value="{{ $item->name }}"
                             class="badge-sm font-medium hover:bg-[#13138c] border-0 rounded shadow shadow-black hover:cursor-default" />
                     @endforeach
                 </div>

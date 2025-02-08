@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Forms;
 
-use App\Http\Controllers\AuthController;
+use Livewire\Form;
 use App\Models\User;
 use Livewire\Attributes\Validate;
-use Livewire\Form;
+use App\Http\Controllers\AuthController;
 
-class LoginDTO extends Form
+class LoginForm extends Form
 {
-    #[Validate('required', message: 'Insira nome de usuário ou e-mail')]
+    #[Validate('required', message: 'Insira Username ou e-mail')]
     #[Validate('min:3', message: 'Minimo 3 caracteres.')]
     public string $user;
 
@@ -22,13 +22,13 @@ class LoginDTO extends Form
     public  function authenticate()
     {
         $user = User::where('email', $this->user)
-            ->orWhere('username', $this->user)
+            ->orWhere('nickname', $this->user)
             ->first();
 
         if (isNullOrEmpty($user)) {
             return $this->addError(
                 'user',
-                'Parece que esse e-mail ou nome de usuário não está cadastrado. Verifique e tente novamente.'
+                'Parece que esse e-mail ou nickname não está cadastrado. Verifique e tente novamente.'
             );
         }
 

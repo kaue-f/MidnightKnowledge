@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Components;
 
-use App\Http\Controllers\UserController;
-use App\Livewire\Forms\UserDTO;
 use Livewire\Component;
+use App\Livewire\Forms\UserForm;
+use App\Actions\UpdateUserAction;
 
 class EditUser extends Component
 {
-    public UserDTO $userDTO;
+    public UserForm $userForm;
     public $user;
     public bool $modalUser;
     public $config = [
@@ -25,13 +25,13 @@ class EditUser extends Component
 
     public function mount()
     {
-        $this->userDTO->setUser($this->user);
+        $this->userForm->setUser($this->user);
     }
 
-    public function edit(UserController $userController)
+    public function edit(UpdateUserAction $updateUserAction)
     {
         $this->validate();
-        $userController->update($this->user->id, $this->userDTO);
+        $updateUserAction->execute($this->user, $this->userForm);
         $this->modalUser = false;
     }
 }

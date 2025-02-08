@@ -77,7 +77,7 @@
                             wire:model="genre" searchable />
                     </div>
                     <div>
-                        <x-choices-offline class="w-full" label="Plataforma" option-sub-label="plataform"
+                        <x-choices-offline class="w-full" label="Plataforma" option-sub-label="category"
                             placeholder="Selecione plataforma" placeholder-value="" :options="$platforms"
                             wire:model="plataform" searchable />
                     </div>
@@ -105,12 +105,16 @@
         <span class="loading loading-spinner w-32 text-primary/75"></span>
     </div>
     <div class="flex gap-6 w-full">
-        <div>
-            <x-select class="select-sm !border-none" :options="$numbersPage" wire:model.live="page" />
-        </div>
+        @if (!isNullOrEmpty($games))
+            <div>
+                <x-select class="select-sm !border-none" :options="$numbersPage" wire:model.live="page" />
+            </div>
+        @endif
+
         <div class="w-full">
             {{ $games->links() }}
         </div>
     </div>
-    <livewire:components.modals.add-game :$genres :$platforms :$classifications wire:model.live='modalGame' />
+    <livewire:components.modals.add-game :$genres :$platforms :$classifications :user="Auth::user()"
+        wire:model.live='modalGame' />
 </section>

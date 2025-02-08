@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Forms;
 
-use Illuminate\Support\Facades\Hash;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Hash;
 
-class PasswordDTO extends Form
+class PasswordForm extends Form
 {
     #[Validate('required', message: 'Senha atual obrigatório.')]
     #[Validate('min:8', message: 'Sua senha deve ter no minimo 8 caracteres.')]

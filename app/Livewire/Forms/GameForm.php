@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\Attributes\Validate;
 
-class GameDTO extends Form
+class GameForm extends Form
 {
     #[Validate('required', message: 'O título é obrigatório.')]
     #[Validate('min:3', message: 'O título deve conter no mínimo 3 caracteres.')]

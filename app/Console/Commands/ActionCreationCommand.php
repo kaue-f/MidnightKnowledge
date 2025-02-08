@@ -81,7 +81,10 @@ class ActionCreationCommand extends Command
 
         class {{name}}
         {
-        
+            public function execute()
+            {
+            
+            }
         }
         PHP;
     }

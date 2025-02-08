@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Components\Ui;
 
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
 
 class ImageViewer extends Component
 {
