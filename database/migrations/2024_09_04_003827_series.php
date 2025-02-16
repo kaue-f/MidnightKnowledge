@@ -39,11 +39,11 @@ return new class extends Migration
             $table->foreignUuid('serie_id')->constrained()->onDelete('cascade');
             $table->boolean('library');
             $table->enum('status', [
-                'Progresso',
-                'Lista',
-                'Finalizado',
-                'Pausado',
-                'Dropado',
+                'PROGRESSO',
+                'LISTA',
+                'FINALIZADO',
+                'PAUSADO',
+                'DROPADO'
             ])->nullable();
             $table->boolean('favorite')->nullable();
             $table->timestamps();

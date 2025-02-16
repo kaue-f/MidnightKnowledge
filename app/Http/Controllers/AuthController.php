@@ -17,7 +17,7 @@ class AuthController extends Controller
                 'nickname' => $user['nickname'],
                 'email' => $user['email'],
                 'password' => $user['password'],
-                'role' => Roles::Member,
+                'role' => Roles::MEMBER->name,
             ]);
 
             if (isNullOrEmpty($user)) {

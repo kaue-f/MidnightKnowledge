@@ -4,11 +4,11 @@ namespace App\Enums;
 
 enum Status: string
 {
-    case Progresso = 'Em Progresso';
-    case Lista = 'Lista de Desejos';
-    case Finalizado = 'Finalizado';
-    case Pausado = 'Pausado';
-    case Dropado = 'Dropado';
+    case PROGRESSO = 'Em Progresso';
+    case LISTA = 'Lista de Desejos';
+    case FINALIZADO = 'Finalizado';
+    case PAUSADO = 'Pausado';
+    case DROPADO = 'Dropado';
 
     public static function array(): array
     {
@@ -18,14 +18,19 @@ enum Status: string
         );
     }
 
+    public static function getValue()
+    {
+        return array_map(fn($status) => $status->value, self::cases());
+    }
+
     public static function set($value): string
     {
         return match ($value) {
-            Status::Progresso->name => Status::Progresso->value,
-            Status::Lista->name => Status::Lista->value,
-            Status::Finalizado->name => Status::Finalizado->value,
-            Status::Pausado->name => Status::Pausado->value,
-            Status::Dropado->name => Status::Dropado->value,
+            Status::PROGRESSO->name => Status::PROGRESSO->value,
+            Status::LISTA->name => Status::LISTA->value,
+            Status::FINALIZADO->name => Status::FINALIZADO->value,
+            Status::PAUSADO->name => Status::PAUSADO->value,
+            Status::DROPADO->name => Status::DROPADO->value,
             default => "",
         };
     }
