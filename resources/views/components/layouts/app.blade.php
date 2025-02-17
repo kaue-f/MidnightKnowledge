@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('css')
 </head>
 
 <body class="h-screen antialiased text-base-content bg-base-100">
