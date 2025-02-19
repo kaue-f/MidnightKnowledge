@@ -101,7 +101,6 @@
         @endforeach
     </article>
     <div wire:loading class="flex w-full text-center h-full" wire:target.except="gamesQuery">
-        {{-- <span class="loading loading-spinner w-32 text-primary/75"></span> --}}
         <x-ui.loading-coffee />
     </div>
     <div class="flex gap-6 w-full">
