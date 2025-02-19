@@ -1,1 +1,4 @@
-import "./bootstrap";
+import './bootstrap';
+import * as echarts from 'echarts';
+
+window.echarts = echarts;

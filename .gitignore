@@ -5,13 +5,13 @@
 /public/storage
 /public/covers
 /public/avatars
-
 /storage/*.key
 /storage/app/livewire-tmp
 /storage/app/covers/*
 /storage/app/avatars/*.png
 /public/old-avatars/*.png
 /vendor
+.nvmrc
 .env
 .env.backup
 .env.production

@@ -13,7 +13,7 @@ use App\Services\GameManagementService;
 class AddGame extends Component
 {
     use WithFileUploads;
-    public User $user;
+    public ?User $user;
     public array $platforms;
     public array $classifications;
     public GameForm $gameForm;

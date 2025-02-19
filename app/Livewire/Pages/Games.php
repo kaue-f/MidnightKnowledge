@@ -9,6 +9,7 @@ use App\Services\CacheService;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
+use Illuminate\Support\Facades\Auth;
 
 class Games extends Component
 {

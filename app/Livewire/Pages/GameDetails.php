@@ -33,7 +33,9 @@ class GameDetails extends Component
 
     public function mount()
     {
-        $this->ratings['avg'] = $this->game->ratings()->avg('rating') ?? 0;
+        $gameUser = $this->game->users()
+            ->where('user_id', Auth::id())
+            ->first();
 
         $userRating = $this->game->ratings()
             ->where([
@@ -41,17 +43,13 @@ class GameDetails extends Component
                 ['user_id', Auth::id()],
             ])->first();
 
-        $this->ratings['value'] = (isNullOrEmpty($userRating) || !Auth::id())
-            ? (int) $this->game->ratings()->avg('rating') ?? 0
-            : $userRating->rating;
-
-        $gameUser = $this->game->users()
-            ->where('user_id', Auth::id())
-            ->first();
-
         $this->favorite = $gameUser->pivot->favorite ?? false;
         $this->library =  $gameUser->pivot->library ?? false;
         $this->status = Status::set($gameUser->pivot->status ?? "");
+        $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
+        $this->ratings['value'] = (isNullOrEmpty($userRating) || !Auth::id())
+            ? (int) $this->game->ratings()->avg('rating') ?? 0
+            : $userRating->rating;
     }
 
     public function handleLibrary(bool $library, string $status = "")

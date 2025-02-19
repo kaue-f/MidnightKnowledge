@@ -41,7 +41,7 @@
                     </div>
                     <div class="h-10 bg-accent hover:bg-accent/80 join-item">
                         <input type="radio" id="year" name="options" class="peer hidden" />
-                        <label for="year"wire:click="gamesQuery('release_date|desc')"
+                        <label for="year" wire:click="gamesQuery('release_date|desc')"
                             class="flex size-full items-center gap-x-2 font-medium px-[0.85rem] max-[600px]:peer-checked:rounded-b peer-checked:rounded-r peer-checked:bg-primary text-sm hover:cursor-pointer perer-checked:hover:bg-primary/80">
                             Ano de Lançamento
                             <x-icon
@@ -88,8 +88,7 @@
                     </div>
                     <div class="flex gap-x-4 items-end h-full place-self-end pb-2">
                         <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
-                        <x-button label="Filtrar" class="btn-sm btn-primary" type="submit"
-                            x-on:click="open = ! open" />
+                        <x-button label="Filtrar" class="btn-sm btn-primary" type="submit" x-on:click="open = ! open" />
                     </div>
                 </div>
             </x-form>
@@ -105,7 +104,7 @@
         <span class="loading loading-spinner w-32 text-primary/75"></span>
     </div>
     <div class="flex gap-6 w-full">
-        @if (!isNullOrEmpty($games))
+        @if (! isNullOrEmpty($games->hasPages()))
             <div>
                 <x-select class="select-sm !border-none" :options="$numbersPage" wire:model.live="page" />
             </div>

@@ -117,18 +117,19 @@
             <div x-data="{ open: true }" class="flex flex-col w-full">
                 <div class="flex justify-center gap-2 w-full border-b border-black/65">
                     <div class="px-2 pb-1 hover:cursor-pointer"
-                        :class="open ? 'border-b-2 border-primary font-medium' : 'font-light'" x-on:click="open = true">
+                        :class="! open ? 'border-b-2 border-primary font-medium' : 'font-light'" x-on:click="open = false">
                         Avaliações
                     </div>
                     <div class="px-2 pb-1 hover:cursor-pointer"
-                        :class="!open ? 'border-b-2 border-primary font-medium' : 'font-light'"
-                        x-on:click="open = false">
+                        :class="open ? 'border-b-2 border-primary font-medium' : 'font-light'"
+                        x-on:click="open = true">
                         Estatísticas
                     </div>
                 </div>
-                <div class="" :class="open ? '' : 'hidden'">
+                <div :class="! open ? '' :'hidden'">
                 </div>
-                <div class="" :class="!open ? '' : 'hidden'">
+                <div :class="open ? '' : 'hidden'">
+                    <livewire:components.chart :content="$game" :type="App\Enums\ContentType::GAME" />
                 </div>
             </div>
         </div>
