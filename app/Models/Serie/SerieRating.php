@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SerieRating extends Model
 {
     use SoftDeletes;
-
     protected $fillable = ['serie_id', 'user_id', 'rating'];
 
     public function serie()

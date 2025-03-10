@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MovieRating extends Model
 {
     use SoftDeletes;
-
     protected $fillable = ['movie_id', 'user_id', 'rating'];
 
     public function movie()

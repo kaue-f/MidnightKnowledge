@@ -53,8 +53,7 @@
                 </div>
                 <x-textarea wire:model='gameForm.synopsis' placeholder="Sinopse do game..." rows="5" inline />
                 <div class="flex justify-end pb-1 px-2">
-                    <span class="text-xs text-base-content/75 font-light"
-                        x-text="count - $wire.gameForm.synopsis.length"></span>
+                    <span class="text-xs opacity-60 font-light" x-text="count - $wire.gameForm.synopsis.length"></span>
                 </div>
             </label>
             <div class="flex justify-between">

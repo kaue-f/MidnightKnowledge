@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BookRating extends Model
 {
     use SoftDeletes;
-
     protected $fillable = ['book_id', 'user_id', 'rating'];
 
     public function book()

@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4 border-b border-white/50 pb-3.5">
     <h1 class="text-lg font-semibold">Excluir Conta</h1>
     <div class="flex flex-row justify-between">
-        <div class="text-sm font-light text-base-content/85 w-2/5">
+        <div class="text-sm font-light opacity-75 w-2/5">
             Excluir permanentemente sua conta no Midnight Knowledge. Após a exclusão, os dados associados à sua conta
             não poderão ser recuperados. No entanto, os conteúdos que você adicionou ao Midnight Knowledge serão
             preservados.

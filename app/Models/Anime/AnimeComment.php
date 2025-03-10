@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AnimeComment extends Model
 {
     use SoftDeletes;
-
-    protected $fillable = ['anime_id', 'user_id', 'comment'];
+    protected $fillable = ['anime_id', 'user_id', 'comment', 'like', 'dislike'];
 
     public function anime()
     {

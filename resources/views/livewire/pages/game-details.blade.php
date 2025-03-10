@@ -18,20 +18,20 @@
                     <p class="text-xs font-light">{{ $classification->description }}</p>
                 </div>
                 <div class="flex flex-col space-y-1 w-full">
-                    <p class="font-light text-base-content/85">Data de Lançamento</p>
+                    <p class="font-light opacity-60">Data de Lançamento</p>
                     <div class="space-x-0.5 items-center">
-                        <x-icon class="text-base-content/75 w-3 h-3" name="fas.calendar-alt" />
+                        <x-icon class="opacity-60 w-3 h-3" name="fas.calendar-alt" />
                         <span class="text-sm capitalize">{{ hasDate($game->release_date) }}</span>
                     </div>
                 </div>
                 <div class="flex flex-col space-y-1 w-full">
-                    <p class="font-light text-base-content/85">Desenvolvedor</p>
+                    <p class="font-light opacity-60">Desenvolvedor</p>
                     <span class="text-sm">{{ hasValue($game->developed_by) }}</span>
                 </div>
                 <div class="flex flex-col space-y-1 w-full">
-                    <p class="font-light text-base-content/85">Duração média do jogo</p>
+                    <p class="font-light opacity-60">Duração média do jogo</p>
                     <div class="space-x-0.5 items-center">
-                        <x-icon class="text-base-content/75 w-3 h-3" name="bi.clock-fill" />
+                        <x-icon class="opacity-60 w-3 h-3" name="bi.clock-fill" />
                         <span class="text-sm">{{ hasValue($game->durantion) }}</span>
                     </div>
                 </div>
@@ -53,13 +53,13 @@
                                 </div>
                                 <ul tabindex="0"
                                     class="dropdown-content menu bg-base-300 rounded z-[1] w-52 p-2 shadow">
-                                    <li class="text-xs text-base-content/70 p-2">
+                                    <li class="text-xs opacity-50 p-2">
                                         {{ $library ? 'Atualização de progresso' : 'Adicionar na biblioteca' }}
                                     </li>
                                     @foreach ($statuses as $key => $value)
                                         <li>
                                             <div wire:click='handleLibrary(true,"{{ $key }}")'
-                                                class="flex justify-between {{ $status === $value ? 'text-success' : '' }} hover:text-primary hover:bg-transparent active:bg-transparent py-1 px-2 hover:cursor-pointer">
+                                                class="flex justify-between {{ $status === $value ? 'text-success font-medium' : '' }} hover:text-primary hover:bg-transparent active:bg-transparent py-1 px-2 hover:cursor-pointer">
                                                 {{ $value }}
                                                 <x-icon name="bi.bookmark-plus" class="hover:text-primary" />
                                             </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="flex space-x-2 items-center justify-start">
                         <x-rating wire:model.live="ratings.value" class="rating-sm bg-yellow-500" total="10" />
-                        <p class="font-medium text-yellow-500">{{ $ratings['avg'] }}</p>
+                        <p wire:text="ratings.value" class="font-medium text-yellow-500"></p>
                     </div>
                 </div>
                 <div class="flex gap-2">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col w-full">
-                    <p class="font-light text-base-content/85">Sinopse</p>
+                    <p class="font-light opacity-60">Sinopse</p>
                     <p class="text-justify">
                         {{ hasValue($game->synopsis) }}
                     </p>
@@ -116,20 +116,31 @@
             </div>
             <div x-data="{ open: true }" class="flex flex-col w-full">
                 <div class="flex justify-center gap-2 w-full border-b border-black/65">
-                    <div class="px-2 pb-1 hover:cursor-pointer"
-                        :class="! open ? 'border-b-2 border-primary font-medium' : 'font-light'" x-on:click="open = false">
-                        Avaliações
+                    <div class="px-2 pb-1 hover:cursor-pointer transition-all ease-linear duration-300"
+                        :class="open ? 'border-b-2 border-primary font-medium' : 'font-light'" x-on:click="open = true">
+                        <div x-show="!open" x-cloak>
+                            <x-icon name="o-chat-bubble-left-right" label="Comentários" />
+                        </div>
+                        <div x-show="open">
+                            <x-icon name="m-chat-bubble-left-right" label="Comentários" />
+                        </div>
                     </div>
-                    <div class="px-2 pb-1 hover:cursor-pointer"
-                        :class="open ? 'border-b-2 border-primary font-medium' : 'font-light'"
-                        x-on:click="open = true">
-                        Estatísticas
+                    <div class="px-2 pb-1 hover:cursor-pointer transition-all ease-linear duration-300"
+                        :class="!open ? 'border-b-2 border-primary font-medium' : 'font-light'"
+                        x-on:click="open = false" wire:click="$dispatchTo('components.review-charts', 'init-chart')">
+                        <div x-show="!open" x-cloak>
+                            <x-icon name="m-chart-bar" label="Estatísticas" />
+                        </div>
+                        <div x-show="open">
+                            <x-icon name="o-chart-bar" label="Estatísticas" />
+                        </div>
                     </div>
                 </div>
-                <div :class="! open ? '' :'hidden'">
+                <div x-show="open" x-cloak x-transition.all.duration.300ms>
+                    <livewire:components.comment-section :content="$game" :type="App\Enums\ContentType::GAME" />
                 </div>
-                <div :class="open ? '' : 'hidden'">
-                    <livewire:components.chart :content="$game" :type="App\Enums\ContentType::GAME" />
+                <div x-show="!open" x-transition.all.duration.300ms>
+                    <livewire:components.review-charts :content="$game" :type="App\Enums\ContentType::GAME" />
                 </div>
             </div>
         </div>

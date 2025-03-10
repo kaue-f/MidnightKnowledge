@@ -17,6 +17,7 @@ class GameDetails extends Component
     public bool $library = false;
     public string $status;
     private readonly ContentLibraryService $contentLibraryService;
+
     public function render()
     {
         return view('livewire.pages.game-details', [

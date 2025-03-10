@@ -4,11 +4,10 @@ namespace App\Livewire\Components;
 
 use App\Enums\Status;
 use Livewire\Component;
-use App\Enums\ContentType;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class Chart extends Component
+class ReviewCharts extends Component
 {
     public $content;
     public $type;
@@ -24,7 +23,7 @@ class Chart extends Component
 
     public function render()
     {
-        return view('livewire.components.chart');
+        return view('livewire.components.review-charts');
     }
 
     public function mount()
@@ -35,7 +34,8 @@ class Chart extends Component
 
     public function getChartsStatus()
     {
-        $query = $this->getQuery('status');
+        $query = DB::table("{$this->type->value}_user")
+            ->where("{$this->type->value}_id", $this->content->id);
 
         $this->chartStatus['FAVORITE'] = $query->sum(DB::raw('case when favorite = 1 then 1 else 0 end'));
 
@@ -56,9 +56,9 @@ class Chart extends Component
 
     public function getChartsRatings()
     {
-        $query = $this->getQuery('ratings');
-
-        $arrRatings = $query->selectRaw('rating, count(rating) as count')
+        $arrRatings = DB::table("{$this->type->value}_ratings")
+            ->selectRaw('rating, count(rating) as count')
+            ->where("{$this->type->value}_id", $this->content->id)
             ->groupBy('rating')
             ->get()->toArray();
 
@@ -81,25 +81,5 @@ class Chart extends Component
             $arr[9],
             $arr[10]
         ];
-    }
-
-    public function getQuery($targetTable)
-    {
-        return DB::table(match ($this->type) {
-            ContentType::ANIME => ($targetTable === 'status') ? 'anime_user' : 'anime_ratings',
-            ContentType::BOOK => ($targetTable === 'status') ? 'book_user' : 'book_ratings',
-            ContentType::GAME => ($targetTable === 'status') ? 'game_user' : 'game_ratings',
-            ContentType::MANGA => ($targetTable === 'status') ? 'manga_user' : 'manga_ratings',
-            ContentType::MOVIE => ($targetTable === 'status') ? 'movie_user' : 'movie_ratings',
-            ContentType::SERIES => ($targetTable === 'status') ? 'serie_user' : 'serie_ratings',
-        })
-            ->where(match ($this->type) {
-                ContentType::ANIME => 'anime_id',
-                ContentType::BOOK => 'book_id',
-                ContentType::GAME => 'game_id',
-                ContentType::MANGA => 'manga_id',
-                ContentType::MOVIE => 'movie_id',
-                ContentType::SERIES => 'serie_id',
-            }, $this->content->id);
     }
 }

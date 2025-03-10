@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="flex flex-col flex-1 gap-4 rounded-md border-2 border-accent bg-base-200 p-6">
-            <div class="text-base-content/85 text-sm space-y-6">
+            <div class="opacity-60 text-sm space-y-6">
                 <div>
                     Nome
                     <p class="text-lg text-base-content font-medium">{{ hasValue($user->username) }}</p>

@@ -34,6 +34,6 @@ class GameManagementService
             return notyf()->success("Game $game->title foi adicionado ao acervo Midnight Knowledge.");
         }
 
-        return notyf()->error("Não foi possível cadastrar o game desejado. Verifique os dados e tente novamente.");
+        return notyf()->warning("Não foi possível cadastrar o game desejado. Verifique os dados e tente novamente.");
     }
 }

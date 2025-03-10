@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AnimeRating extends Model
 {
     use SoftDeletes;
-
     protected $fillable = ['anime_id', 'user_id', 'rating'];
 
     public function anime()

@@ -9,6 +9,6 @@ enum ContentType: string
     case GAME = 'game';
     case MANGA = 'manga';
     case MOVIE = 'movie';
-    case SERIES = 'series';
-    case MOVIE_SERIES = 'movie_series';
+    case SERIE = 'serie';
+    case MOVIE_SERIE = 'movie_serie';
 }

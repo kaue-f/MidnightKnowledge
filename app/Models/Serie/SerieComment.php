@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SerieComment extends Model
 {
     use SoftDeletes;
-
-    protected $fillable = ['serie_id', 'user_id', 'comment'];
+    protected $fillable = ['serie_id', 'user_id', 'comment', 'like', 'dislike'];
 
     public function serie()
     {

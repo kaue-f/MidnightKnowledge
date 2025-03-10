@@ -64,6 +64,8 @@ return new class extends Migration
             $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
+            $table->integer('like')->nullable();
+            $table->integer('dislike')->nullable();
             $table->timestamps();
         });
 

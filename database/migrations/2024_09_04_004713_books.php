@@ -59,6 +59,8 @@ return new class extends Migration
             $table->foreignUuid('book_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
+            $table->integer('like')->nullable();
+            $table->integer('dislike')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
