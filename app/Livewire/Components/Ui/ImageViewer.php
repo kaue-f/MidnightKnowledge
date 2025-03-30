@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageViewer extends Component
 {
-    public string $image = "";
+    public $image = "";
     public string $title = "";
     public function render()
     {

@@ -1,0 +1,174 @@
+.synopsisField .CodeMirror {
+    @apply bg-accent rounded-sm textarea focus-within:border-primary focus-within:border-2 text-base-content;
+    @apply selection:bg-primary w-full !break-words !whitespace-pre-wrap;
+}
+
+.synopsisField-Error .CodeMirror {
+    @apply !border-error !border;
+}
+
+.editor-toolbar {
+    @apply bg-base-100 rounded-sm rounded-b-none p-1.5 h-10;
+
+    button {
+        @apply text-sm text-base-content;
+    }
+
+    button:hover {
+        @apply text-base-200;
+    }
+
+    button.active {
+        @apply text-base-300;
+    }
+}
+
+.editor-preview {
+    @apply bg-accent text-base-content;
+}
+
+.markdown {
+    h1 {
+        @apply text-4xl font-bold mb-5;
+    }
+
+    h2 {
+        @apply text-3xl font-bold mb-4;
+    }
+
+    h3 {
+        @apply text-2xl font-bold mb-3;
+    }
+
+    h4 {
+        @apply text-xl font-bold mb-2;
+    }
+
+    h5 {
+        @apply text-lg font-semibold mb-2;
+    }
+
+    h6 {
+        @apply text-base font-semibold mb-1;
+    }
+
+    p {
+        @apply mb-4;
+    }
+
+    strong,
+    b {
+        @apply font-bold;
+    }
+
+    em,
+    i {
+        @apply italic;
+    }
+
+    blockquote {
+        @apply border-l-4 border-gray-400 pl-4 italic text-gray-600 mb-4;
+    }
+
+    ul {
+        @apply list-disc list-inside;
+    }
+
+    ol {
+        @apply list-decimal list-inside;
+    }
+
+    li {
+        @apply mb-2;
+    }
+
+    a {
+        @apply text-blue-500 underline hover:text-blue-700;
+    }
+
+    code {
+        @apply text-red-500 px-1 rounded-sm;
+    }
+
+    pre {
+        @apply bg-gray-800 text-white rounded-sm overflow-x-auto;
+    }
+
+    hr {
+        @apply border-t border-gray-300 my-6;
+    }
+}
+
+.CodeMirror {
+    @apply rounded-sm rounded-t-none;
+
+    h1 {
+        @apply text-4xl font-bold mb-5;
+    }
+
+    h2 {
+        @apply text-3xl font-bold mb-4;
+    }
+
+    h3 {
+        @apply text-2xl font-bold mb-3;
+    }
+
+    h4 {
+        @apply text-xl font-bold mb-2;
+    }
+
+    h5 {
+        @apply text-lg font-semibold mb-2;
+    }
+
+    h6 {
+        @apply text-base font-semibold mb-1;
+    }
+
+    p {
+        @apply mb-4;
+    }
+
+    strong,
+    b {
+        @apply font-bold;
+    }
+
+    em,
+    i {
+        @apply italic;
+    }
+
+    blockquote {
+        @apply border-l-4 border-gray-400 pl-4 italic text-gray-600 mb-4;
+    }
+
+    ul {
+        @apply list-disc list-inside;
+    }
+
+    ol {
+        @apply list-decimal list-inside;
+    }
+
+    li {
+        @apply mb-2;
+    }
+
+    a {
+        @apply text-blue-500 underline hover:text-blue-700;
+    }
+
+    code {
+        @apply text-red-500 px-1 rounded-sm;
+    }
+
+    pre {
+        @apply bg-gray-800 text-white rounded-sm overflow-x-auto;
+    }
+
+    hr {
+        @apply border-t border-gray-300 my-6;
+    }
+}

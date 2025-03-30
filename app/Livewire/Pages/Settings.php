@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Pages;
 
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Title;
+use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
 class Settings extends Component
 {
     public string $selectedTab = "all-tab";
-    public $user;
+    public ?User $user;
     public string $avatar;
 
     #[Title('Configurações')]

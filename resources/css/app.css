@@ -1,7 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui" {
+    themes: dark --default, dark --prefersdark;
+}
+
+@source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+    --font-noto: Noto Sans, sans-serif;
+}
+
+@import "./markdown.css";
+@import "./loadingCoffee.css";
 
 body {
     @apply font-noto;
@@ -16,203 +32,76 @@ article {
 }
 
 .input,
+.select,
 .textarea {
-    @apply bg-accent focus:border-2 focus:border-primary focus:outline-none rounded;
+    @apply bg-accent !outline-none;
+}
+
+.input:not([class*="!input-error"]),
+.select:not([class*="!select-error"]),
+.textarea:not([class*="!textarea-error"]) {
+    @apply focus-within:border-primary focus-within:border-2;
+}
+
+.fieldset-legend {
+    @apply text-[0.9rem] opacity-90;
+}
+
+.fieldset-label {
+    @apply text-sm;
+}
+
+.fieldset .text-error {
+    @apply text-sm font-medium;
 }
 
 .btn {
-    @apply border-0 rounded;
+    @apply border-0;
 }
-
-.checkbox {
-    @apply rounded;
-}
-
-.select {
-    @apply bg-accent focus:border-2 focus:border-primary focus:outline-none rounded;
-
-    option {
-        @apply bg-base-200 font-semibold;
-    }
-}
-
 .navbar-dropdown {
-
     ul,
     .menu {
-        @apply rounded;
-
         a {
             @apply active:bg-transparent;
         }
     }
 }
 
-/* Start Markdown Style Configuration */
-.markdown {
-    h1 {
-        @apply text-4xl font-bold mb-5;
-    }
-
-    h2 {
-        @apply text-3xl font-bold mb-4;
-    }
-
-    h3 {
-        @apply text-2xl font-bold mb-3;
-    }
-
-    h4 {
-        @apply text-xl font-bold mb-2;
-    }
-
-    h5 {
-        @apply text-lg font-semibold mb-2;
-    }
-
-    h6 {
-        @apply text-base font-semibold mb-1;
-    }
-
-    p {
-        @apply mb-4;
-    }
-
-    strong,
-    b {
-        @apply font-bold;
-    }
-
-    em,
-    i {
-        @apply italic;
-    }
-
-    blockquote {
-        @apply border-l-4 border-gray-400 pl-4 italic text-gray-600 mb-4;
-    }
-
-    ul {
-        @apply list-disc list-inside;
-    }
-
-    ol {
-        @apply list-decimal list-inside;
-    }
-
-    li {
-        @apply mb-2;
-    }
-
-    a {
-        @apply text-blue-500 underline hover:text-blue-700;
-    }
-
-    code {
-        @apply text-red-500 px-1 rounded;
-    }
-
-    pre {
-        @apply bg-gray-800 text-white rounded overflow-x-auto;
-    }
-
-    hr {
-        @apply border-t border-gray-300 my-6;
-    }
+.spotlight .input {
+    @apply bg-base-100 border-0;
 }
 
-.editor-toolbar {
-    @apply bg-base-100 rounded rounded-b-none p-1.5 h-10;
-
-    button {
-        @apply text-sm text-base-content
-    }
-
-    button:hover {
-        @apply text-base-200
-    }
-
-    button.active {
-        @apply text-base-300
-    }
+@plugin "daisyui/theme" {
+    name: "dark";
+    default: false;
+    prefersdark: true;
+    color-scheme: "dark";
+    --color-primary: oklch(49.3% 0.254 265.968);
+    --color-primary-content: oklch(98.6% 0 89.876);
+    --color-secondary: oklch(63.2% 0.197 253.44);
+    --color-secondary-content: oklch(98.6% 0 89.876);
+    --color-accent: oklch(37.8% 0 89.876);
+    --color-accent-content: oklch(98.6% 0 89.876);
+    --color-neutral: oklch(67.6% 0 89.876);
+    --color-neutral-content: oklch(98.6% 0 89.876);
+    --color-base-100: oklch(18.8% 0 89.876);
+    --color-base-200: oklch(27.3% 0 89.876);
+    --color-base-300: oklch(9% 0 89.876);
+    --color-base-content: oklch(98.6% 0 89.876);
+    --color-info: oklch(40.1% 0.178 269.113);
+    --color-info-content: oklch(98.6% 0 89.876);
+    --color-success: oklch(62% 0.194 149.214);
+    --color-success-content: oklch(98.6% 0 89.876);
+    --color-warning: oklch(64% 0.222 41.116);
+    --color-warning-content: oklch(98.6% 0 89.876);
+    --color-error: oklch(57% 0.245 27.325);
+    --color-error-content: oklch(98.6% 0 89.876);
+    --radius-selector: 0.25rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
 }
-
-.CodeMirror {
-    @apply rounded rounded-t-none;
-
-    h1 {
-        @apply text-4xl font-bold mb-5;
-    }
-
-    h2 {
-        @apply text-3xl font-bold mb-4;
-    }
-
-    h3 {
-        @apply text-2xl font-bold mb-3;
-    }
-
-    h4 {
-        @apply text-xl font-bold mb-2;
-    }
-
-    h5 {
-        @apply text-lg font-semibold mb-2;
-    }
-
-    h6 {
-        @apply text-base font-semibold mb-1;
-    }
-
-    p {
-        @apply mb-4;
-    }
-
-    strong,
-    b {
-        @apply font-bold;
-    }
-
-    em,
-    i {
-        @apply italic;
-    }
-
-    blockquote {
-        @apply border-l-4 border-gray-400 pl-4 italic text-gray-600 mb-4;
-    }
-
-    ul {
-        @apply list-disc list-inside;
-    }
-
-    ol {
-        @apply list-decimal list-inside;
-    }
-
-    li {
-        @apply mb-2;
-    }
-
-    a {
-        @apply text-blue-500 underline hover:text-blue-700;
-    }
-
-    code {
-        @apply text-red-500 px-1 rounded;
-    }
-
-    pre {
-        @apply bg-gray-800 text-white rounded overflow-x-auto;
-    }
-
-    hr {
-        @apply border-t border-gray-300 my-6;
-    }
-}
-
-.editor-preview {
-    @apply bg-accent text-base-content;
-}
-
-/* End Markdown Style Configuration */

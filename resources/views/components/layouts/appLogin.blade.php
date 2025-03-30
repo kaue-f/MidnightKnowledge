@@ -11,11 +11,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex flex-col w-screen h-screen antialiased bg-gradient-to-b from-[#280a4e] via-[#200039] to-[#040218]">
+<body class="flex flex-col w-screen h-screen antialiased bg-linear-to-b from-[#280a4e] via-[#200039] to-[#040218]">
 
     <main class="w-full flex h-full justify-center items-center">
         {{ $slot }}
     </main>
+
     @stack('scripts')
 </body>
 

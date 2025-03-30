@@ -1,9 +1,9 @@
 <div class="flex flex-col w-full py-6 px-8 gap-10">
-    <div class="flex flex-col py-2 px-4 gap-y-2 w-full rounded bg-base-200">
+    <div class="flex flex-col py-2 px-4 gap-y-2 w-full rounded-sm bg-base-200">
         <p class="font-medium">Distribuição das Avaliações</p>
         <div id="mainRatings" style="width: 100%; height: 15rem;"></div>
     </div>
-    <div class="flex flex-col py-2 px-4 gap-y-2 w-full rounded bg-base-200">
+    <div class="flex flex-col py-2 px-4 gap-y-2 w-full rounded-sm bg-base-200">
         <p class="font-medium">Distribuição dos Status dos Conteúdos</p>
         <div id="mainStatus" style="width: 100%; height: 8rem;"></div>
     </div>
@@ -29,7 +29,7 @@
                             tooltip: {
                                 trigger: 'axis',
                                 axisPointer: {
-                                    type: 'shadow'
+                                    type: 'shadow-sm'
                                 }
                             },
                             legend: {
@@ -144,7 +144,7 @@
                             tooltip: {
                                 trigger: 'axis',
                                 axisPointer: {
-                                    type: 'shadow'
+                                    type: 'shadow-sm'
                                 }
                             },
                             xAxis: [{

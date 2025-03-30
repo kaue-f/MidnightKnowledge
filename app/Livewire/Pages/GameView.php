@@ -9,7 +9,7 @@ use App\Models\Classification;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ContentLibraryService;
 
-class GameDetails extends Component
+class GameView extends Component
 {
     public Game $game;
     public array $ratings = ['avg' => 0, 'value' => 0];
@@ -20,7 +20,7 @@ class GameDetails extends Component
 
     public function render()
     {
-        return view('livewire.pages.game-details', [
+        return view('livewire.pages.game-view', [
             'statuses' => Status::array(),
             'classification' => Classification::find($this->game->classification_id)
         ])
@@ -45,9 +45,13 @@ class GameDetails extends Component
             ])->first();
 
         $this->favorite = $gameUser->pivot->favorite ?? false;
+
         $this->library =  $gameUser->pivot->library ?? false;
+
         $this->status = Status::set($gameUser->pivot->status ?? "");
+
         $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
+
         $this->ratings['value'] = (isNullOrEmpty($userRating) || !Auth::id())
             ? (int) $this->game->ratings()->avg('rating') ?? 0
             : $userRating->rating;
@@ -59,7 +63,9 @@ class GameDetails extends Component
             return $this->dispatch('noLogged');
 
         $this->library = $library;
+
         $this->status = Status::set($status);
+
         $this->contentLibraryService->library($this->game, $library, $status);
     }
 
@@ -77,6 +83,7 @@ class GameDetails extends Component
             return $this->dispatch('noLogged');
 
         $this->contentLibraryService->rate($this->game, $this->ratings['value']);
+
         $this->ratings['avg'] = $this->game->ratings()->avg('rating');
     }
 }

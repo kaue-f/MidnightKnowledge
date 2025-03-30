@@ -1,5 +1,5 @@
 <dialog id="imageViewer" class="modal rounded-none backdrop-blur-[2px]">
-    <div class="modal-box flex justify-center items-center !bg-transparent !py-0 min-h-screen max-w-full">
+    <div class="modal-box flex justify-center items-center bg-transparent! py-0! min-h-screen max-w-full">
         <x-icon wire:loading.remove class="w-6 h-6 absolute left-0 top-3 hover:animate-bounce hover:cursor-pointer"
             name="m-arrow-down-tray" wire:click='download' />
 

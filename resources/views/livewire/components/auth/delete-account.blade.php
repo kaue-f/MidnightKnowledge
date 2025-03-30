@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-4 border-b border-white/50 pb-3.5">
+<div class="flex flex-col gap-4">
     <h1 class="text-lg font-semibold">Excluir Conta</h1>
     <div class="flex flex-row justify-between">
         <div class="text-sm font-light opacity-75 w-2/5">
@@ -10,8 +10,8 @@
             <x-button label="Excluir Conta" class="btn btn-error" @click="$wire.modalUserDelete = true" />
         </div>
     </div>
-    <x-modal wire:model="modalUserDelete" title="Excluir Usuário" class="backdrop-blur" box-class="w-100 rounded">
-        <div class="indent-3 leading-relaxed text-justify text-sm">
+    <x-modal wire:model="modalUserDelete" title="Excluir Usuário" class="backdrop-blur-sm" box-class="w-100 rounded-sm">
+        <div class="indent-3 text-justify text-sm space-y-1.5">
             <p>
                 Você tem certeza de que deseja excluir sua conta no Midnight Knowledge?
                 Ao seguir em frente, você perderá o acesso à sua conta e os dados não poderão ser recuperados. No

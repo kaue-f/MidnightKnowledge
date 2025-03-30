@@ -25,17 +25,24 @@ class AddGame extends Component
         'altFormat' => 'd/F/Y',
         'locale' => 'pt',
     ];
-    public function render()
-    {
-        return view('livewire.components.modals.add-game');
-    }
+    public array $configSynopsis = [
+        'inputStyle' => 'contenteditable',
+        'toolbar' => false,
+        'statusbar' => false,
+        'maxHeight' => '125px',
+        'uploadImage' => false,
+        'placeholder' => 'Sinopse do game...',
+        'status' => false,
+        'forceSync' => true,
+        'plugins' => 'autoresize',
+    ];
 
-    public function save(GameManagementService $gameManagementService)
+    public function save(GameManagementService $game)
     {
         $this->validate();
         try {
-            $gameManagementService->create($this->gameForm, $this->user);
-            $this->modalGame = false;
+            $game->create($this->gameForm, $this->user);
+            $this->close();
         } catch (\Throwable $th) {
             notyf()->error("Falha no cadastrameto do game inserido. Verifique os dados e tente novamente.");
         }

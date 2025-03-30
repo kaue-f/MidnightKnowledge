@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum Roles: string
+enum Role: string
 {
     case MEMBER = 'Membro';
     case VIP = 'VIP';
@@ -10,8 +10,8 @@ enum Roles: string
     public static function set($value): string
     {
         return match ($value) {
-            Roles::MEMBER->name => Roles::MEMBER->value,
-            Roles::VIP->name => Roles::VIP->value,
+            Role::MEMBER->name => Role::MEMBER->value,
+            Role::VIP->name => Role::VIP->value,
             default => "",
         };
     }

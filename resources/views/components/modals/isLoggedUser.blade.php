@@ -1,5 +1,5 @@
 <dialog id="noLogged" class="modal">
-    <div class="modal-box rounded">
+    <div class="modal-box rounded-sm">
         <form method="dialog">
             <button class="btn-sm btn-ghost hover:bg-transparent hover:text-primary absolute right-2 top-2">✕</button>
         </form>

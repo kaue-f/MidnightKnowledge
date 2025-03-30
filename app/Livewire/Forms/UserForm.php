@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserForm extends Form
 {
-    public string $nickname;
-    public string $username;
-    public string $email;
-    public string $birthday;
+    public string $nickname = '';
+    public string $username = '';
+    public string $email = '';
+    public string $birthday = '';
 
     protected function rules()
     {
@@ -57,9 +57,9 @@ class UserForm extends Form
 
     public function setUser($user)
     {
-        $this->nickname = $user->nickname ?? "";
-        $this->username = $user->username ?? "";
-        $this->email = $user->email ?? "";
-        $this->birthday = $user->birthday ?? "";
+        $this->nickname = $user->nickname ?? '';
+        $this->username = $user->username ?? '';
+        $this->email = $user->email ?? '';
+        $this->birthday = $user->birthday ?? '';
     }
 }

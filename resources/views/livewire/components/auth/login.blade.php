@@ -2,8 +2,8 @@
     <div class="space-y-4">
         <x-input label="Nickname ou e-mail" wire:model='loginForm.user' />
         <x-password maxlength="25" label="Senha" wire:model='loginForm.password' right />
-        <div class="flex justify-between text-xs py-2 opacity-60">
-            <x-checkbox class="border-0 checkbox-sm rounded-md bg-accent" label="Lembre-me"
+        <div class="flex justify-between text-xs py-2 opacity-80">
+            <x-checkbox class="border-0 checkbox-sm rounded-md bg-accent checked:checkbox-primary" label="Lembre-me"
                 wire:model="loginForm.remember" />
             <a href="#" class=" hover:underline hover:text-purple-400">Esqueceu senha</a>
         </div>

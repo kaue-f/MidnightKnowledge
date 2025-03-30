@@ -20,7 +20,7 @@ class ContentLibraryService
                 ? notyf()->info("{$content->title} foi adicionado a sua biblioteca.")
                 : notyf()->info("{$content->title} foi removido da sua biblioteca.");
         } catch (\Throwable $th) {
-            ($library)
+            return ($library)
                 ? notyf()->error("Não foi possível adicionar {$content->title} a sua biblioteca. Tente novamente mais tarde.")
                 : notyf()->error("Não foi possível remover {$content->title} de sua biblioteca. Tente novamente mais tarde.");
         }
@@ -39,7 +39,7 @@ class ContentLibraryService
                 ? notyf()->info("{$content->title} foi adicionado aos favoritos.")
                 : notyf()->info("{$content->title} foi removido dos favoritos.");
         } catch (\Throwable $th) {
-            ($favorite)
+            return ($favorite)
                 ? notyf()->error("Não foi possível adicionar {$content->title} aos favoritos. Tente novamente mais tarde.")
                 : notyf()->error("Não foi possível remover {$content->title} dos favoritos. Tente novamente mais tarde.");
         }
@@ -47,20 +47,15 @@ class ContentLibraryService
 
     public function rate($content, int $value)
     {
-        try {
-            $content->ratings()
-                ->where([
-                    ['game_id', $content->id],
-                    ['user_id', Auth::id()],
-                ])
-                ->upsert([
-                    'game_id' => $content->id,
-                    'user_id' => Auth::id(),
-                    'rating' => $value,
-                ], uniqueBy: ['game_id', 'user_id'], update: ['rating']);
-
-            return;
-        } catch (\Throwable $th) {
-        }
+        $content->ratings()
+            ->where([
+                ['game_id', $content->id],
+                ['user_id', Auth::id()],
+            ])
+            ->upsert([
+                'game_id' => $content->id,
+                'user_id' => Auth::id(),
+                'rating' => $value,
+            ], uniqueBy: ['game_id', 'user_id'], update: ['rating']);
     }
 }

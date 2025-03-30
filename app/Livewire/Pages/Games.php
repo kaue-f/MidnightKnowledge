@@ -9,7 +9,6 @@ use App\Services\CacheService;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use Illuminate\Support\Facades\Auth;
 
 class Games extends Component
 {
@@ -21,7 +20,7 @@ class Games extends Component
     public array $plataform = [];
     public array $classifications;
     public array $classification = [];
-    public array $sortBy = ['column' => 'title', 'direction' => 'asc'];
+    public array $sortBy = ['column' => 'id', 'direction' => 'asc'];
     public array $numbersPage = [
         ['id' => 10, 'name' => 10],
         ['id' => 15, 'name' => 15],
@@ -66,7 +65,7 @@ class Games extends Component
             })
             ->when($this->plataform, function ($query) {
                 $query->whereHas('platforms', function ($query) {
-                    $query->whereIn('plataform', $this->plataform);
+                    $query->whereIn('platforms.id', $this->plataform);
                 });
             })
             ->when($this->classification, function ($query) {
@@ -77,9 +76,7 @@ class Games extends Component
 
     public function resetFilter()
     {
-        $this->reset('genre');
-        $this->reset('plataform');
-        $this->reset('classification');
+        $this->reset('genre', 'plataform', 'classification');
         $this->resetPage();
     }
 }

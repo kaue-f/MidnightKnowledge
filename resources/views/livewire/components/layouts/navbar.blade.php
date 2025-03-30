@@ -1,4 +1,4 @@
-<nav class="flex justify-between items-center max-w-screen-2xl mx-auto py-3 px-6 navbar-dropdown">
+<nav class="flex justify-between items-center max-w-(--breakpoint-2xl) mx-auto py-3 px-6 navbar-dropdown">
     <div class="flex w-1/2 items-center lg:w-auto">
         <a class="lg:hidden justify-start">
             <img src="{{ asset('images/layouts/Logo3.png') }}" wire:click="$toggle('showDrawer')" style="width:6rem">
@@ -11,7 +11,7 @@
         <x-button class="btn-ghost text-lg hover:text-primary hover:bg-transparent" label="Home" link="/" />
         <x-dropdown>
             <x-slot:trigger>
-                <div class="label py-0 gap-1 hover:text-primary hover:cursor-pointer">
+                <div class="py-0 gap-1 hover:text-primary hover:cursor-pointer">
                     Explorar
                     <x-icon name="s-chevron-down" />
                 </div>
@@ -27,7 +27,7 @@
     </div>
     <div class="flex justify-end gap-6 items-center">
         <div>
-            <x-button class="btn-sm text-base text-white btn-secondary rounded-badge max-sm:hidden"
+            <x-button class="btn-sm text-base text-white btn-primary max-sm:hidden"
                 @click.stop="$dispatch('mary-search-open')">
                 <x-icon name="c-magnifying-glass" />
                 Search
@@ -56,19 +56,18 @@
                     <x-menu-item icon="o-arrow-right-end-on-rectangle" title="Logout" wire:click="logout" spinner
                         @click.stop="" />
                 @else
-                    <x-menu-item class="!justify-center" title="Entrar" link="/login" />
-                    <x-menu-item class="!justify-center" title="Cadastrar" link="/sign" />
+                    <x-menu-item class="justify-center!" title="Entrar" link="/login" />
+                    <x-menu-item class="justify-center!" title="Cadastrar" link="/sign" />
                 @endauth
             </x-dropdown>
         </div>
     </div>
-    <x-drawer wire:model="showDrawer" class="w-1/3 gap-4 !px-4">
+    <x-drawer wire:model="showDrawer" class="w-1/3 gap-4 px-4!">
         <div class="flex justify-center">
-            <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:100%">
+            <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:75%">
         </div>
         <x-menu class="w-full">
-            <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown" title="Home"
-                link="/" />
+            <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown" title="Home" link="/" />
             <ul class="menu">
                 <li>
                     <h2 class="menu-title">Explorar</h2>

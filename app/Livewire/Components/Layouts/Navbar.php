@@ -4,13 +4,12 @@ namespace App\Livewire\Components\Layouts;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
+use App\Actions\LogoutAction;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AuthController;
 
 class Navbar extends Component
 {
     public bool $showDrawer = false;
-    public bool $passwordModal = false;
     public string $avatar;
     public string $name;
     public function render()
@@ -23,20 +22,17 @@ class Navbar extends Component
         if (Auth::check()) {
             $user = Auth::user();
             $this->avatar = $user->image ?? imageNoneUser();
-            $this->name = $user->nickname ?? '';
+            $this->name =  '';
         } else {
             $this->avatar = imageNoneUser();
             $this->name = "Convidado";
         }
     }
 
-    public function logout(AuthController $authController)
+    public function logout(LogoutAction $logout)
     {
-        try {
-            $authController->logout();
-        } catch (\Throwable $th) {
-            notyf()->warning("Não foi  possível desconecta usuário. Tente novamente mais tarde.");
-        }
+        $logout();
+        notyf()->info("Você foi desconectado com sucesso. Até logo!");
     }
 
     #[On('updateAvatar')]

@@ -19,8 +19,3 @@
         <div class="coffee-footer"></div>
     </div>
 </div>
-
-
-@push('css')
-    <link rel="stylesheet" href="css/loadingCoffee.css">
-@endpush

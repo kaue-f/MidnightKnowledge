@@ -21,11 +21,6 @@ class ReviewCharts extends Component
     ];
     public array $chartRatings;
 
-    public function render()
-    {
-        return view('livewire.components.review-charts');
-    }
-
     public function mount()
     {
         $this->getChartsStatus();

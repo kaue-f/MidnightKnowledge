@@ -2,9 +2,9 @@
 
 namespace App\Support;
 
-use App\Models\Anime\Anime;
 use App\Models\Book\Book;
 use App\Models\Game\Game;
+use App\Models\Anime\Anime;
 use App\Models\Manga\Manga;
 use App\Models\Movie\Movie;
 use App\Models\Serie\Serie;
@@ -32,7 +32,7 @@ class Spotlight
                 $rating = $anime->ratings()->avg('rating') ?? 0;
                 return [
                     'avatar' =>  asset($anime->image),
-                    'name' => "$anime->title ⭐$rating",
+                    'name' => "$anime->title ⭐" . round($rating, 2),
                     'description' => $anime->synopsis,
                     'link' => "/anime/$anime->id",
                 ];
@@ -48,7 +48,7 @@ class Spotlight
                 $rating = $book->ratings()->avg('rating') ?? 0;
                 return [
                     'avatar' =>  asset($book->image),
-                    'name' => "$book->title ⭐$rating",
+                    'name' => "$book->title ⭐" . round($rating, 2),
                     'description' => $book->synopsis,
                     'link' => "/book/$book->id",
                 ];
@@ -64,7 +64,7 @@ class Spotlight
                 $rating = $game->ratings()->avg('rating') ?? 0;
                 return [
                     'avatar' =>  asset($game->image),
-                    'name' => "$game->title ⭐$rating",
+                    'name' => "$game->title ⭐" . round($rating, 2),
                     'description' => $game->synopsis,
                     'link' => "/game/$game->id",
                 ];
@@ -80,7 +80,7 @@ class Spotlight
                 $rating = $manga->ratings()->avg('rating') ?? 0;
                 return [
                     'avatar' =>  asset($manga->image),
-                    'name' => "$manga->title ⭐$rating",
+                    'name' => "$manga->title ⭐" . round($rating, 2),
                     'description' => $manga->synopsis,
                     'link' => "/manga/$manga->id",
                 ];
@@ -96,7 +96,7 @@ class Spotlight
                 $rating = $movie->ratings()->avg('rating') ?? 0;
                 return [
                     'avatar' =>  asset($movie->image),
-                    'name' => "$movie->title ⭐$rating",
+                    'name' => "$movie->title ⭐" . round($rating, 2),
                     'description' => $movie->synopsis,
                     'link' => "/movie/$movie->id",
                 ];
@@ -112,7 +112,7 @@ class Spotlight
                 $rating = $serie->ratings()->avg('rating') ?? 0;
                 return [
                     'avatar' =>  asset($serie->image),
-                    'name' => "$serie->title ⭐$rating",
+                    'name' => "$serie->title ⭐" . round($rating, 2),
                     'description' => $serie->synopsis,
                     'link' => "/serie/$serie->id",
                 ];

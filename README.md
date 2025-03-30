@@ -14,6 +14,7 @@
 > Status do Projeto: :construction: Em Desenvolvimento
 
 ## Descrição
+
 <p align="justify">
 Midnight Knowledge é mais do que apenas uma grande lista de séries, animes e jogos: é uma comunidade onde os usuários podem interagir, compartilhar seus gostos e avaliar seus títulos favoritos. No site, os membros têm a oportunidade de registrar os títulos que já assistiram ou jogaram, avaliar obras, escrever descrições detalhadas e trocar experiências com outros usuários. Além disso, é possível criar e compartilhar reviews, construindo uma plataforma rica em opiniões e recomendações personalizadas.
 </p>
@@ -33,7 +34,8 @@ Midnight Knowledge é mais do que apenas uma grande lista de séries, animes e j
 ## Configuração do Ambiente
 
 ### Pré-requisitos
-:warning: [PHP 8.3](https://www.php.net/downloads.php)
+
+:warning: [PHP ^8.2](https://www.php.net/downloads.php)
 
 :warning: [Composer](https://getcomposer.org/download/)
 
@@ -66,27 +68,31 @@ Midnight Knowledge é mais do que apenas uma grande lista de séries, animes e j
   ```shell
    npm run dev
   ```
+
 ## Tecnologias Utilizadas
 
 ### Linguagem
-- [PHP 8.3](https://www.php.net/docs.php)
+
+- [PHP 8.4](https://www.php.net/docs.php)
 
 ### Framework
-- [Laravel 11](https://laravel.com/docs/11.x)
+
+- [Laravel 12](https://laravel.com/docs/11.x)
 - [Livewire 3](https://livewire.laravel.com/docs/quickstart)
 - [Alpine.js](https://alpinejs.dev)
-- [Tailwind](https://v3.tailwindcss.com/docs/installation)
+- [Tailwind 4](https://tailwindcss.com)
 
 ### Biblioteca
-- [DaisyUi](https://daisyui.com)
+
+- [DaisyUi 5](https://daisyui.com)
 - [MaryUi](https://mary-ui.com)
-- [PHPFlaser](https://php-flasher.io)
+- [PHPFlaser 2](https://php-flasher.io)
 
 ### Banco de dados
-- MySQL
 
+- MySQL
 
 ## Autores
 
 | [<img src="https://avatars.githubusercontent.com/u/90930907?v=4" width=115><br><sub>Kauê</sub>](https://github.com/kaue-f) |  [<img src="https://avatars.githubusercontent.com/u/140673462?v=4" width=115><br><sub>Gabriel</sub>](https://github.com/GabrielGabuu) |  [<img src="https://avatars.githubusercontent.com/u/137964574?v=4" width=115><br><sub>Matheus</sub>](https://github.com/MatheusOliveira3633) |
-| :---: | :---: | :---: 
+| :---: | :---: | :---:

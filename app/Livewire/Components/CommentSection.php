@@ -32,11 +32,6 @@ class CommentSection extends Component
     ];
     private readonly CommentService $commentService;
 
-    public function render()
-    {
-        return view('livewire.components.comment-section');
-    }
-
     public function boot(CommentService $commentService)
     {
         $this->commentService = $commentService;
@@ -51,6 +46,7 @@ class CommentSection extends Component
     public function post()
     {
         $this->validate();
+
         try {
             $this->commentService->create($this->comment, $this->content, $this->type, Auth::user());
             $this->reset('comment');
