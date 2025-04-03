@@ -3,14 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Book\Book;
-use App\Models\Game\Game;
-use App\Models\Anime\Anime;
-use App\Models\Manga\Manga;
-use App\Models\Movie\Movie;
-use App\Models\Serie\Serie;
+use App\Enums\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,45 +56,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function animes()
+    protected function username(): Attribute
     {
-        return $this->belongsToMany(Anime::class, 'anime_user')
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
+        return Attribute::make(
+            get: fn($value): string => hasValue($value)
+        );
     }
 
-    public function books()
+    protected function role(): Attribute
     {
-        return $this->belongsToMany(Book::class, 'book_user')
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
+        return Attribute::make(
+            get: fn($value): string => Role::tryFrom($value)->name
+        );
     }
 
-    public function games()
+    protected function birthday(): Attribute
     {
-        return $this->belongsToMany(Game::class, 'game_user')
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
-    }
-
-    public function mangas()
-    {
-        return $this->belongsToMany(Manga::class, 'manga_user')
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
-    }
-
-    public function movies()
-    {
-        return $this->belongsToMany(Movie::class, 'movie_user')
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
-    }
-
-    public function series()
-    {
-        return $this->belongsToMany(Serie::class, 'serie_user')
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
+        return Attribute::make(
+            get: fn($value): string => isDate($value)
+        );
     }
 }

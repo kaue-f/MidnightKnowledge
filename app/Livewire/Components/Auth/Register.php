@@ -23,7 +23,7 @@ class Register extends Component
                 'nickname' => $this->registerForm->nickname,
                 'email' => $this->registerForm->email,
                 'password' => $this->registerForm->password,
-                'role' => Role::MEMBER->name,
+                'role' => Role::Membro->value,
             ]);
 
             if (isNullOrEmpty($user)) {

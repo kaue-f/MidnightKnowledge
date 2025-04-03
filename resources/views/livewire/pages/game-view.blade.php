@@ -21,7 +21,7 @@
                     <p class="font-light opacity-80">Data de Lançamento</p>
                     <div class="space-x-0.5 items-center">
                         <x-icon class="opacity-80 w-3 h-3" name="fas.calendar-alt" />
-                        <span class="text-sm capitalize">{{ hasDate($game->release_date) }}</span>
+                        <span class="text-sm capitalize">{{ $game->release_date }}</span>
                     </div>
                 </div>
                 <div class="flex flex-col space-y-1 w-full">
@@ -110,7 +110,7 @@
                 <div class="flex flex-col w-full">
                     <p class="font-light opacity-80">Sinopse</p>
                     <div class="text-justify markdown">
-                        {!! nl2br(rtrim(Str::markdown(hasValue($game->synopsis)), "\n")) !!}
+                        {!! $game->synopsis !!}
                     </div>
                 </div>
             </div>

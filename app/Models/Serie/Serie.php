@@ -2,11 +2,12 @@
 
 namespace App\Models\Serie;
 
-use App\Models\Classification;
-use App\Models\Genre;
 use App\Models\User;
+use App\Models\Genre;
+use App\Models\Classification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -34,9 +35,23 @@ class Serie extends Model
         ];
     }
 
+    protected function releaseDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value): string => isDate($value)
+        );
+    }
+
+    protected function synopsis(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value): string => isMarkdown($value)
+        );
+    }
     public function users()
     {
         return $this->belongsToMany(User::class)
+            ->using(SerieUser::class)
             ->withPivot('library', 'status', 'favorite')
             ->withTimestamps();
     }

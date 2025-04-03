@@ -15,7 +15,7 @@ class GameView extends Component
     public array $ratings = ['avg' => 0, 'value' => 0];
     public bool $favorite = false;
     public bool $library = false;
-    public string $status;
+    public string $status = '';
     private readonly ContentLibraryService $contentLibraryService;
 
     public function render()
@@ -38,17 +38,17 @@ class GameView extends Component
             ->where('user_id', Auth::id())
             ->first();
 
+        if (!isNullOrEmpty($gameUser)) {
+            $this->favorite = $gameUser->pivot->favorite;
+            $this->library =  $gameUser->pivot->library;
+            $this->status = $gameUser->pivot->status;
+        }
+
         $userRating = $this->game->ratings()
             ->where([
                 ['game_id', $this->game->id],
                 ['user_id', Auth::id()],
             ])->first();
-
-        $this->favorite = $gameUser->pivot->favorite ?? false;
-
-        $this->library =  $gameUser->pivot->library ?? false;
-
-        $this->status = Status::set($gameUser->pivot->status ?? "");
 
         $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
 
@@ -64,7 +64,7 @@ class GameView extends Component
 
         $this->library = $library;
 
-        $this->status = Status::set($status);
+        $this->status = Status::getDescription($status);
 
         $this->contentLibraryService->library($this->game, $library, $status);
     }

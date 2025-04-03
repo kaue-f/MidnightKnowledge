@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 if (!function_exists('imageNoneUser')) {
     function imageNoneUser(): string
@@ -25,8 +26,8 @@ if (!function_exists('hasValue')) {
     }
 }
 
-if (!function_exists('hasDate')) {
-    function hasDate($value): string
+if (!function_exists('isDate')) {
+    function isDate($value): string
     {
         return isNullOrEmpty($value)
             ? 'N/A'
@@ -42,5 +43,14 @@ if (!function_exists('orderSortBy')) {
         return ($column == $sortBy['column'])
             ? ['column' => $column, 'direction' => ($sortBy['direction'] == 'desc') ? 'asc' : 'desc']
             : ['column' => $column, 'direction' => $direction];
+    }
+}
+
+if (!function_exists('isMarkdown')) {
+    function isMarkdown($value): string
+    {
+        return (! isNullOrEmpty($value))
+            ? nl2br(rtrim(Str::markdown($value), "\n"))
+            : "N/A";
     }
 }

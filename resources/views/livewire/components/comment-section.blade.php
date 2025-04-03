@@ -54,10 +54,10 @@
             <div class="flex-1 flex-col space-y-1">
                 <div class="flex flex-row justify-between -my-1">
                     <span class="font-semibold">{{ $post->user->nickname }}</span>
-                    <span class="text-xs opacity-50">{{ hasDate($post->created_at) }}</span>
+                    <span class="text-xs opacity-50">{{ isDate($post->created_at) }}</span>
                 </div>
                 <div class="markdown">
-                    {!! nl2br(rtrim(Str::markdown($post->comment), "\n")) !!}
+                    {!! isMarkdown($post->comment) !!}
                 </div>
             </div>
         </div>

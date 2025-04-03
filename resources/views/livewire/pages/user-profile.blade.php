@@ -13,7 +13,7 @@
             <div class="opacity-80 text-sm space-y-6">
                 <div>
                     Nome
-                    <p class="text-lg text-base-content font-medium">{{ hasValue($user->username) }}</p>
+                    <p class="text-lg text-base-content font-medium">{{ $user->username }}</p>
                 </div>
                 <div>
                     E-mail
@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     Data de Nascimento
-                    <p class="text-lg text-base-content font-medium">{{ hasDate($user->birthday) }}</p>
+                    <p class="text-lg text-base-content font-medium">{{ $user->birthday }}</p>
                 </div>
                 <div class="pt-1.5">
                     <x-popover>
@@ -32,12 +32,12 @@
                                     <div class="status status-lg bg-blue-600 rounded-full"></div>
                                 </div>
                                 <span class="text-base text-base-content font-semibold">
-                                    {{ \App\Enums\Role::set($user->role) }}
+                                    {{ $user->role }}
                                 </span>
                             </div>
                         </x-slot:trigger>
                         <x-slot:content class="text-xs font-medium w-48! bg-base-300">
-                            {{ 'Integrante da comunidade '.env('APP_NAME').' desde '.hasDate($user->created_at) }}
+                            {{ 'Integrante da comunidade '.env('APP_NAME').' desde '.isDate($user->created_at) }}
                         </x-slot:content>
                     </x-popover>
                 </div>
