@@ -11,21 +11,16 @@ class Navbar extends Component
 {
     public bool $showDrawer = false;
     public string $avatar;
-    public string $name;
-    public function render()
-    {
-        return view('livewire.components.layouts.navbar');
-    }
+    public string $name = "Convidado";
 
     public function mount()
     {
         if (Auth::check()) {
             $user = Auth::user();
             $this->avatar = $user->image ?? imageNoneUser();
-            $this->name =  '';
+            $this->name =  $user->nickname;
         } else {
             $this->avatar = imageNoneUser();
-            $this->name = "Convidado";
         }
     }
 

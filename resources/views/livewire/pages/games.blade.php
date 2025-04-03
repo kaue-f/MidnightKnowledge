@@ -70,15 +70,15 @@
         </div>
         <x-hr target="gamesQuery" />
     </div>
+
     <article wire:loading.remove wire:target.except="gamesQuery">
         @foreach ($games as $game)
             <x-ui.cover :item="$game" />
         @endforeach
     </article>
-    <div wire:loading class="absolute w-full text-center h-full top-0 left-0 backdrop-blur-[2px]"
-        wire:target.except="gamesQuery">
-        <x-ui.loading-coffee />
-    </div>
+
+    <x-ui.loading-coffee except="gamesQuery" />
+
     <div class="flex gap-6 w-full">
         @if (! isNullOrEmpty($games->hasPages()))
             <div>
