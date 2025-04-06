@@ -20,6 +20,8 @@ class Games extends Component
     public array $plataform = [];
     public array $classifications;
     public array $classification = [];
+    public array $developers = [];
+    public array $developer = [];
     public array $sortBy = ['column' => 'id', 'direction' => 'asc'];
     public array $numbersPage = [
         ['id' => 10, 'name' => 10],
@@ -45,6 +47,7 @@ class Games extends Component
         $this->genres = $cacheService->getGamesGenre();
         $this->classifications = $cacheService->getClassifications();
         $this->platforms = $cacheService->getPlatforms();
+        $this->developers = $cacheService->getDevelopers();
     }
 
     public function gamesQuery($assortment = NULL)
@@ -56,7 +59,7 @@ class Games extends Component
             ->with(['genres', 'platforms'])
             ->withAvg('ratings', 'rating')
             ->when($this->search, function ($query) {
-                $query->where('title', 'LIKE', "%$this->search%");
+                $query->whereLike('title',  "%$this->search%");
             })
             ->when($this->genre, function ($query) {
                 $query->whereHas('genres', function ($query) {
@@ -68,6 +71,9 @@ class Games extends Component
                     $query->whereIn('platforms.id', $this->plataform);
                 });
             })
+            ->when($this->developer, function ($query) {
+                $query->whereIn('developed_by', $this->developer);
+            })
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
             })->orderBy(...array_values($this->sortBy))
@@ -76,7 +82,7 @@ class Games extends Component
 
     public function resetFilter()
     {
-        $this->reset('genre', 'plataform', 'classification');
+        $this->reset('genre', 'plataform', 'classification', 'developer');
         $this->resetPage();
     }
 }

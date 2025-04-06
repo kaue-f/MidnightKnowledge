@@ -18,11 +18,12 @@ class AddGame extends Component
     public array $classifications;
     public GameForm $gameForm;
     public Collection $genres;
+    public array $developers;
     #[Modelable]
     public bool $modalGame = false;
     public array $config = [
         'dateFormat' => 'Y-m-d',
-        'altFormat' => 'd/F/Y',
+        'altFormat' => 'd F Y',
         'locale' => 'pt',
     ];
     public array $configSynopsis = [

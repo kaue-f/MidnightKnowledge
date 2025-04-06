@@ -49,6 +49,13 @@ class Game extends Model
         );
     }
 
+    public function developedBy(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value): string => trim($value, ' ')
+        );
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class)

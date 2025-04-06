@@ -29,8 +29,8 @@
                     <x-input class="max-[424px]:w-56 w-80 sm:w-96 rounded-e-none" wire:model="search"
                         placeholder="Search" autocomplete="off" clearable>
                         <x-slot:append>
-                            <x-button icon="o-magnifying-glass" class="btn-primary rounded-s-none rounded" type="submit"
-                                wire:loading.attr="disabled" />
+                            <x-button icon="o-magnifying-glass" class="btn-primary rounded-s-none rounded"
+                                type="submit" wire:loading.attr="disabled" />
                         </x-slot:append>
                     </x-input>
                 </x-form>
@@ -45,21 +45,26 @@
             x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-90">
             <x-form wire:submit="gamesQuery" class="space-y-2">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
-                            option-sub-label="description" placeholder-value="" :options="$genres" option-label="genre"
-                            wire:model="genre" searchable />
+                            option-sub-label="description" :options="$genres" option-label="genre" wire:model="genre"
+                            searchable no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
-                        <x-choices-offline class="w-full" label="Plataforma" option-sub-label="category"
-                            placeholder="Selecione plataforma" placeholder-value="" :options="$platforms"
-                            wire:model="plataform" searchable />
+                        <x-choices-offline class="w-full" label="Plataformas" option-sub-label="category"
+                            placeholder="Selecione plataforma" :options="$platforms" wire:model="plataform" searchable
+                            no-result-text="Ops! Nenhum resultado encontrado." />
+                    </div>
+                    <div>
+                        <x-choices-offline class="w-full" label="Desenvolvedoras" placeholder="Selecione desenvolvedora"
+                            :options="$developers" wire:model="developer" searchable values-as-string
+                            no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
-                            placeholder="Selecione classificação" option-label="classification" placeholder-value=""
-                            :options="$classifications" wire:model="classification" />
+                            placeholder="Selecione classificação" option-label="classification" :options="$classifications"
+                            wire:model="classification" />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">
@@ -80,7 +85,7 @@
     <x-ui.loading-coffee except="gamesQuery" />
 
     <div class="flex gap-6 w-full">
-        @if (! isNullOrEmpty($games->hasPages()))
+        @if (!isNullOrEmpty($games->hasPages()))
             <div>
                 <x-select class="select-sm border-none!" :options="$numbersPage" wire:model.live="page" />
             </div>
@@ -89,6 +94,6 @@
             {{ $games->links() }}
         </div>
     </div>
-    <livewire:components.modals.add-game :$genres :$platforms :$classifications :user="Auth::user()"
+    <livewire:components.modals.add-game :$genres :$platforms :$classifications :$developers :user="Auth::user()"
         wire:model.live='modalGame' />
 </section>
