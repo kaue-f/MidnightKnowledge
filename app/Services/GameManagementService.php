@@ -7,6 +7,7 @@ use App\Models\Game\Game;
 use App\Enums\ContentType;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\GameForm;
+use App\Services\Cache\GameCache;
 use App\Actions\AttachGenresAction;
 
 class GameManagementService
@@ -30,6 +31,7 @@ class GameManagementService
         app(SaveCoverAction::class)->execute($game, $gameForm->image,  ContentType::GAME->value);
 
         if (!isNullOrEmpty($game)) {
+            app(GameCache::class)->clearDevelopers();
             $gameForm->resetForm();
             return notyf()->success("Game $game->title foi adicionado ao acervo Midnight Knowledge.");
         }
