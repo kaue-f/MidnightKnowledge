@@ -12,15 +12,15 @@
         <div class="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center gap-4">
             <div class="w-full justify-center gap-4">
                 <div class="filter">
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
-                        aria-label="Título" wire:click="gamesQuery('title|asc')" />
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="games" aria-label="Título"
+                        wire:click="gamesQuery('title|asc')" />
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="games"
                         aria-label="Classificação" wire:click="gamesQuery('ratings_avg_rating|desc')" />
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="games"
                         aria-label="Recentemente" wire:click="gamesQuery('created_at|desc')" />
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="games"
                         aria-label="Ano de Lançamento" wire:click="gamesQuery('release_date|desc')" />
-                    <input class="btn btn-accent filter-reset" type="radio" name="metaframeworks" aria-label="All"
+                    <input class="btn btn-accent filter-reset" type="radio" name="games" aria-label="All"
                         wire:click="gamesQuery" x-on:click="$wire.sortBy = { column: 'id', direction: 'asc' }" />
                 </div>
             </div>

@@ -24,15 +24,31 @@ class ServiceMakeCommand extends Command
     protected $description = 'Create a new service class';
 
     /**
+     * Available service templates.
+     *
+     * @return array
+     */
+    protected $templates = [
+        'service' => <<<PHP
+        <?php
+
+        namespace App\Services{{namespace}};
+
+        class {{class}}
+        {
+        
+        }
+        PHP,
+    ];
+
+    /**
      * Execute the console command.
      */
     public function handle()
     {
         try {
-            $name = str_replace(' ', '', ucfirst($this->argument('name')));
-
-            $path = app_path("Services/{$name}.php");
-
+            $name = $this->getClassName();
+            $path = $this->getPath($name);
             $filesystem = new Filesystem();
 
             if ($filesystem->exists($path)) {
@@ -41,7 +57,14 @@ class ServiceMakeCommand extends Command
             }
 
             $stub = $this->getStub();
-            $content = str_replace('{{name}}', $name, $stub);
+            $namespace = $this->getNamespace($name);
+            $className = basename($name);
+
+            $content = str_replace(
+                ['{{namespace}}', '{{class}}'],
+                [$namespace, $className],
+                $stub
+            );
 
             $filesystem->ensureDirectoryExists(dirname($path));
             $filesystem->put($path, $content);
@@ -55,6 +78,58 @@ class ServiceMakeCommand extends Command
             $this->error("{$e->getMessage()}");
             return 1;
         }
+    }
+
+    /**
+     * Get the class name from input
+     *
+     * @return string
+     */
+    protected function getClassName(): string
+    {
+        $name = trim($this->argument('name'));
+
+        if (empty($name)) {
+            throw new InvalidArgumentException('Service name cannot be empty');
+        }
+
+        $parts = explode('/', $name);
+
+        $className = ucfirst(array_pop($parts));
+
+        if (!str_ends_with(strtolower($className), 'service')) {
+            $className .= 'Service';
+        }
+
+        $parts[] = $className;
+        return implode('/', $parts);
+    }
+
+    /**
+     * Get the path where the service should be stored
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function getPath(string $name): string
+    {
+        return app_path("Services/{$name}.php");
+    }
+
+    /**
+     * Get the namespace for the service based on its directory structure
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function getNamespace(string $name): string
+    {
+        $directory = dirname($name);
+        if ($directory === '.') {
+            return '';
+        }
+
+        return '\\' . str_replace('/', '\\', $directory);
     }
 
     /**
@@ -74,15 +149,6 @@ class ServiceMakeCommand extends Command
      */
     protected function getStub()
     {
-        return <<<PHP
-        <?php
-
-        namespace App\Services;
-
-        class {{name}}
-        {
-        
-        }
-        PHP;
+        return $this->templates['service'];
     }
 }

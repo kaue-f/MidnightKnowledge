@@ -12,15 +12,15 @@
         <div class="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center gap-4">
             <div class="w-full justify-center gap-4">
                 <div class="filter">
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
-                        aria-label="Título" wire:click="animesQuery('title|asc')" />
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="anime" aria-label="Título"
+                        wire:click="animesQuery('title|asc')" />
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="anime"
                         aria-label="Classificação" wire:click="animesQuery('ratings_avg_rating|desc')" />
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="anime"
                         aria-label="Recentemente" wire:click="animesQuery('created_at|desc')" />
-                    <input class="btn btn-accent checked:btn-primary" type="radio" name="metaframeworks"
+                    <input class="btn btn-accent checked:btn-primary" type="radio" name="anime"
                         aria-label="Ano de Lançamento" wire:click="animesQuery('release_date|desc')" />
-                    <input class="btn btn-accent filter-reset" type="radio" name="metaframeworks" aria-label="All"
+                    <input class="btn btn-accent filter-reset" type="radio" name="anime" aria-label="All"
                         wire:click="animesQuery" x-on:click="$wire.sortBy = { column: 'id', direction: 'asc' }" />
                 </div>
             </div>
