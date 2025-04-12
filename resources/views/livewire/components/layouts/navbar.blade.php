@@ -16,7 +16,7 @@
                     <x-icon name="s-chevron-down" />
                 </div>
             </x-slot:trigger>
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes" link="/" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes" link="/animes" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes" link="/" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games" link="/games" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Mangás" link="/" />
@@ -67,14 +67,15 @@
             <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:75%">
         </div>
         <x-menu class="w-full">
-            <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown" title="Home" link="/" />
+            <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown" title="Home"
+                link="/" />
             <ul class="menu">
                 <li>
                     <h2 class="menu-title">Explorar</h2>
                     <ul>
                         <li><a href="/" wire:navigate
                                 class="font-medium hover:text-primary hover:bg-transparent">Animes</a></li>
-                        <li><a href="/" wire:navigate
+                        <li><a href="/animes" wire:navigate
                                 class="font-medium hover:text-primary hover:bg-transparent">Filmes</a></li>
                         <li><a href="/games" wire:navigate
                                 class="font-medium hover:text-primary hover:bg-transparent">Games</a></li>

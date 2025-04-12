@@ -31,7 +31,7 @@ if (!function_exists('isDate')) {
     {
         return isNullOrEmpty($value)
             ? 'N/A'
-            : Carbon::parse($value)->translatedFormat('d F Y');
+            : Str::headline(Carbon::parse($value)->translatedFormat('d F Y'));
     }
 }
 

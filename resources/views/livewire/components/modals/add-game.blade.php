@@ -73,8 +73,8 @@
                         <div class="fieldset text-error label-text-alt p-1 w-full">{{ $message }}</div>
                     @enderror
                     <small class="w-full text-end text-xs opacity-80 p-1 font-light"
-                        :class="{ 'opacity-100 font-normal text-red-500': ($wire.gameForm.synopsis?.length) > 500 }">
-                        Limite: <span x-text="(500 - ($wire.gameForm.synopsis?.length ?? 0))"></span>
+                        :class="{ 'opacity-100 font-normal text-red-500': ($wire.gameForm.synopsis?.length) > 1500 }">
+                        Limite: <span x-text="(1500 - ($wire.gameForm.synopsis?.length ?? 0))"></span>
                     </small>
                 </div>
             </fieldset>

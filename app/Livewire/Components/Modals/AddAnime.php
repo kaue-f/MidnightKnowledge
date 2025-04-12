@@ -5,22 +5,22 @@ namespace App\Livewire\Components\Modals;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Livewire\Forms\GameForm;
+use App\Livewire\Forms\AnimeForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\GameManagementService;
+use App\Services\AnimeManagementService;
 
-class AddGame extends Component
+class AddAnime extends Component
 {
     use WithFileUploads;
-    public ?User $user;
-    public array $platforms;
-    public array $classifications;
-    public GameForm $gameForm;
-    public Collection $genres;
-    public array $developers;
     #[Modelable]
-    public bool $modalGame = false;
+    public bool $modalAnime = false;
+    public AnimeForm $animeForm;
+    public ?User $user;
+    public Collection $genres;
+    public array $classifications;
+    public array $animeTypes;
+
     public array $config = [
         'dateFormat' => 'Y-m-d',
         'altFormat' => 'd F Y',
@@ -38,20 +38,20 @@ class AddGame extends Component
         'plugins' => 'autoresize',
     ];
 
-    public function save(GameManagementService $game)
+    public function save(AnimeManagementService $anime)
     {
         $this->validate();
         try {
-            $game->create($this->gameForm, $this->user);
+            $anime->create($this->animeForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do game inserido. Verifique os dados e tente novamente.");
+            notyf()->error("Falha no cadastramento do anime inserido. Verifique os dados e tente novamente.");
         }
     }
 
     public function close()
     {
-        $this->gameForm->resetForm();
-        $this->modalGame = false;
+        $this->animeForm->resetForm();
+        $this->modalAnime = false;
     }
 }

@@ -5,12 +5,12 @@ namespace App\Livewire\Forms;
 use Livewire\Form;
 use Livewire\Attributes\Validate;
 
-class GameForm extends Form
+class AnimeForm extends Form
 {
     #[Validate('required', message: 'O título é obrigatório.')]
     #[Validate('min:3', message: 'O título deve conter no mínimo 3 caracteres.')]
     #[Validate('max:100', message: 'O título deve conter no máximo 100 caracteres.')]
-    #[Validate('unique:games,title', message: 'Já existe um jogo cadastrado com este título.')]
+    #[Validate('unique:animes,title', message: 'Já existe um anime cadastrado com este título.')]
     public string $title = '';
 
     #[Validate('required', message: 'Adicionar uma imagem de capa é obrigatório.')]
@@ -31,21 +31,31 @@ class GameForm extends Form
     #[Validate('required', message: 'A classificação etária é obrigatória.')]
     public string $classification = '';
 
-    #[Validate('integer', message: 'A duração só permitir valores numérico.')]
     #[Validate('nullable')]
-    public string $duration = '';
+    #[Validate('integer', message: 'Informe um número inteiro para a quantidade de episódios.')]
+    public ?int $episodes = null;
+
+    #[Validate('nullable')]
+    #[Validate('integer', message: 'Informe um número inteiro para a temporada atual.')]
+    public ?int $season = null;
+
+    #[Validate('nullable')]
+    #[Validate('integer', message: 'Informe um número inteiro para a quantidade de temporadas.')]
+    public ?int $season_count = null;
+
+    #[Validate(rule: 'nullable')]
+    #[Validate('integer', message: 'Informe um número inteiro para a quantidade de OVAs e Especiais.')]
+    public ?int $ova_special_count = null;
+
+    #[Validate('nullable')]
+    #[Validate('integer', message: 'Informe um número inteiro para a quantidade de filmes.')]
+    public ?int $movie_count = null;
+
+    #[Validate('nullable')]
+    public string $type = '';
 
     #[Validate('nullable')]
     public string $release_date = '';
-
-    #[Validate('nullable')]
-    #[Validate('min:3', message: 'O nome da desenvolvedora deve conter no mínimo 3 caracteres.')]
-    #[Validate('max:50', message: 'O nome da desenvolvedora deve conter no máximo 50 caracteres.')]
-    public string $developed_by = '';
-
-    #[Validate('required', message: 'Selecione pelo menos uma plataforma.')]
-    #[Validate('max:20', message: 'Você pode selecionar no máximo 20 plataformas.')]
-    public array $platforms = [];
 
     public function resetForm()
     {

@@ -33,7 +33,7 @@ class Spotlight
                 return [
                     'avatar' =>  asset($anime->image),
                     'name' => "$anime->title ⭐" . round($rating, 2),
-                    'description' => $anime->synopsis,
+                    'description' => strip_tags($anime->synopsis),
                     'link' => "/anime/$anime->id",
                 ];
             });
@@ -49,7 +49,7 @@ class Spotlight
                 return [
                     'avatar' =>  asset($book->image),
                     'name' => "$book->title ⭐" . round($rating, 2),
-                    'description' => $book->synopsis,
+                    'description' => strip_tags($book->synopsis),
                     'link' => "/book/$book->id",
                 ];
             });
@@ -65,7 +65,7 @@ class Spotlight
                 return [
                     'avatar' =>  asset($game->image),
                     'name' => "$game->title ⭐" . round($rating, 2),
-                    'description' => $game->synopsis,
+                    'description' => strip_tags($game->synopsis),
                     'link' => "/game/$game->id",
                 ];
             });
@@ -81,7 +81,7 @@ class Spotlight
                 return [
                     'avatar' =>  asset($manga->image),
                     'name' => "$manga->title ⭐" . round($rating, 2),
-                    'description' => $manga->synopsis,
+                    'description' => strip_tags($manga->synopsis),
                     'link' => "/manga/$manga->id",
                 ];
             });
@@ -97,7 +97,7 @@ class Spotlight
                 return [
                     'avatar' =>  asset($movie->image),
                     'name' => "$movie->title ⭐" . round($rating, 2),
-                    'description' => $movie->synopsis,
+                    'description' => strip_tags($movie->synopsis),
                     'link' => "/movie/$movie->id",
                 ];
             });
@@ -113,7 +113,7 @@ class Spotlight
                 return [
                     'avatar' =>  asset($serie->image),
                     'name' => "$serie->title ⭐" . round($rating, 2),
-                    'description' => $serie->synopsis,
+                    'description' => strip_tags($serie->synopsis),
                     'link' => "/serie/$serie->id",
                 ];
             });

@@ -24,6 +24,10 @@ class Anime extends Model
         'classification_id',
         'episodes',
         'season',
+        'season_count',
+        'ova_special_count',
+        'movie_count',
+        'anime_type_id',
         'release_date',
         'user_id'
     ];
@@ -78,8 +82,8 @@ class Anime extends Model
         return $this->belongsTo(Classification::class, 'classification_id');
     }
 
-    public function type()
+    public function anime_type()
     {
-        return $this->belongsTo(AnimeType::class, 'anime_types_id');
+        return $this->belongsTo(AnimeType::class, 'anime_type_id');
     }
 }

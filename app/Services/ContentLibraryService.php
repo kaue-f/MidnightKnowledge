@@ -45,17 +45,17 @@ class ContentLibraryService
         }
     }
 
-    public function rate($content, int $value)
+    public function rate($content, int $value, string $name)
     {
         $content->ratings()
             ->where([
-                ['game_id', $content->id],
+                ["{$name}_id", $content->id],
                 ['user_id', Auth::id()],
             ])
             ->upsert([
-                'game_id' => $content->id,
+                "{$name}_id" => $content->id,
                 'user_id' => Auth::id(),
                 'rating' => $value,
-            ], uniqueBy: ['game_id', 'user_id'], update: ['rating']);
+            ], uniqueBy: ["{$name}_id", 'user_id'], update: ['rating']);
     }
 }

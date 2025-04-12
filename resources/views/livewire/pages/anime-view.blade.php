@@ -1,19 +1,14 @@
-<x-layouts.view :title="$game->title" :synopsis="$game->synopsis">
+<x-layouts.view :title="$anime->title" :synopsis="$anime->synopsis">
     <x-slot:cover>
-        <livewire:components.ui.image-viewer :image="$game->image" :title="$game->title" />
+        <livewire:components.ui.image-viewer :image="$anime->image" :title="$anime->title" />
     </x-slot:cover>
 
     <x-slot:detail>
-        <div class="flex flex-wrap gap-2 w-full">
-            @foreach ($game->platforms()->get() as $item)
-                <x-badge value="{{ $item->name }}"
-                    class="badge-sm font-medium bg-blue-950 border-0 rounded-sm shadow shadow-white/10 hover:cursor-default" />
-            @endforeach
-        </div>
         <x-ui.classification-badge :classification="$classification" />
-        <x-ui.detail-row description="Data de Lançamento" icon="fas.calendar-alt" :value="$game->release_date" />
-        <x-ui.detail-row description="Desenvolvedor" :value="$game->developed_by" />
-        <x-ui.detail-row description="Duração média do jogo" icon="s-clock" :value="$game->durantion" />
+        <x-ui.season-row :current="$anime->season" :total="$anime->season_count" />
+        <x-ui.detail-row description="Total de Episódios" :value="$anime->episodes" />
+        <x-ui.detail-row description="Filmes" :value="$anime->movie_count" />
+        <x-ui.detail-row description="OVAs e Especiais" :value="$anime->ova_special_count" />
     </x-slot:detail>
 
     <x-slot:top>
@@ -68,14 +63,16 @@
     </x-slot:ratings>
 
     <x-slot:tags>
-        <x-ui.genre-tags :items="$game->genres()->get()" />
+        <x-badge value="{{ $type->name }}"
+            class="badge-sm font-medium bg-blue-950 border-0 rounded-sm shadow shadow-white/10 hover:cursor-default" />
+        <x-ui.genre-tags :items="$anime->genres()->get()" />
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$game" :type="App\Enums\ContentType::GAME" />
+        <livewire:components.review-charts :content="$anime" :type="App\Enums\ContentType::ANIME" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$game" :type="App\Enums\ContentType::GAME" />
+        <livewire:components.comment-section :content="$anime" :type="App\Enums\ContentType::ANIME" />
     </x-slot:comment>
 </x-layouts.view>

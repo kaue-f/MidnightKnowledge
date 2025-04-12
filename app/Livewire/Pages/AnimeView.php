@@ -4,14 +4,15 @@ namespace App\Livewire\Pages;
 
 use App\Enums\Status;
 use Livewire\Component;
-use App\Models\Game\Game;
+use App\Models\Anime\Anime;
 use App\Models\Classification;
+use App\Models\Anime\AnimeType;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ContentLibraryService;
 
-class GameView extends Component
+class AnimeView extends Component
 {
-    public Game $game;
+    public Anime $anime;
     public array $ratings = ['avg' => 0, 'value' => 0];
     public bool $favorite = false;
     public bool $library = false;
@@ -20,11 +21,11 @@ class GameView extends Component
 
     public function render()
     {
-        return view('livewire.pages.game-view', [
+        return view('livewire.pages.anime-view', [
             'statuses' => Status::array(),
-            'classification' => Classification::find($this->game->classification_id)
-        ])
-            ->title($this->game->title);
+            'classification' => Classification::find($this->anime->classification_id),
+            'type' => AnimeType::find($this->anime->anime_type_id)
+        ])->title($this->anime->title);
     }
 
     public function boot(ContentLibraryService $contentLibraryService)
@@ -34,26 +35,26 @@ class GameView extends Component
 
     public function mount()
     {
-        $gameUser = $this->game->users()
+        $animeUser = $this->anime->users()
             ->where('user_id', Auth::id())
             ->first();
 
-        if (!isNullOrEmpty($gameUser)) {
-            $this->favorite = $gameUser->pivot->favorite;
-            $this->library =  $gameUser->pivot->library;
-            $this->status = $gameUser->pivot->status;
+        if (!isNullOrEmpty($animeUser)) {
+            $this->favorite = $animeUser->pivot->favorite;
+            $this->library =  $animeUser->pivot->library;
+            $this->status = $animeUser->pivot->status;
         }
 
-        $userRating = $this->game->ratings()
+        $userRating = $this->anime->ratings()
             ->where([
-                ['game_id', $this->game->id],
+                ['anime_id', $this->anime->id],
                 ['user_id', Auth::id()],
             ])->first();
 
-        $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
+        $this->ratings['avg'] = round($this->anime->ratings()->avg('rating'), 2) ?? 0;
 
         $this->ratings['value'] = (isNullOrEmpty($userRating) || !Auth::id())
-            ? (int) $this->game->ratings()->avg('rating') ?? 0
+            ? (int) $this->anime->ratings()->avg('rating') ?? 0
             : $userRating->rating;
     }
 
@@ -66,7 +67,7 @@ class GameView extends Component
 
         $this->status = Status::getDescription($status);
 
-        $this->contentLibraryService->library($this->game, $library, $status);
+        $this->contentLibraryService->library($this->anime, $library, $status);
     }
 
     public function updatedFavorite()
@@ -74,7 +75,7 @@ class GameView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->favorite($this->game, $this->favorite);
+        $this->contentLibraryService->favorite($this->anime, $this->favorite);
     }
 
     public function updatedRatingsValue()
@@ -82,8 +83,8 @@ class GameView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->rate($this->game, $this->ratings['value'], 'game');
+        $this->contentLibraryService->rate($this->anime, $this->ratings['value'], 'anime');
 
-        $this->ratings['avg'] = $this->game->ratings()->avg('rating');
+        $this->ratings['avg'] = $this->anime->ratings()->avg('rating');
     }
 }

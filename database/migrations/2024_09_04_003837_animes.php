@@ -27,7 +27,10 @@ return new class extends Migration
             $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('episodes')->nullable();
             $table->integer('season')->nullable();
-            $table->foreignId('anime_types_id')->nullable()->constrained()->onDelete('set null');
+            $table->integer('season_count')->nullable();
+            $table->integer('ova_special_count')->nullable();
+            $table->integer('movie_count')->nullable();
+            $table->foreignId('anime_type_id')->nullable()->constrained()->onDelete('set null');
             $table->date('release_date')->nullable();
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
