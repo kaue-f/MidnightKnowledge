@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Cache;
+namespace App\Services\Caches;
 
 use App\Models\Genre;
 use App\Enums\ContentType;
@@ -10,19 +10,22 @@ class AnimeCache extends BaseCache
 {
     protected string $genreKey = 'animeGenres';
     protected string $typeKey = 'animeTypes';
+
     public function getGenres()
     {
-        return $this->remember($this->genreKey,  function () {
-            return Genre::where('category', ContentType::ANIME)
+        return $this->remember(
+            key: $this->genreKey,
+            callback: fn() => Genre::where('category', ContentType::ANIME)
                 ->orderBy('genre')
-                ->get();
-        });
+                ->get()
+        );
     }
 
     public function getTypes()
     {
-        return $this->remember($this->typeKey, function () {
-            return AnimeType::all()->toArray();
-        });
+        return $this->remember(
+            key: $this->typeKey,
+            callback: fn() => AnimeType::all()->toArray()
+        );
     }
 }

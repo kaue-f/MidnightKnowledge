@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfd5e69823ce7c3e2af92171e2cbb113",
+    "content-hash": "6681d1daf22dd767b1be86e696d9c1c7",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1668,6 +1668,64 @@
                 }
             ],
             "time": "2023-05-21T07:57:08+00:00"
+        },
+        {
+            "name": "kaue-f/laravel-structura",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kaue-f/laravel-structura.git",
+                "reference": "f465ec1efc562ba7eeac88f299e138ada961efcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kaue-f/laravel-structura/zipball/f465ec1efc562ba7eeac88f299e138ada961efcd",
+                "reference": "f465ec1efc562ba7eeac88f299e138ada961efcd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Structura\\ConsoleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Structura\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kauê Francisco",
+                    "homepage": "https://github.com/kaue-f"
+                }
+            ],
+            "description": "Laravel-Structura is a tool designed to streamline and standardize the creation of resources in Laravel, promoting a more organized and scalable development structure.",
+            "homepage": "https://github.com/kaue-f/laravel-structura",
+            "keywords": [
+                "action",
+                "artisan",
+                "cache",
+                "laravel",
+                "package",
+                "service",
+                "structura"
+            ],
+            "support": {
+                "issues": "https://github.com/kaue-f/laravel-structura/issues",
+                "source": "https://github.com/kaue-f/laravel-structura"
+            },
+            "time": "2025-04-16T00:29:07+00:00"
         },
         {
             "name": "laravel/framework",
@@ -9338,6 +9396,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

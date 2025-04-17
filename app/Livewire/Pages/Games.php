@@ -6,10 +6,10 @@ use Livewire\Component;
 use App\Models\Game\Game;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
-use App\Services\Cache\GameCache;
+use App\Services\Caches\GameCache;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Cache\ClassificationCache;
+use App\Services\Caches\ClassificationCache;
 
 class Games extends Component
 {
@@ -43,12 +43,12 @@ class Games extends Component
         ]);
     }
 
-    public function mount()
+    public function mount(GameCache $gameCache)
     {
-        $this->genres = app(GameCache::class)->getGenres();
-        $this->classifications = app(ClassificationCache::class)->get();
-        $this->platforms = app(GameCache::class)->getPlatforms();
-        $this->developers = app(GameCache::class)->getDevelopers();
+        $this->classifications = app(ClassificationCache::class)->fetch();
+        $this->genres = $gameCache->getGenres();
+        $this->platforms = $gameCache->getPlatforms();
+        $this->developers = $gameCache->getDevelopers();
     }
 
     public function gamesQuery($assortment = NULL)

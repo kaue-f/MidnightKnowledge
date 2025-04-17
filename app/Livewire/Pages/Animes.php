@@ -5,12 +5,11 @@ namespace App\Livewire\Pages;
 use Livewire\Component;
 use App\Models\Anime\Anime;
 use Livewire\WithPagination;
-use App\Services\CacheService;
 use Livewire\Attributes\Title;
-use App\Services\Cache\AnimeCache;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Cache\ClassificationCache;
+use App\Services\Caches\AnimeCache;
+use App\Services\Caches\ClassificationCache;
 
 class Animes extends Component
 {
@@ -40,11 +39,11 @@ class Animes extends Component
         return view('livewire.pages.animes', ['animes' => $this->animesQuery()]);
     }
 
-    public function mount()
+    public function mount(AnimeCache $animeCache)
     {
-        $this->genres = app(AnimeCache::class)->getGenres();
-        $this->animeTypes = app(AnimeCache::class)->getTypes();
-        $this->classifications = app(ClassificationCache::class)->get();
+        $this->genres = $animeCache->getGenres();
+        $this->animeTypes = $animeCache->getTypes();
+        $this->classifications = app(ClassificationCache::class)->fetch();
     }
 
     public function animesQuery($assortment = NULL)

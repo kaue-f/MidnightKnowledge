@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-    themes: dark --default, dark --prefersdark;
+    themes: false;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
 @source "../../vendor/robsontenorio/mary/src/View/Components/**/*.php";
 @source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
 @source "../../storage/framework/views/*.php";
@@ -11,7 +12,6 @@
 @source "../**/*.js";
 @source "../**/*.vue";
 
-@custom-variant dark (&:where(.dark, .dark *));
 @theme {
     --font-noto: Noto Sans, sans-serif;
 }
@@ -73,8 +73,8 @@ article {
 
 @plugin "daisyui/theme" {
     name: "dark";
-    default: false;
-    prefersdark: true;
+    default: true;
+    prefersdark: false;
     color-scheme: "dark";
     --color-primary: oklch(49.3% 0.254 265.968);
     --color-primary-content: oklch(98.6% 0 89.876);

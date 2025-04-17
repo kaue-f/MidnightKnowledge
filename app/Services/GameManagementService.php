@@ -7,7 +7,7 @@ use App\Models\Game\Game;
 use App\Enums\ContentType;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\GameForm;
-use App\Services\Cache\GameCache;
+use App\Services\Caches\GameCache;
 use App\Actions\AttachGenresAction;
 
 class GameManagementService
