@@ -6,7 +6,6 @@ use App\Models\User;
 use Livewire\Component;
 use App\Actions\LogoutAction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class DeleteAccount extends Component
 {
@@ -19,11 +18,6 @@ class DeleteAccount extends Component
             return notyf()->warning("Você não tem permissão para excluir esta conta.");
 
         if ($this->user->delete()) {
-            Auth::logout();
-
-            Session::invalidate();
-            Session::regenerateToken();
-
             $logout();
             notyf()->info("Conta excluída com sucesso. Sentiremos sua falta! 💙");
         }

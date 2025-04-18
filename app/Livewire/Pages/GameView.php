@@ -6,8 +6,8 @@ use App\Enums\Status;
 use Livewire\Component;
 use App\Models\Game\Game;
 use App\Models\Classification;
+use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
-use App\Services\ContentLibraryService;
 
 class GameView extends Component
 {
@@ -16,7 +16,7 @@ class GameView extends Component
     public bool $favorite = false;
     public bool $library = false;
     public string $status = '';
-    private readonly ContentLibraryService $contentLibraryService;
+    private readonly LibraryService $libraryService;
 
     public function render()
     {
@@ -27,9 +27,9 @@ class GameView extends Component
             ->title($this->game->title);
     }
 
-    public function boot(ContentLibraryService $contentLibraryService)
+    public function boot(LibraryService $libraryService)
     {
-        $this->contentLibraryService = $contentLibraryService;
+        $this->libraryService = $libraryService;
     }
 
     public function mount()
@@ -66,7 +66,7 @@ class GameView extends Component
 
         $this->status = Status::getDescription($status);
 
-        $this->contentLibraryService->library($this->game, $library, $status);
+        $this->libraryService->library($this->game, $library, $status);
     }
 
     public function updatedFavorite()
@@ -74,7 +74,7 @@ class GameView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->favorite($this->game, $this->favorite);
+        $this->libraryService->favorite($this->game, $this->favorite);
     }
 
     public function updatedRatingsValue()
@@ -82,7 +82,7 @@ class GameView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->rate($this->game, $this->ratings['value'], 'game');
+        $this->libraryService->rate($this->game, $this->ratings['value'], 'game');
 
         $this->ratings['avg'] = $this->game->ratings()->avg('rating');
     }

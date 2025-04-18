@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use App\Livewire\Forms\GameForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\GameManagementService;
+use App\Services\Managements\GameService;
 
 class AddGame extends Component
 {
@@ -38,7 +38,7 @@ class AddGame extends Component
         'plugins' => 'autoresize',
     ];
 
-    public function save(GameManagementService $game)
+    public function save(GameService $game)
     {
         $this->validate();
         try {

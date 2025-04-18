@@ -7,8 +7,8 @@ use Livewire\Component;
 use App\Models\Anime\Anime;
 use App\Models\Classification;
 use App\Models\Anime\AnimeType;
+use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
-use App\Services\ContentLibraryService;
 
 class AnimeView extends Component
 {
@@ -17,7 +17,7 @@ class AnimeView extends Component
     public bool $favorite = false;
     public bool $library = false;
     public string $status = '';
-    private readonly ContentLibraryService $contentLibraryService;
+    private readonly LibraryService $libraryService;
 
     public function render()
     {
@@ -28,9 +28,9 @@ class AnimeView extends Component
         ])->title($this->anime->title);
     }
 
-    public function boot(ContentLibraryService $contentLibraryService)
+    public function boot(LibraryService $libraryService)
     {
-        $this->contentLibraryService = $contentLibraryService;
+        $this->libraryService = $libraryService;
     }
 
     public function mount()
@@ -67,7 +67,7 @@ class AnimeView extends Component
 
         $this->status = Status::getDescription($status);
 
-        $this->contentLibraryService->library($this->anime, $library, $status);
+        $this->libraryService->library($this->anime, $library, $status);
     }
 
     public function updatedFavorite()
@@ -75,7 +75,7 @@ class AnimeView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->favorite($this->anime, $this->favorite);
+        $this->libraryService->favorite($this->anime, $this->favorite);
     }
 
     public function updatedRatingsValue()
@@ -83,7 +83,7 @@ class AnimeView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->contentLibraryService->rate($this->anime, $this->ratings['value'], 'anime');
+        $this->libraryService->rate($this->anime, $this->ratings['value'], 'anime');
 
         $this->ratings['avg'] = $this->anime->ratings()->avg('rating');
     }

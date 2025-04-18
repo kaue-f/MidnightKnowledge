@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Managements;
 
 use App\Models\User;
 use App\Models\Game\Game;
@@ -10,7 +10,7 @@ use App\Livewire\Forms\GameForm;
 use App\Services\Caches\GameCache;
 use App\Actions\AttachGenresAction;
 
-class GameManagementService
+class GameService
 {
     public function create(GameForm $gameForm, User $user)
     {

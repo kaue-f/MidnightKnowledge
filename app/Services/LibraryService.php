@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 
-class ContentLibraryService
+class LibraryService
 {
     public function library($content, bool $library, string $status = "")
     {

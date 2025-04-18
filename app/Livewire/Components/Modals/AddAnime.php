@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use App\Livewire\Forms\AnimeForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\AnimeManagementService;
+use App\Services\Managements\AnimeService;
 
 class AddAnime extends Component
 {
@@ -38,7 +38,7 @@ class AddAnime extends Component
         'plugins' => 'autoresize',
     ];
 
-    public function save(AnimeManagementService $anime)
+    public function save(AnimeService $anime)
     {
         $this->validate();
         try {

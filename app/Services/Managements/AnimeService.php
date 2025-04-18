@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Managements;
 
 use App\Models\User;
 use App\Enums\ContentType;
@@ -9,7 +9,7 @@ use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\AnimeForm;
 use App\Actions\AttachGenresAction;
 
-class AnimeManagementService
+class AnimeService
 {
     public function create(AnimeForm $animeForm, User $user)
     {
