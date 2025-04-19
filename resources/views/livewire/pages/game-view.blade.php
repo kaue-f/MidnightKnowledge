@@ -22,7 +22,7 @@
                 <x-icon name="{{ $library ? 's-bookmark' : 'o-bookmark' }}" class="h-7 w-7 hover:text-primary" />
                 <div class="font-medium items-center">{{ $library ? $status : '' }}</div>
             </div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-sm z-1 w-52 p-2 shadow-sm">
+            <ul tabindex="0" class="dropdown-content menu bg-base-300 z-1 w-52 p-2 shadow shadow-white/10 rounded">
                 <li class="text-xs opacity-50 p-2">
                     {{ $library ? 'Atualização de progresso' : 'Adicionar na biblioteca' }}
                 </li>

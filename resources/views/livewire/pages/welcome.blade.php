@@ -3,7 +3,8 @@
         <img src="{{ asset('images/layouts/Logo2.png') }}" style="height: 10rem;">
     </a>
 
-    <div x-data="{ open: $wire.entangle('open') }" class="w-full rounded-lg bg-base-100 p-8 shadow-2xl shadow-black/50">
+    <div x-data="{ open: $wire.entangle('open') }"
+        class="w-full rounded-lg bg-base-200 border border-neutral p-8 shadow-md shadow-white/10">
         <div class="flex justify-center space-x-10 pb-3">
             <p x-on:click="open = false" class="text-center text-lg cursor-pointer self-center"
                 :class="{ 'border-b-2 border-primary font-semibold text-primary': !open }">

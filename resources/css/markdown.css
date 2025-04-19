@@ -1,5 +1,5 @@
 .synopsisField .CodeMirror {
-    @apply bg-accent rounded-sm textarea focus-within:border-primary focus-within:border-2 text-base-content;
+    @apply bg-base-300 rounded-sm textarea focus-within:border-primary focus-within:border-2 text-base-content;
     @apply selection:bg-primary w-full !break-words !whitespace-pre-wrap;
 }
 
@@ -8,7 +8,7 @@
 }
 
 .editor-toolbar {
-    @apply bg-base-100 rounded-sm rounded-b-none p-1.5 h-10;
+    @apply bg-base-300 rounded-sm rounded-b-none p-1.5 h-10;
 
     button {
         @apply text-sm text-base-content;
@@ -19,12 +19,12 @@
     }
 
     button.active {
-        @apply text-base-300;
+        @apply text-base-100;
     }
 }
 
 .editor-preview {
-    @apply bg-accent text-base-content;
+    @apply bg-base-300 text-base-content;
 }
 
 .markdown {

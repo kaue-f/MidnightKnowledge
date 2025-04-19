@@ -27,12 +27,15 @@
     </div>
     <div class="flex justify-end gap-6 items-center">
         <div>
-            <x-button class="btn-sm text-base text-white btn-primary max-sm:hidden"
+            <x-button
+                class="btn-sm text-base xl:w-60 justify-between text-white btn-primary max-sm:hidden shadow-sm shadow-white/30"
                 @click.stop="$dispatch('mary-search-open')">
                 <x-icon name="c-magnifying-glass" />
                 Search
-                <x-kbd class="kbd-xs bg-accent border-base-300">Shift</x-kbd>
-                <x-kbd class="kbd-xs bg-accent border-base-300">Espaço</x-kbd>
+                <div class="space-x-0.5">
+                    <x-kbd class="kbd-sm bg-base-100 border-base-300">Shift</x-kbd>
+                    <x-kbd class="kbd-sm bg-base-100 border-base-300">Espaço</x-kbd>
+                </div>
             </x-button>
             <x-button class="btn-circle text-white btn-ghost sm:hidden" @click.stop="$dispatch('mary-search-open')">
                 <x-icon class="w-8 h-8" name="c-magnifying-glass" />

@@ -11,7 +11,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex flex-col w-screen h-screen antialiased bg-linear-to-b from-[#280a4e] via-[#200039] to-[#040218]">
+<body
+    class="flex flex-col w-screen h-screen antialiased bg-linear-to-b/decreasing from-base-100 from-5% to-base-300 to-90%">
 
     <main class="w-full flex h-full justify-center items-center">
         {{ $slot }}

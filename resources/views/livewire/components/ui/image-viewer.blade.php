@@ -1,5 +1,5 @@
 <div class="flex min-h-[450px]">
-    <img class="h-full w-full bg-center rounded-sm shadow-xs shadow-white/30 hover:cursor-zoom-in"
+    <img class="h-full w-full bg-center rounded shadow-xs shadow-accent hover:cursor-zoom-in"
         onclick="imageViewer.showModal()" src="{{ asset($image) }}" alt="{{ $title }}">
 
     <dialog id="imageViewer" class="modal rounded-none backdrop-blur-[2px]">

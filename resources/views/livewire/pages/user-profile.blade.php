@@ -3,13 +3,13 @@
         <div class="flex flex-col gap-2 py-2">
             <div>
                 <img src="{{ asset($user->image ?? imageNoneUser()) }}"
-                    class="size-64 border-2 border-accent rounded-full" />
+                    class="size-64 border border-accent rounded-full" />
             </div>
             <div class="flex justify-center text-2xl font-semibold">
                 {{ $user->nickname }}
             </div>
         </div>
-        <div class="flex flex-col flex-1 gap-4 rounded-lg border-2 border-accent bg-base-200 p-6">
+        <div class="flex flex-col flex-1 gap-4 rounded-lg border border-accent bg-base-300 p-6 shadow shadow-accent/75">
             <div class="opacity-80 text-sm space-y-6">
                 <div>
                     Nome
@@ -28,7 +28,7 @@
                         <x-slot:trigger>
                             <div class="flex gap-x-2 items-center border py-1 px-2 rounded-lg bg-base-100">
                                 <div class="inline-grid *:[grid-area:1/1]">
-                                    <div class="status status-lg bg-blue-600 animate-ping rounded-full"></div>
+                                    <div class="status status-lg bg-info animate-ping rounded-full"></div>
                                     <div class="status status-lg bg-blue-600 rounded-full"></div>
                                 </div>
                                 <span class="text-base text-base-content font-semibold">
@@ -36,8 +36,8 @@
                                 </span>
                             </div>
                         </x-slot:trigger>
-                        <x-slot:content class="text-xs font-medium w-48! bg-base-300">
-                            {{ 'Integrante da comunidade '.env('APP_NAME').' desde '.isDate($user->created_at) }}
+                        <x-slot:content class="text-xs font-medium w-48! bg-base-100">
+                            {{ 'Integrante da comunidade ' . env('APP_NAME') . ' desde ' . isDate($user->created_at) }}
                         </x-slot:content>
                     </x-popover>
                 </div>

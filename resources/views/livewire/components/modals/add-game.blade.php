@@ -1,4 +1,4 @@
-<x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur-sm" box-class="p-6 w-11/12 max-w-4xl">
+<x-modal wire:model="modalGame" title="Cadastrar Game" class="backdrop-blur" box-class="p-6 w-11/12 max-w-4xl">
     <x-form wire:submit="save" no-separator>
         <div class="flex flex-col gap-4">
             <div class="flex gap-4 justify-center">

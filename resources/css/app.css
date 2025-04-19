@@ -34,13 +34,13 @@ article {
 .input,
 .select,
 .textarea {
-    @apply bg-accent !outline-none;
+    @apply bg-base-300 !outline-none;
 }
 
 .input:not([class*="!input-error"]),
 .select:not([class*="!select-error"]),
 .textarea:not([class*="!textarea-error"]) {
-    @apply focus-within:border-primary focus-within:border-2;
+    @apply border-accent focus-within:border-primary focus-within:border-2;
 }
 
 .fieldset-legend {
@@ -55,9 +55,6 @@ article {
     @apply text-sm font-medium;
 }
 
-.btn {
-    @apply border-0;
-}
 .navbar-dropdown {
     ul,
     .menu {
@@ -76,29 +73,29 @@ article {
     default: true;
     prefersdark: false;
     color-scheme: "dark";
-    --color-primary: oklch(49.3% 0.254 265.968);
+    --color-primary: oklch(62% 0.194 149.214);
     --color-primary-content: oklch(98.6% 0 89.876);
-    --color-secondary: oklch(63.2% 0.197 253.44);
+    --color-secondary: oklch(69% 0.1585 240.04);
     --color-secondary-content: oklch(98.6% 0 89.876);
-    --color-accent: oklch(37.8% 0 89.876);
+    --color-accent: oklch(38% 0 0);
     --color-accent-content: oklch(98.6% 0 89.876);
-    --color-neutral: oklch(67.6% 0 89.876);
+    --color-neutral: oklch(30% 0 0);
     --color-neutral-content: oklch(98.6% 0 89.876);
-    --color-base-100: oklch(18.8% 0 89.876);
-    --color-base-200: oklch(27.3% 0 89.876);
-    --color-base-300: oklch(9% 0 89.876);
+    --color-base-100: oklch(8% 0 0);
+    --color-base-200: oklch(19% 0 0);
+    --color-base-300: oklch(25% 0 0);
     --color-base-content: oklch(98.6% 0 89.876);
-    --color-info: oklch(40.1% 0.178 269.113);
+    --color-info: oklch(45.201% 0.313 264.052);
     --color-info-content: oklch(98.6% 0 89.876);
-    --color-success: oklch(62% 0.194 149.214);
+    --color-success: oklch(51.975% 0.176 142.495);
     --color-success-content: oklch(98.6% 0 89.876);
     --color-warning: oklch(64% 0.222 41.116);
     --color-warning-content: oklch(98.6% 0 89.876);
-    --color-error: oklch(57% 0.245 27.325);
+    --color-error: oklch(62.795% 0.257 29.233);
     --color-error-content: oklch(98.6% 0 89.876);
     --radius-selector: 0.25rem;
     --radius-field: 0.25rem;
-    --radius-box: 0.5rem;
+    --radius-box: 0.25rem;
     --size-selector: 0.25rem;
     --size-field: 0.25rem;
     --border: 1px;
