@@ -64,13 +64,13 @@
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
-                            placeholder="Selecione classificação" option-label="classification" :options="$classifications"
-                            wire:model="classification" />
+                            placeholder="Selecione classificação" option-avatar="image" option-label="classification"
+                            :options="$classifications" wire:model="classification" />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">
                     <x-button class="btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
-                    <x-button label="Filtrar" class="btn-primary" type="submit" x-on:click="open = ! open" />
+                    <x-button label="Filtrar" class="btn-success" type="submit" x-on:click="open = ! open" />
                 </div>
             </x-form>
         </div>

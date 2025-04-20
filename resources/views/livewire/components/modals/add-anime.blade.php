@@ -3,7 +3,7 @@
         <div class="flex flex-col gap-4">
             <div class="flex gap-4 justify-center">
                 <div class="flex flex-col gap-4 w-2/3">
-                    <x-input label="Título" placeholder="Título do game" wire:model="animeForm.title"
+                    <x-input label="Título" placeholder="Título do anime" wire:model="animeForm.title"
                         autocomplete="off" />
                     <div class="w-full">
                         <x-choices-offline label="Gêneros" placeholder="Selecione gênero" placeholder-value=""
@@ -13,12 +13,12 @@
                     </div>
                     <div class="flex space-x-4 w-full">
                         <div class="w-1/2">
-                            <x-choices label="Classificação" placeholder="Classificação" single
+                            <x-choices label="Classificação" placeholder="Classificação" single option-avatar="image"
                                 option-label="classification" placeholder-value="" :options="$classifications"
                                 wire:model="animeForm.classification" />
                         </div>
                         <div class="w-1/2">
-                            <x-datepicker label="Lançamento" placeholder="Lançamento do game"
+                            <x-datepicker label="Lançamento" placeholder="Lançamento do anime"
                                 wire:model="animeForm.release_date" icon="o-calendar" :config="$config" />
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                 <div class="w-1/3">
                     <x-file class="space-y-2" wire:model="animeForm.image" accept="image/png, image/jpeg, image/webp">
                         <img src="{{ $animeForm->image ?? asset('/images/layouts/Logo2.png') }}"
-                            class="bg-contain rounded-md shadow-xs max-h-96" alt="Imagem do Game" />
+                            class="bg-contain rounded-md shadow-xs max-h-96" alt="Imagem do Anime" />
                         <p class="px-1 py-2 text-base w-full text-center">
                             Selecione imagem do anime
                         </p>

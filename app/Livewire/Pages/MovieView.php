@@ -4,24 +4,24 @@ namespace App\Livewire\Pages;
 
 use App\Enums\Status;
 use Livewire\Component;
-use App\Models\Anime\Anime;
+use App\Models\Movie\Movie;
 use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
 
-class AnimeView extends Component
+class MovieView extends Component
 {
-    public Anime $anime;
+    public Movie $movie;
     public array $ratings = ['avg' => 0, 'value' => 0];
     public bool $favorite = false;
     public bool $library = false;
     public string $status = '';
     private readonly LibraryService $libraryService;
-
     public function render()
     {
-        return view('livewire.pages.anime-view', [
+        return view('livewire.pages.movie-view', [
             'statuses' => Status::array()
-        ])->title($this->anime->title);
+        ])
+            ->title($this->movie->title);
     }
 
     public function boot(LibraryService $libraryService)
@@ -31,26 +31,26 @@ class AnimeView extends Component
 
     public function mount()
     {
-        $animeUser = $this->anime->users()
+        $movieUser = $this->movie->users()
             ->where('user_id', Auth::id())
             ->first();
 
-        if (!isNullOrEmpty($animeUser)) {
-            $this->favorite = $animeUser->pivot->favorite;
-            $this->library =  $animeUser->pivot->library;
-            $this->status = $animeUser->pivot->status;
+        if (!isNullOrEmpty($movieUser)) {
+            $this->favorite = $movieUser->pivot->favorite;
+            $this->library =  $movieUser->pivot->library;
+            $this->status = $movieUser->pivot->status;
         }
 
-        $userRating = $this->anime->ratings()
+        $userRating = $this->movie->ratings()
             ->where([
-                ['anime_id', $this->anime->id],
+                ['movie_id', $this->movie->id],
                 ['user_id', Auth::id()],
             ])->first();
 
-        $this->ratings['avg'] = round($this->anime->ratings()->avg('rating'), 2) ?? 0;
+        $this->ratings['avg'] = round($this->movie->ratings()->avg('rating'), 2) ?? 0;
 
         $this->ratings['value'] = (isNullOrEmpty($userRating) || !Auth::id())
-            ? (int) $this->anime->ratings()->avg('rating') ?? 0
+            ? (int) $this->movie->ratings()->avg('rating') ?? 0
             : $userRating->rating;
     }
 
@@ -63,7 +63,7 @@ class AnimeView extends Component
 
         $this->status = Status::getDescription($status);
 
-        $this->libraryService->library($this->anime, $library, $status);
+        $this->libraryService->library($this->movie, $library, $status);
     }
 
     public function updatedFavorite()
@@ -71,7 +71,7 @@ class AnimeView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->libraryService->favorite($this->anime, $this->favorite);
+        $this->libraryService->favorite($this->movie, $this->favorite);
     }
 
     public function updatedRatingsValue()
@@ -79,8 +79,8 @@ class AnimeView extends Component
         if (!Auth::check())
             return $this->dispatch('noLogged');
 
-        $this->libraryService->rate($this->anime, $this->ratings['value'], 'anime');
+        $this->libraryService->rate($this->movie, $this->ratings['value'], 'movie');
 
-        $this->ratings['avg'] = $this->anime->ratings()->avg('rating');
+        $this->ratings['avg'] = $this->movie->ratings()->avg('rating');
     }
 }

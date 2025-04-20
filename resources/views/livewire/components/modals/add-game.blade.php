@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="w-1/3">
-                            <x-choices label="Classificação" placeholder="Classificação" single
+                            <x-choices label="Classificação" placeholder="Classificação" single option-avatar="image"
                                 option-label="classification" placeholder-value="" :options="$classifications"
                                 wire:model="gameForm.classification" />
                         </div>

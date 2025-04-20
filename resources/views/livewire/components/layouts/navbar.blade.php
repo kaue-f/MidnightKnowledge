@@ -17,7 +17,7 @@
                 </div>
             </x-slot:trigger>
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes" link="/animes" />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes" link="/" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes" link="/movies" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games" link="/games" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Mangás" link="/" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Livros" link="/" />
@@ -76,18 +76,36 @@
                 <li>
                     <h2 class="menu-title">Explorar</h2>
                     <ul>
-                        <li><a href="/" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">Animes</a></li>
-                        <li><a href="/animes" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">Filmes</a></li>
-                        <li><a href="/games" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">Games</a></li>
-                        <li><a href="/" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">Mangás</a></li>
-                        <li><a href="/" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">Livros</a></li>
-                        <li><a href="/" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">Séries</a></li>
+                        <li>
+                            <a href="/animes" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                                Animes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/movies" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                                Filmes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/games" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                                Games
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                                Mangás
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                                Livros
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                                Séries
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

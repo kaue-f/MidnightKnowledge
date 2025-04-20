@@ -3,26 +3,22 @@
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
-use App\Models\Game\Game;
+use App\Models\Movie\Movie;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
-use App\Services\Caches\GameCache;
 use Illuminate\Support\Collection;
-use Livewire\WithoutUrlPagination;
+use App\Services\Caches\MovieCache;
 use App\Services\Caches\ClassificationCache;
+use Livewire\Features\SupportPagination\WithoutUrlPagination;
 
-class Games extends Component
+class Movies extends Component
 {
     use WithPagination, WithoutUrlPagination;
     public string $search = '';
     public Collection $genres;
     public array $genre = [];
-    public array $platforms;
-    public array $plataform = [];
     public array $classifications;
     public array $classification = [];
-    public array $developers = [];
-    public array $developer = [];
     public array $sortBy = ['column' => 'id', 'direction' => 'asc'];
     public array $numbersPage = [
         ['id' => 10, 'name' => 10],
@@ -33,57 +29,48 @@ class Games extends Component
         ['id' => 100, 'name' => 100]
     ];
     public int $page = 15;
-    public bool $modalGame = false;
+    public bool $modalMovie = false;
 
-    #[Title('Games')]
+    #[Title('Filmes')]
     public function render()
     {
-        return view('livewire.pages.games', [
-            'games' => $this->gamesQuery()
+        return view('livewire.pages.movies', [
+            'movies' => $this->moviesQuery()
         ]);
     }
 
-    public function mount(GameCache $gameCache)
+    public function mount()
     {
         $this->classifications = app(ClassificationCache::class)->fetch();
-        $this->genres = $gameCache->getGenres();
-        $this->platforms = $gameCache->getPlatforms();
-        $this->developers = $gameCache->getDevelopers();
+        $this->genres = app(MovieCache::class)->getGenres();
     }
 
-    public function gamesQuery($assortment = NULL)
+    public function moviesQuery($assortment = NULL)
     {
         if (!isNullOrEmpty($assortment))
             $this->sortBy = orderSortBy($this->sortBy, $assortment);
 
-        return Game::query()->select('games.*')
-            ->with(['genres', 'platforms'])
+        return Movie::query()->select('movies.*')
+            ->with('genres')
             ->withAvg('ratings', 'rating')
             ->when($this->search, function ($query) {
-                $query->whereLike('title',  "%$this->search%");
+                $query->whereLike('title', "%$this->search%");
             })
             ->when($this->genre, function ($query) {
                 $query->whereHas('genres', function ($query) {
                     $query->whereIn('genres.id', $this->genre);
                 });
             })
-            ->when($this->plataform, function ($query) {
-                $query->whereHas('platforms', function ($query) {
-                    $query->whereIn('platforms.id', $this->plataform);
-                });
-            })
-            ->when($this->developer, function ($query) {
-                $query->whereIn('developed_by', $this->developer);
-            })
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
-            })->orderBy(...array_values($this->sortBy))
+            })
+            ->orderBy(...array_values($this->sortBy))
             ->paginate($this->page);
     }
 
     public function resetFilter()
     {
-        $this->reset('genre', 'plataform', 'classification', 'developer', 'search');
+        $this->reset('genre', 'classification', 'search');
         $this->resetPage();
     }
 }

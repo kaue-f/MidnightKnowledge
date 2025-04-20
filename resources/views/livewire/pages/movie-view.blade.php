@@ -1,19 +1,12 @@
-<x-layouts.view :title="$game->title" :synopsis="$game->synopsis">
+<x-layouts.view :title="$movie->title" :synopsis="$movie->synopsis">
     <x-slot:cover>
-        <livewire:components.ui.image-viewer :image="$game->image" :title="$game->title" />
+        <livewire:components.ui.image-viewer :image="$movie->image" :title="$movie->title" />
     </x-slot:cover>
 
     <x-slot:detail>
-        <div class="flex flex-wrap gap-2 w-full">
-            @foreach ($game->platforms()->get() as $item)
-                <x-badge value="{{ $item->name }}"
-                    class="badge-sm font-medium bg-blue-950 border-0 rounded-sm shadow shadow-white/10 hover:cursor-default" />
-            @endforeach
-        </div>
-        <x-ui.classification-badge :classification="$game->classification" />
-        <x-ui.detail-row description="Data de Lançamento" icon="fas.calendar-alt" :value="$game->release_date" />
-        <x-ui.detail-row description="Desenvolvedor" :value="$game->developed_by" />
-        <x-ui.detail-row description="Duração média do jogo" icon="s-clock" :value="$game->duration" />
+        <x-ui.classification-badge :classification="$movie->classification" />
+        <x-ui.detail-row description="Data de Lançamento" icon="fas.calendar-alt" :value="$movie->release_date" />
+        <x-ui.detail-row description="Duração" icon="s-clock" :value="$movie->duration" />
     </x-slot:detail>
 
     <x-slot:top>
@@ -68,14 +61,14 @@
     </x-slot:ratings>
 
     <x-slot:tags>
-        <x-ui.genre-tags :items="$game->genres()->get()" />
+        <x-ui.genre-tags :items="$movie->genres()->get()" />
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$game" :type="App\Enums\ContentType::GAME" />
+        <livewire:components.review-charts :content="$movie" :type="App\Enums\ContentType::MOVIE" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$game" :type="App\Enums\ContentType::GAME" />
+        <livewire:components.comment-section :content="$movie" :type="App\Enums\ContentType::MOVIE" />
     </x-slot:comment>
 </x-layouts.view>

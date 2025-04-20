@@ -51,6 +51,18 @@ if (!function_exists('isMarkdown')) {
     {
         return (! isNullOrEmpty($value))
             ? nl2br(rtrim(Str::markdown($value), "\n"))
-            : "N/A";
+            : 'N/A';
+    }
+}
+
+if (!function_exists('isTime')) {
+    function isTime($value): string
+    {
+        if (isNullOrEmpty($value))
+            return 'N/A';
+
+        $time = Carbon::parse($value);
+
+        return "{$time->format('G')}h {$time->format('i')}m";
     }
 }

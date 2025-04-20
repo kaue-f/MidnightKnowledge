@@ -74,7 +74,7 @@ class Animes extends Component
 
     public function resetFilter()
     {
-        $this->reset('genre', 'animeType', 'classification');
+        $this->reset('genre', 'animeType', 'classification', 'search');
         $this->resetPage();
     }
 }

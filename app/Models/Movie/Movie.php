@@ -48,6 +48,14 @@ class Movie extends Model
             get: fn($value): string => isMarkdown($value)
         );
     }
+
+    protected function duration(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value): string => isTime($value)
+        );
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class)

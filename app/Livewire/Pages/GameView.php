@@ -5,7 +5,6 @@ namespace App\Livewire\Pages;
 use App\Enums\Status;
 use Livewire\Component;
 use App\Models\Game\Game;
-use App\Models\Classification;
 use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,8 +20,7 @@ class GameView extends Component
     public function render()
     {
         return view('livewire.pages.game-view', [
-            'statuses' => Status::array(),
-            'classification' => Classification::find($this->game->classification_id)
+            'statuses' => Status::array()
         ])
             ->title($this->game->title);
     }

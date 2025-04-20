@@ -4,7 +4,7 @@
     </x-slot:cover>
 
     <x-slot:detail>
-        <x-ui.classification-badge :classification="$classification" />
+        <x-ui.classification-badge :classification="$anime->classification" />
         <x-ui.season-row :current="$anime->season" :total="$anime->season_count" />
         <x-ui.detail-row description="Total de Episódios" :value="$anime->episodes" />
         <x-ui.detail-row description="Filmes" :value="$anime->movie_count" />
@@ -63,7 +63,7 @@
     </x-slot:ratings>
 
     <x-slot:tags>
-        <x-badge value="{{ $type->name }}"
+        <x-badge value="{{ $anime->anime_type->name }}"
             class="badge-sm font-medium bg-blue-950 border-0 rounded-sm shadow shadow-white/10 hover:cursor-default" />
         <x-ui.genre-tags :items="$anime->genres()->get()" />
     </x-slot:tags>
