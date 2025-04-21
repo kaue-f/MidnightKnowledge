@@ -3,19 +3,20 @@
 namespace App\Livewire\Components;
 
 use Livewire\Component;
-use App\Services\CommentService;
+use App\Enums\ContentType;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 
 class CommentSection extends Component
 {
     public $content;
-    public $type;
+    public ContentType $type;
+
     #[Validate('required', message: 'O comentário é obrigatório.')]
     #[Validate('min:10', message: 'O comentário deve conter no mínimo 10 caracteres.')]
     #[Validate('max:500', message: 'O comentário deve ter no máximo 500 caracteres.')]
     public string $comment = '';
-    public $commentQuery;
+    public $comments;
     public $posts = [];
     public int $limitPost = 0;
     public bool $isLimit = false;
@@ -30,17 +31,21 @@ class CommentSection extends Component
         'forceSync' => true,
 
     ];
-    private readonly CommentService $commentService;
-
-    public function boot(CommentService $commentService)
-    {
-        $this->commentService = $commentService;
-    }
+    public $model;
 
     public function mount()
     {
-        $this->commentQuery = $this->commentService->get($this->content, $this->type);
+        $this->model = $this->type->getModelComment();
+        $this->getComments();
         $this->loadPosts();
+    }
+
+    public function getComments()
+    {
+        $this->comments = $this->model::with('user:nickname,image,id')
+            ->where("{$this->type->value}_id", $this->content->id)
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function post()
@@ -48,11 +53,20 @@ class CommentSection extends Component
         $this->validate();
 
         try {
-            $this->commentService->create($this->comment, $this->content, $this->type, Auth::user());
+            $post = $this->model::create([
+                "{$this->type->value}_id" => $this->content->id,
+                'user_id' => Auth::id(),
+                'comment' => $this->comment
+            ]);
+
+            (!isNullOrEmpty($post))
+                ? notyf()->success("Comentário publicado com sucesso.")
+                : notyf()->warning("Falha na publicação da comentário. Tente novamente.");
+
             $this->reset('comment');
             $this->showNewComment = false;
 
-            $this->commentQuery = $this->commentService->get($this->content, $this->type);
+            $this->getComments();
             $this->loadPosts();
         } catch (\Throwable $th) {
             return notyf()->error("Erro ao realizar a publicação do comentário. Tente novamente mais tarde.");
@@ -61,10 +75,10 @@ class CommentSection extends Component
 
     public function loadPosts()
     {
-        if (count($this->posts) >= count($this->commentQuery))
+        if (count($this->posts) >= count($this->comments))
             return $this->isLimit = true;
 
         $this->limitPost += 5;
-        $this->posts = $this->commentQuery->take($this->limitPost);
+        $this->posts = $this->comments->take($this->limitPost);
     }
 }
