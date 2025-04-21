@@ -28,20 +28,13 @@
         {{ $slot }}
     </main>
 
-    @include('components.modals.isLoggedUser')
+    <x-modals.is-logged-user />
 
     <div class="spotlight">
         <x-spotlight shortcut="shift.space" search-text="" no-results-text="Ops! Nenhum conteúdo encontrado" />
     </div>
 
     @stack('scripts')
-    <script>
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('noLogged', () => {
-                document.getElementById('noLogged').showModal();
-            });
-        })
-    </script>
 </body>
 
 </html>

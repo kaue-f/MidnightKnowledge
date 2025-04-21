@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('imageNoneUser')) {
     function imageNoneUser(): string
@@ -64,5 +65,16 @@ if (!function_exists('isTime')) {
         $time = Carbon::parse($value);
 
         return "{$time->format('G')}h {$time->format('i')}m";
+    }
+}
+
+if (!function_exists('isLogged')) {
+    function isLogged($component): bool
+    {
+        if (Auth::check())
+            return true;
+
+        $component->js('document.getElementById("noLogged").showModal()');
+        return false;
     }
 }

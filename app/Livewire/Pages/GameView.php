@@ -2,11 +2,15 @@
 
 namespace App\Livewire\Pages;
 
+use App\Models\User;
 use App\Enums\Status;
 use Livewire\Component;
 use App\Models\Game\Game;
-use App\Services\LibraryService;
+use App\Enums\ContentType;
+use App\Actions\Library\RateAction;
 use Illuminate\Support\Facades\Auth;
+use App\Actions\Library\LibraryAction;
+use App\Actions\Library\FavoriteAction;
 
 class GameView extends Component
 {
@@ -15,25 +19,21 @@ class GameView extends Component
     public bool $favorite = false;
     public bool $library = false;
     public string $status = '';
-    private readonly LibraryService $libraryService;
+    public ?User $user;
 
     public function render()
     {
         return view('livewire.pages.game-view', [
             'statuses' => Status::array()
-        ])
-            ->title($this->game->title);
-    }
-
-    public function boot(LibraryService $libraryService)
-    {
-        $this->libraryService = $libraryService;
+        ])->title($this->game->title);
     }
 
     public function mount()
     {
+        $this->user = Auth::user();
+
         $gameUser = $this->game->users()
-            ->where('user_id', Auth::id())
+            ->where('user_id', $this->user->id ?? "")
             ->first();
 
         if (!isNullOrEmpty($gameUser)) {
@@ -45,43 +45,36 @@ class GameView extends Component
         $userRating = $this->game->ratings()
             ->where([
                 ['game_id', $this->game->id],
-                ['user_id', Auth::id()],
+                ['user_id', $this->user->id ?? ""],
             ])->first();
 
         $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
 
-        $this->ratings['value'] = (isNullOrEmpty($userRating) || !Auth::id())
+        $this->ratings['value'] = (isNullOrEmpty($userRating) || !$this->user->id)
             ? (int) $this->game->ratings()->avg('rating') ?? 0
             : $userRating->rating;
     }
 
-    public function handleLibrary(bool $library, string $status = "")
+    public function handleLibrary(LibraryAction $libraryAction, bool $library, string $status = "")
     {
-        if (!Auth::check())
-            return $this->dispatch('noLogged');
-
-        $this->library = $library;
-
-        $this->status = Status::getDescription($status);
-
-        $this->libraryService->library($this->game, $library, $status);
+        if (isLogged($this)) {
+            $this->library = $library;
+            $this->status = Status::getDescription($status);
+            $libraryAction->execute($this->game, $this->user, $library, $status);
+        }
     }
 
-    public function updatedFavorite()
+    public function updatedFavorite(FavoriteAction $favoriteAction)
     {
-        if (!Auth::check())
-            return $this->dispatch('noLogged');
-
-        $this->libraryService->favorite($this->game, $this->favorite);
+        if (isLogged($this))
+            $favoriteAction->execute($this->game, $this->user, $this->favorite);
     }
 
-    public function updatedRatingsValue()
+    public function updatedRatingsValue(RateAction $rateAction)
     {
-        if (!Auth::check())
-            return $this->dispatch('noLogged');
-
-        $this->libraryService->rate($this->game, $this->ratings['value'], 'game');
-
-        $this->ratings['avg'] = $this->game->ratings()->avg('rating');
+        if (isLogged($this)) {
+            $rateAction->execute($this->game, $this->user, $this->ratings['value'], ContentType::GAME);
+            $this->ratings['avg'] = $this->game->ratings()->avg('rating');
+        }
     }
 }
