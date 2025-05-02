@@ -39,8 +39,8 @@
                                 hint="Alguns animes usam arco no lugar de temporada." />
                         </div>
                         <div class="w-1/2">
-                            <x-input label="Número total de temporadas" placeholder="1"
-                                wire:model="animeForm.season_count" x-mask="9999" autocomplete="off"
+                            <x-input label="Total de temporadas" placeholder="1" wire:model="animeForm.season_count"
+                                x-mask="9999" autocomplete="off"
                                 hint="Alguns animes usam arco no lugar de temporada." />
                         </div>
                     </div>

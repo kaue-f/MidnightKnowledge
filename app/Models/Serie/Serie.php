@@ -24,6 +24,7 @@ class Serie extends Model
         'classification_id',
         'episodes',
         'season',
+        'season_count',
         'release_date',
         'user_id'
     ];

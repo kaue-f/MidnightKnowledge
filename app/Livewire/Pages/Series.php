@@ -3,15 +3,14 @@
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
-use App\Models\Movie\Movie;
+use App\Models\Serie\Serie;
 use Livewire\WithPagination;
-use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
+use Livewire\WithoutUrlPagination;
 use App\Services\Caches\MovieSerieCache;
 use App\Services\Caches\ClassificationCache;
-use Livewire\Features\SupportPagination\WithoutUrlPagination;
 
-class Movies extends Component
+class Series extends Component
 {
     use WithPagination, WithoutUrlPagination;
     public string $search = '';
@@ -29,14 +28,11 @@ class Movies extends Component
         ['id' => 100, 'name' => 100]
     ];
     public int $page = 15;
-    public bool $modalMovie = false;
+    public bool $modalSerie = false;
 
-    #[Title('Filmes')]
     public function render()
     {
-        return view('livewire.pages.movies', [
-            'movies' => $this->moviesQuery()
-        ]);
+        return view('livewire.pages.series', ['series' => $this->seriesQuery()]);
     }
 
     public function mount()
@@ -45,22 +41,25 @@ class Movies extends Component
         $this->genres = app(MovieSerieCache::class)->getGenres();
     }
 
-    public function moviesQuery($assortment = NULL)
+    public function seriesQuery($assortment = NULL)
     {
-        if (!isNullOrEmpty($assortment))
+        if (! isNullOrEmpty($assortment))
             $this->sortBy = orderSortBy($this->sortBy, $assortment);
 
-        return Movie::query()->select('movies.*')
-            ->with('genres')
+        return Serie::query()->select('series.*')
+            ->with(['genres',])
             ->withAvg('ratings', 'rating')
             ->when($this->search, function ($query) {
                 $query->whereLike('title', "%$this->search%");
             })
-            ->when($this->genre, function ($query) {
-                $query->whereHas('genres', function ($query) {
-                    $query->whereIn('genres.id', $this->genre);
-                });
-            })
+            ->when(
+                $this->genre,
+                function ($query) {
+                    $query->whereHas('genres', function ($query) {
+                        $query->whereIn('genres.id', $this->genre);
+                    });
+                }
+            )
             ->when($this->classification, function ($query) {
                 $query->whereIn('classification_id', $this->classification);
             })

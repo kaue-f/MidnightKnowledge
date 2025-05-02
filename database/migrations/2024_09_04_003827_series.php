@@ -17,8 +17,9 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->text('synopsis')->nullable();
             $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
-            $table->integer('episodes');
-            $table->integer('season');
+            $table->integer('episodes')->nullable();
+            $table->integer('season')->nullable();
+            $table->integer('season_count')->nullable();
             $table->date('release_date')->nullable();
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();

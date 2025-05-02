@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
+@font-face {
+    font-family: "False";
+    font-style: normal;
+    src: url("/public/fonts/False.ttf") format("truetype");
+}
+
 @import "tailwindcss";
 @plugin "daisyui" {
     themes: false;
@@ -13,7 +19,8 @@
 @source "../**/*.vue";
 
 @theme {
-    --font-noto: Noto Sans, sans-serif;
+    --font-noto: "Noto Sans", sans-serif;
+    --font-false: "False";
 }
 
 @import "./markdown.css";
@@ -66,6 +73,10 @@ article {
 
 .spotlight .input {
     @apply bg-base-100 border-0;
+}
+
+.content-title {
+    @apply text-2xl font-false;
 }
 
 @plugin "daisyui/theme" {

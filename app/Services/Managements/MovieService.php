@@ -27,7 +27,7 @@ class MovieService
 
         if (!isNullOrEmpty($movie)) {
             $movieForm->resetForm();
-            return notyf()->success("Filme $movie->title foi adicionado ao acervo Midnight Knowledge.");
+            return notyf()->success("Filme <strong>{$movie->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
         }
 
         return notyf()->warning("Não foi possível cadastrar o filme desejado. Verifique os dados e tente novamente.");

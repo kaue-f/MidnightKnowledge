@@ -16,12 +16,16 @@
                     <x-icon name="s-chevron-down" />
                 </div>
             </x-slot:trigger>
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes" link="/animes" />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes" link="/movies" />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games" link="/games" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes"
+                link="{{ route(name: 'animes') }}" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes"
+                link="{{ route(name: 'movies') }}" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games"
+                link="{{ route(name: 'games') }}" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Mangás" link="/" />
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Livros" link="/" />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Séries" link="/" />
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Séries"
+                link="{{ route(name: 'series') }}" />
         </x-dropdown>
         <x-button class="btn-ghost text-lg hover:text-primary hover:bg-transparent" label="Biblioteca" link="/" />
     </div>
@@ -77,17 +81,20 @@
                     <h2 class="menu-title">Explorar</h2>
                     <ul>
                         <li>
-                            <a href="/animes" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                            <a href="{{ route(name: 'animes') }}" wire:navigate
+                                class="font-medium hover:text-primary hover:bg-transparent">
                                 Animes
                             </a>
                         </li>
                         <li>
-                            <a href="/movies" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                            <a href="{{ route(name: 'movies') }}" wire:navigate
+                                class="font-medium hover:text-primary hover:bg-transparent">
                                 Filmes
                             </a>
                         </li>
                         <li>
-                            <a href="/games" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                            <a href="{{ route(name: 'games') }}" wire:navigate
+                                class="font-medium hover:text-primary hover:bg-transparent">
                                 Games
                             </a>
                         </li>
@@ -102,7 +109,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                            <a href="{{ route(name: 'series') }}" wire:navigate
+                                class="font-medium hover:text-primary hover:bg-transparent">
                                 Séries
                             </a>
                         </li>

@@ -1,6 +1,6 @@
 <section>
     <div class="flex flex-row flex-1 justify-between items-center">
-        <h1 class="text-2xl font-bold">Animes</h1>
+        <h1 class="content-title">Animes</h1>
         <div class="px-4">
             @auth
                 <x-icon class="h-8 text-primary hover:text-primary/75 hover:cursor-pointer" name="m-plus"
