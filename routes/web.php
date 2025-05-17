@@ -1,11 +1,13 @@
 <?php
 
 use App\Livewire\Pages\Home;
+use App\Livewire\Pages\Books;
 use App\Livewire\Pages\Games;
 use App\Livewire\Pages\Animes;
 use App\Livewire\Pages\Movies;
 use App\Livewire\Pages\Series;
 use App\Livewire\Pages\Welcome;
+use App\Livewire\Pages\BookView;
 use App\Livewire\Pages\GameView;
 use App\Livewire\Pages\Settings;
 use App\Livewire\Pages\AnimeView;
@@ -27,6 +29,9 @@ Route::get('/', Home::class)->name('home');
 
 Route::get('/animes', Animes::class)->name('animes');
 Route::get('/anime/{anime}/{title}', AnimeView::class)->name('anime.view');
+
+Route::get('/books', Books::class)->name('books');
+Route::get('/book/{book}/{title}', BookView::class)->name('book.view');
 
 Route::get('/games', Games::class)->name('games');
 Route::get('/game/{game}/{title}', GameView::class)->name('game.view');

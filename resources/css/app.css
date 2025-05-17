@@ -76,7 +76,7 @@ article {
 }
 
 .content-title {
-    @apply text-2xl font-false;
+    @apply text-2xl font-false tracking-wider;
 }
 
 @plugin "daisyui/theme" {

@@ -79,4 +79,9 @@ class Book extends Model
     {
         return $this->belongsTo(Classification::class, 'classification_id');
     }
+
+    public function formats()
+    {
+        return $this->belongsToMany(Format::class, 'book_formats');
+    }
 }

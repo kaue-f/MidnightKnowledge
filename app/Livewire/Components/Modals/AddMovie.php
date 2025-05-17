@@ -26,11 +26,11 @@ class AddMovie extends Component
     ];
     public array $configSynopsis = [
         'inputStyle' => 'contenteditable',
-        'toolbar' => false,
+        'toolbar' => ['heading', 'bold', 'italic'],
         'statusbar' => false,
         'maxHeight' => '125px',
         'uploadImage' => false,
-        'placeholder' => 'Sinopse do game...',
+        'placeholder' => 'Sinopse do filme...',
         'status' => false,
         'forceSync' => true,
         'plugins' => 'autoresize',

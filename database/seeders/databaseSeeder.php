@@ -15,6 +15,7 @@ class databaseSeeder extends Seeder
     {
         $this->call([
             AnimeTypesSeeder::class,
+            BookFormatsSeeder::class,
             ClassificationsSeeder::class,
             GenresAnimeSeeder::class,
             GenresBookSeeder::class,

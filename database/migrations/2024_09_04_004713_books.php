@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('synopsis')->nullable();
             $table->integer('chapter')->nullable();
             $table->integer('pages')->nullable();
-            $table->integer('volume');
-            $table->string('series');
+            $table->integer('volume')->nullable();
+            $table->string('series')->nullable();
             $table->string('author')->nullable();
             $table->date('release_date')->nullable();
             $table->string('published_by')->nullable();
@@ -74,6 +74,22 @@ return new class extends Migration
             $table->softDeletes();
             $table->unique(['book_id', 'user_id']);
         });
+
+        Schema::create('formats', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('book_formats', function (Blueprint $table) {
+            $table->id();
+            $table->foreignUuid('book_id')->constrained()->onDelete('cascade');
+            $table->foreignId('format_id')->nullable()->constrained()->onDelete('set null');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -86,5 +102,7 @@ return new class extends Migration
         Schema::dropIfExists('book_user');
         Schema::dropIfExists('book_comments');
         Schema::dropIfExists('book_ratings');
+        Schema::dropIfExists('formats');
+        Schema::dropIfExists('book_formats');
     }
 };

@@ -18,12 +18,18 @@
             </x-slot:trigger>
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes"
                 link="{{ route(name: 'animes') }}" />
+
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes"
                 link="{{ route(name: 'movies') }}" />
+
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games"
                 link="{{ route(name: 'games') }}" />
+
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Mangás" link="/" />
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Livros" link="/" />
+
+            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Livros"
+                link="{{ route(name: 'books') }}" />
+
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Séries"
                 link="{{ route(name: 'series') }}" />
         </x-dropdown>
@@ -104,7 +110,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
+                            <a href="{{ route(name: 'books') }}" wire:navigate
+                                class="font-medium hover:text-primary hover:bg-transparent">
                                 Livros
                             </a>
                         </li>
