@@ -105,6 +105,6 @@
             {{ $books->links() }}
         </div>
     </div>
-    <livewire:components.modals.add-book :$genres :$authors :$classifications :$publishedBy :$formats :user="Auth::user()"
-        wire:model.live='modalBook' />
+    <livewire:components.modals.create-book :$genres :$authors :$classifications :$publishedBy :$formats
+        :user="Auth::user()" wire:model.live='modalBook' />
 </section>

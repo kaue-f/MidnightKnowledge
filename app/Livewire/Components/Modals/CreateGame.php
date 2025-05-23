@@ -4,25 +4,23 @@ namespace App\Livewire\Components\Modals;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Livewire\Forms\BookForm;
+use Livewire\WithFileUploads;
+use App\Livewire\Forms\GameForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\BookService;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use App\Services\Managements\GameService;
 
-class AddBook extends Component
+class CreateGame extends Component
 {
     use WithFileUploads;
     public ?User $user;
-    public BookForm $bookForm;
-    public Collection $genres;
+    public array $platforms;
     public array $classifications;
-    public array $authors;
-    public array $series;
-    public array $publishedBy;
-    public array $formats;
+    public GameForm $gameForm;
+    public Collection $genres;
+    public array $developers;
     #[Modelable]
-    public bool $modalBook = false;
+    public bool $modalGame = false;
     public array $config = [
         'dateFormat' => 'Y-m-d',
         'altFormat' => 'd F Y',
@@ -34,26 +32,26 @@ class AddBook extends Component
         'statusbar' => false,
         'maxHeight' => '125px',
         'uploadImage' => false,
-        'placeholder' => 'Sinopse do livro...',
+        'placeholder' => 'Sinopse do game...',
         'status' => false,
         'forceSync' => true,
         'plugins' => 'autoresize',
     ];
 
-    public function save(BookService $book)
+    public function save(GameService $game)
     {
         $this->validate();
         try {
-            $book->create($this->bookForm, $this->user);
+            $game->create($this->gameForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do livro inserido. Veriique os dados e tente novamente.");
+            notyf()->error("Falha no cadastramento do game inserido. Verifique os dados e tente novamente.");
         }
     }
 
     public function close()
     {
-        $this->bookForm->resetForm();
-        $this->modalBook = false;
+        $this->gameForm->resetForm();
+        $this->modalGame = false;
     }
 }

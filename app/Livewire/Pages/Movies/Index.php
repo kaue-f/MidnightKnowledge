@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Movies;
 
 use Livewire\Component;
 use App\Models\Movie\Movie;
@@ -11,7 +11,7 @@ use App\Services\Caches\MovieSerieCache;
 use App\Services\Caches\ClassificationCache;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 
-class Movies extends Component
+class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
     public string $search = '';
@@ -34,7 +34,7 @@ class Movies extends Component
     #[Title('Filmes')]
     public function render()
     {
-        return view('livewire.pages.movies', [
+        return view('livewire.pages.movies.index', [
             'movies' => $this->moviesQuery()
         ]);
     }

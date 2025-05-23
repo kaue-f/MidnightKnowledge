@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Animes;
 
 use App\Models\User;
 use App\Enums\Status;
 use Livewire\Component;
 use App\Enums\ContentType;
-use App\Models\Movie\Movie;
+use App\Models\Anime\Anime;
 use App\Actions\Library\RateAction;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Library\LibraryAction;
 use App\Actions\Library\FavoriteAction;
 
-class MovieView extends Component
+class Show extends Component
 {
-    public Movie $movie;
+    public Anime $anime;
     public array $ratings = ['avg' => 0, 'value' => 0];
     public bool $favorite = false;
     public bool $library = false;
@@ -23,35 +23,35 @@ class MovieView extends Component
 
     public function render()
     {
-        return view('livewire.pages.movie-view', [
+        return view('livewire.pages.animes.show', [
             'statuses' => Status::array()
-        ])->title($this->movie->title);
+        ])->title($this->anime->title);
     }
 
     public function mount()
     {
         $this->user = Auth::user();
 
-        $movieUser = $this->movie->users()
+        $animeUser = $this->anime->users()
             ->where('user_id', $this->user->id ?? "")
             ->first();
 
-        if (!isNullOrEmpty($movieUser)) {
-            $this->favorite = $movieUser->pivot->favorite;
-            $this->library =  $movieUser->pivot->library;
-            $this->status = $movieUser->pivot->status;
+        if (!isNullOrEmpty($animeUser)) {
+            $this->favorite = $animeUser->pivot->favorite;
+            $this->library =  $animeUser->pivot->library;
+            $this->status = $animeUser->pivot->status;
         }
 
-        $userRating = $this->movie->ratings()
+        $userRating = $this->anime->ratings()
             ->where([
-                ['movie_id', $this->movie->id],
+                ['anime_id', $this->anime->id],
                 ['user_id', $this->user->id ?? ""],
             ])->first();
 
-        $this->ratings['avg'] = round($this->movie->ratings()->avg('rating'), 2) ?? 0;
+        $this->ratings['avg'] = round($this->anime->ratings()->avg('rating'), 2) ?? 0;
 
         $this->ratings['value'] = (isNullOrEmpty($userRating) || !$this->user->id)
-            ? (int) $this->movie->ratings()->avg('rating') ?? 0
+            ? (int) $this->anime->ratings()->avg('rating') ?? 0
             : $userRating->rating;
     }
 
@@ -60,21 +60,21 @@ class MovieView extends Component
         if (isLogged($this)) {
             $this->library = $library;
             $this->status = Status::getDescription($status);
-            $libraryAction->execute($this->movie, $this->user, $library, $status);
+            $libraryAction->execute($this->anime, $this->user, $library, $status);
         }
     }
 
     public function updatedFavorite(FavoriteAction $favoriteAction)
     {
         if (isLogged($this))
-            $favoriteAction->execute($this->movie, $this->user, $this->favorite);
+            $favoriteAction->execute($this->anime, $this->user, $this->favorite);
     }
 
     public function updatedRatingsValue(RateAction $rateAction)
     {
         if (isLogged($this)) {
-            $rateAction->execute($this->movie, $this->user, $this->ratings['value'], ContentType::MOVIE);
-            $this->ratings['avg'] = $this->movie->ratings()->avg('rating');
+            $rateAction->execute($this->anime, $this->user, $this->ratings['value'], ContentType::ANIME);
+            $this->ratings['avg'] = $this->anime->ratings()->avg('rating');
         }
     }
 }

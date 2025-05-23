@@ -4,21 +4,25 @@ namespace App\Livewire\Components\Modals;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Livewire\Forms\MovieForm;
+use App\Livewire\Forms\BookForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\MovieService;
+use App\Services\Managements\BookService;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
-class AddMovie extends Component
+class CreateBook extends Component
 {
     use WithFileUploads;
-    #[Modelable]
-    public bool $modalMovie = false;
     public ?User $user;
-    public array $classifications;
-    public MovieForm $movieForm;
+    public BookForm $bookForm;
     public Collection $genres;
+    public array $classifications;
+    public array $authors;
+    public array $series;
+    public array $publishedBy;
+    public array $formats;
+    #[Modelable]
+    public bool $modalBook = false;
     public array $config = [
         'dateFormat' => 'Y-m-d',
         'altFormat' => 'd F Y',
@@ -30,26 +34,26 @@ class AddMovie extends Component
         'statusbar' => false,
         'maxHeight' => '125px',
         'uploadImage' => false,
-        'placeholder' => 'Sinopse do filme...',
+        'placeholder' => 'Sinopse do livro...',
         'status' => false,
         'forceSync' => true,
         'plugins' => 'autoresize',
     ];
 
-    public function save(MovieService $movie)
+    public function save(BookService $book)
     {
         $this->validate();
         try {
-            $movie->create($this->movieForm, $this->user);
+            $book->create($this->bookForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do filme inserido. Verifique os dados e tente novamente.");
+            notyf()->error("Falha no cadastramento do livro inserido. Veriique os dados e tente novamente.");
         }
     }
 
     public function close()
     {
-        $this->movieForm->resetForm();
-        $this->modalMovie = false;
+        $this->bookForm->resetForm();
+        $this->modalBook = false;
     }
 }

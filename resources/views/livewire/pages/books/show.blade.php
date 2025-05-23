@@ -12,9 +12,7 @@
         </div>
         <x-ui.classification-badge :classification="$book->classification" />
         <x-ui.detail-row description="Páginas" :value="$book->pages" />
-        @if (!isNullOrEmpty($book->chapter))
-            <x-ui.detail-row description="Capítulos" :value="$book->chapter" />
-        @endif
+        <x-ui.detail-row description="Capítulos" :value="$book->chapter" />
         <x-ui.detail-row description="Volume" :value="$book->volume" />
         <x-ui.detail-row description="Série" :value="$book->series" />
         <x-ui.detail-row description="Autor" :value="$book->author" />
@@ -74,8 +72,6 @@
     </x-slot:ratings>
 
     <x-slot:tags>
-        {{-- <x-badge value="{{ $book->book_-> }}"
-            class="badge-sm font-medium bg-blue-950 border-0 rounded-sm shadow shadow-white/10 hover:cursor-default" /> --}}
         <x-ui.genre-tags :items="$book->genres()->get()" />
     </x-slot:tags>
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Games;
 
 use App\Models\User;
 use App\Enums\Status;
 use Livewire\Component;
+use App\Models\Game\Game;
 use App\Enums\ContentType;
-use App\Models\Serie\Serie;
 use App\Actions\Library\RateAction;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Library\LibraryAction;
 use App\Actions\Library\FavoriteAction;
 
-class SerieView extends Component
+class Show extends Component
 {
-    public Serie $serie;
+    public Game $game;
     public array $ratings = ['avg' => 0, 'value' => 0];
     public bool $favorite = false;
     public bool $library = false;
@@ -23,35 +23,35 @@ class SerieView extends Component
 
     public function render()
     {
-        return view('livewire.pages.serie-view', [
+        return view('livewire.pages.games.show', [
             'statuses' => Status::array()
-        ])->title($this->serie->title);
+        ])->title($this->game->title);
     }
 
     public function mount()
     {
         $this->user = Auth::user();
 
-        $serieUser = $this->serie->users()
+        $gameUser = $this->game->users()
             ->where('user_id', $this->user->id ?? "")
             ->first();
 
-        if (!isNullOrEmpty($serieUser)) {
-            $this->favorite = $serieUser->pivot->favorite;
-            $this->library = $serieUser->pivot->library;
-            $this->status = $serieUser->pivot->status;
+        if (!isNullOrEmpty($gameUser)) {
+            $this->favorite = $gameUser->pivot->favorite;
+            $this->library =  $gameUser->pivot->library;
+            $this->status = $gameUser->pivot->status;
         }
 
-        $userRating = $this->serie->ratings()
+        $userRating = $this->game->ratings()
             ->where([
-                ['serie_id', $this->serie->id],
-                ['user_id', $this->user->id ?? ""]
+                ['game_id', $this->game->id],
+                ['user_id', $this->user->id ?? ""],
             ])->first();
 
-        $this->ratings['avg'] = round($this->serie->ratings()->avg('rating'), 2);
+        $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
 
         $this->ratings['value'] = (isNullOrEmpty($userRating) || !$this->user->id)
-            ? (int) $this->serie->ratings()->avg('rating') ?? 0
+            ? (int) $this->game->ratings()->avg('rating') ?? 0
             : $userRating->rating;
     }
 
@@ -60,21 +60,21 @@ class SerieView extends Component
         if (isLogged($this)) {
             $this->library = $library;
             $this->status = Status::getDescription($status);
-            $libraryAction->execute($this->serie, $this->user, $library, $status);
+            $libraryAction->execute($this->game, $this->user, $library, $status);
         }
     }
 
     public function updatedFavorite(FavoriteAction $favoriteAction)
     {
         if (isLogged($this))
-            $favoriteAction->execute($this->serie, $this->user, $this->favorite);
+            $favoriteAction->execute($this->game, $this->user, $this->favorite);
     }
 
     public function updatedRatingsValue(RateAction $rateAction)
     {
         if (isLogged($this)) {
-            $rateAction->execute($this->serie, $this->user, $this->ratings['value'], ContentType::SERIE);
-            $this->ratings['avg'] = $this->serie->ratings()->avg('rating');
+            $rateAction->execute($this->game, $this->user, $this->ratings['value'], ContentType::GAME);
+            $this->ratings['avg'] = $this->game->ratings()->avg('rating');
         }
     }
 }

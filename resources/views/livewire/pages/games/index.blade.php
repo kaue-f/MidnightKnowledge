@@ -95,6 +95,6 @@
             {{ $games->links() }}
         </div>
     </div>
-    <livewire:components.modals.add-game :$genres :$platforms :$classifications :$developers :user="Auth::user()"
+    <livewire:components.modals.create-game :$genres :$platforms :$classifications :$developers :user="Auth::user()"
         wire:model.live='modalGame' />
 </section>

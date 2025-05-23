@@ -4,23 +4,21 @@ namespace App\Livewire\Components\Modals;
 
 use App\Models\User;
 use Livewire\Component;
-use Livewire\WithFileUploads;
-use App\Livewire\Forms\GameForm;
+use App\Livewire\Forms\SerieForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\GameService;
+use App\Services\Managements\SerieService;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
-class AddGame extends Component
+class CreateSerie extends Component
 {
     use WithFileUploads;
-    public ?User $user;
-    public array $platforms;
-    public array $classifications;
-    public GameForm $gameForm;
-    public Collection $genres;
-    public array $developers;
     #[Modelable]
-    public bool $modalGame = false;
+    public bool $modalSerie = false;
+    public ?User $user;
+    public array $classifications;
+    public SerieForm $serieForm;
+    public Collection $genres;
     public array $config = [
         'dateFormat' => 'Y-m-d',
         'altFormat' => 'd F Y',
@@ -32,26 +30,26 @@ class AddGame extends Component
         'statusbar' => false,
         'maxHeight' => '125px',
         'uploadImage' => false,
-        'placeholder' => 'Sinopse do game...',
+        'placeholder' => 'Sinopse da série...',
         'status' => false,
         'forceSync' => true,
         'plugins' => 'autoresize',
     ];
 
-    public function save(GameService $game)
+    public function save(SerieService $serie)
     {
         $this->validate();
         try {
-            $game->create($this->gameForm, $this->user);
+            $serie->create($this->serieForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do game inserido. Verifique os dados e tente novamente.");
+            notyf()->error("Falha no cadastramento da série inserido. Verifique os dados e tente novamente.");
         }
     }
 
     public function close()
     {
-        $this->gameForm->resetForm();
-        $this->modalGame = false;
+        $this->serieForm->resetForm();
+        $this->modalSerie = false;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Series;
 
 use Livewire\Component;
 use App\Models\Serie\Serie;
@@ -10,7 +10,7 @@ use Livewire\WithoutUrlPagination;
 use App\Services\Caches\MovieSerieCache;
 use App\Services\Caches\ClassificationCache;
 
-class Series extends Component
+class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
     public string $search = '';
@@ -32,7 +32,7 @@ class Series extends Component
 
     public function render()
     {
-        return view('livewire.pages.series', ['series' => $this->seriesQuery()]);
+        return view('livewire.pages.series.index', ['series' => $this->seriesQuery()]);
     }
 
     public function mount()

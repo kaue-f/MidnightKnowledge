@@ -4,21 +4,23 @@ namespace App\Livewire\Components\Modals;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Livewire\Forms\SerieForm;
+use Livewire\WithFileUploads;
+use App\Livewire\Forms\AnimeForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\SerieService;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use App\Services\Managements\AnimeService;
 
-class AddSerie extends Component
+class CreateAnime extends Component
 {
     use WithFileUploads;
     #[Modelable]
-    public bool $modalSerie = false;
+    public bool $modalAnime = false;
+    public AnimeForm $animeForm;
     public ?User $user;
-    public array $classifications;
-    public SerieForm $serieForm;
     public Collection $genres;
+    public array $classifications;
+    public array $animeTypes;
+
     public array $config = [
         'dateFormat' => 'Y-m-d',
         'altFormat' => 'd F Y',
@@ -30,26 +32,26 @@ class AddSerie extends Component
         'statusbar' => false,
         'maxHeight' => '125px',
         'uploadImage' => false,
-        'placeholder' => 'Sinopse da série...',
+        'placeholder' => 'Sinopse do anime...',
         'status' => false,
         'forceSync' => true,
         'plugins' => 'autoresize',
     ];
 
-    public function save(SerieService $serie)
+    public function save(AnimeService $anime)
     {
         $this->validate();
         try {
-            $serie->create($this->serieForm, $this->user);
+            $anime->create($this->animeForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento da série inserido. Verifique os dados e tente novamente.");
+            notyf()->error("Falha no cadastramento do anime inserido. Verifique os dados e tente novamente.");
         }
     }
 
     public function close()
     {
-        $this->serieForm->resetForm();
-        $this->modalSerie = false;
+        $this->animeForm->resetForm();
+        $this->modalAnime = false;
     }
 }
