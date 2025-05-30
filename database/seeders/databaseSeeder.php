@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\Genres\GenresBookSeeder;
+use Database\Seeders\Genres\GenresGameSeeder;
+use Database\Seeders\Genres\GenresAnimeSeeder;
+use Database\Seeders\Genres\GenresMangaSeeder;
+use Database\Seeders\Genres\GenresMovieSerieSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class databaseSeeder extends Seeder

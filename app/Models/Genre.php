@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Anime\Anime;
 use App\Models\Book\Book;
 use App\Models\Game\Game;
+use App\Models\Anime\Anime;
 use App\Models\Manga\Manga;
 use App\Models\Movie\Movie;
 use App\Models\Serie\Serie;

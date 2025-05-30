@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Genres;
 
 use App\Enums\ContentType;
 use Illuminate\Database\Seeder;

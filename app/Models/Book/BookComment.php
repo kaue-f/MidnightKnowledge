@@ -4,11 +4,9 @@ namespace App\Models\Book;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BookComment extends Model
 {
-    use SoftDeletes;
     protected $fillable = ['book_id', 'user_id', 'comment', 'like', 'dislike'];
 
     public function book()

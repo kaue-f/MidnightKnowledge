@@ -4,11 +4,9 @@ namespace App\Models\Movie;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MovieRating extends Model
 {
-    use SoftDeletes;
     protected $fillable = ['movie_id', 'user_id', 'rating'];
 
     public function movie()

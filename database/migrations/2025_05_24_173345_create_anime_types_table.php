@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classifications', function (Blueprint $table) {
+        Schema::create('anime_types', function (Blueprint $table) {
             $table->id();
-            $table->string('classification')->unique();
-            $table->string('description');
-            $table->text('image');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classifications');
+        Schema::dropIfExists('anime_types');
     }
 };
