@@ -2,7 +2,7 @@
 
 namespace App\Models\Manga;
 
-use App\Models\User;
+use App\Models\UserLibrary;
 use App\Models\Classification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,12 +49,9 @@ class Manga extends Model
             get: fn($value): string => isMarkdown($value)
         );
     }
-    public function users()
+    public function userLibrary()
     {
-        return $this->belongsToMany(User::class)
-            ->using(MangaUser::class)
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
+        return $this->morphMany(UserLibrary::class, 'content');
     }
 
     public function ratings()

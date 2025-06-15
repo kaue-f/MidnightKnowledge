@@ -76,4 +76,8 @@ class User extends Authenticatable
             get: fn($value): string => isDate($value)
         );
     }
+    public function library()
+    {
+        return $this->hasMany(UserLibrary::class);
+    }
 }

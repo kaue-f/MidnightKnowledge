@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,8 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->date('birthday')->nullable();
             $table->enum('role', [
-                'Member',
-                'VIP',
+                Role::Membro->value,
+                Role::VIP->value,
             ])->nullable();
             $table->rememberToken();
             $table->timestamps();

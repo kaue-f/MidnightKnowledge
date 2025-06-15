@@ -2,8 +2,8 @@
 
 namespace App\Models\Serie;
 
-use App\Models\User;
 use App\Models\Genre;
+use App\Models\UserLibrary;
 use App\Models\Classification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,12 +49,10 @@ class Serie extends Model
             get: fn($value): string => isMarkdown($value)
         );
     }
-    public function users()
+
+    public function userLibrary()
     {
-        return $this->belongsToMany(User::class)
-            ->using(SerieUser::class)
-            ->withPivot('library', 'status', 'favorite')
-            ->withTimestamps();
+        return $this->morphMany(UserLibrary::class, 'content');
     }
 
     public function genres()

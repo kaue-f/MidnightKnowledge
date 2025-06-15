@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('release_date')->nullable();
             $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
