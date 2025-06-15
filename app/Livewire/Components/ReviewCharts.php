@@ -4,8 +4,9 @@ namespace App\Livewire\Components;
 
 use App\Enums\Status;
 use Livewire\Component;
+use App\Models\UserLibrary;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+use App\Services\RatingService;
 
 class ReviewCharts extends Component
 {
@@ -24,38 +25,38 @@ class ReviewCharts extends Component
     public function mount()
     {
         $this->getChartsStatus();
-        $this->chartRatings = $this->getChartsRatings();
+        $this->chartRatings = $this->loadRatingChart();
     }
 
     public function getChartsStatus()
     {
-        $query = DB::table("{$this->type->value}_user")
-            ->where("{$this->type->value}_id", $this->content->id);
+        $query = UserLibrary::query()
+            ->where([
+                ['content_id', $this->content->id],
+                ['content_type', $this->type],
+            ]);
 
-        $this->chartStatus['FAVORITE'] = $query->sum(DB::raw('case when favorite = 1 then 1 else 0 end'));
+        $this->chartStatus['FAVORITE'] = $query->where('favorite', true)
+            ->sum('favorite');
 
         $arrStatus = $query->selectRaw('status, count(status) as count')
             ->groupBy('status', 'favorite')
-            ->get()->toArray();
+            ->get();
 
         foreach ($arrStatus as $value) {
-            match ($value->status) {
-                Status::PROGRESSO->name => Arr::set($this->chartStatus, Status::PROGRESSO->name, $value->count),
-                Status::LISTA->name =>  Arr::set($this->chartStatus, Status::LISTA->name, $value->count),
-                Status::FINALIZADO->name => Arr::set($this->chartStatus, Status::FINALIZADO->name, $value->count),
-                Status::PAUSADO->name =>  Arr::set($this->chartStatus, Status::PAUSADO->name, $value->count),
-                Status::DROPADO->name =>  Arr::set($this->chartStatus, Status::DROPADO->name, $value->count),
+            match ($value->getRawOriginal('status')) {
+                Status::PROGRESSO->value => Arr::set($this->chartStatus, Status::PROGRESSO->name, $value->count),
+                Status::LISTA->value =>  Arr::set($this->chartStatus, Status::LISTA->name, $value->count),
+                Status::FINALIZADO->value => Arr::set($this->chartStatus, Status::FINALIZADO->name, $value->count),
+                Status::PAUSADO->value =>  Arr::set($this->chartStatus, Status::PAUSADO->name, $value->count),
+                Status::DROPADO->value =>  Arr::set($this->chartStatus, Status::DROPADO->name, $value->count),
             };
         }
     }
 
-    public function getChartsRatings()
+    public function loadRatingChart()
     {
-        $arrRatings = DB::table("{$this->type->value}_ratings")
-            ->selectRaw('rating, count(rating) as count')
-            ->where("{$this->type->value}_id", $this->content->id)
-            ->groupBy('rating')
-            ->get()->toArray();
+        $arrRatings = app(RatingService::class)->getRatingChartData($this->content, $this->type);
 
         $arr = array_fill(1, 10, 0);
 

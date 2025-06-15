@@ -49,23 +49,23 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
-                            option-sub-label="description" :options="$genres" option-label="genre" wire:model="genre"
-                            searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            option-sub-label="description" :options="$genres" option-label="genre"
+                            wire:model="filters.genre" searchable no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Plataformas" option-sub-label="category"
-                            placeholder="Selecione plataforma" :options="$platforms" wire:model="plataform" searchable
-                            no-result-text="Ops! Nenhum resultado encontrado." />
+                            placeholder="Selecione plataforma" :options="$platforms" wire:model="filters.plataform"
+                            searchable no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Desenvolvedoras" placeholder="Selecione desenvolvedora"
-                            :options="$developers" wire:model="developer" searchable values-as-string
+                            :options="$developers" wire:model="filters.developer" searchable values-as-string
                             no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
                             placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="classification" />
+                            :options="$classifications" wire:model="filters.classification" />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">

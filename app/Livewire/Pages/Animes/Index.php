@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Animes;
 
 use Livewire\Component;
+use App\Enums\ContentType;
 use App\Models\Anime\Anime;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
@@ -16,11 +17,13 @@ class Index extends Component
     use WithPagination, WithoutUrlPagination;
     public string $search = '';
     public Collection $genres;
-    public array $genre = [];
     public array $animeTypes;
-    public array $animeType = [];
     public array $classifications;
-    public array $classification = [];
+    public array $filters = [
+        'animeType' => [],
+        'classification' => [],
+        'genre' => [],
+    ];
     public array $sortBy = ['column' => 'id', 'direction' => 'asc'];
     public array $numbersPage = [
         ['id' => 10, 'name' => 10],
@@ -57,24 +60,22 @@ class Index extends Component
             ->when($this->search, function ($query) {
                 $query->whereLike('title', "%$this->search%");
             })
-            ->when($this->genre, function ($query) {
+            ->when($this->filters['genre'], function ($query) {
                 $query->whereHas('genres', function ($query) {
-                    $query->whereIn('genres.id', $this->genre);
+                    $query->whereIn('genres.id', $this->filters['genre']);
                 });
             })
-            ->when($this->animeType, function ($query) {
-                $query->whereIn('anime_type_id', $this->animeType);
+            ->when($this->filters['classification'], function ($query) {
+                $query->whereIn('classification_id', $this->filters['classification']);
             })
-            ->when($this->classification, function ($query) {
-                $query->whereIn('classification_id', $this->classification);
-            })
+            ->tap(fn($query) => ContentType::ANIME->applyFilters($query, $this->filters))
             ->orderBy(...array_values($this->sortBy))
             ->paginate($this->page);
     }
 
     public function resetFilter()
     {
-        $this->reset('genre', 'animeType', 'classification', 'search');
+        $this->reset('filters', 'search');
         $this->resetPage();
     }
 }

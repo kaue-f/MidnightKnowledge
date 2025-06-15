@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Managements;
+namespace App\Services\Management;
 
 use App\Models\User;
 use App\Models\Book\Book;

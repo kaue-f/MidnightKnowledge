@@ -7,7 +7,7 @@ use Livewire\Component;
 use App\Livewire\Forms\SerieForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\SerieService;
+use App\Services\Management\SerieService;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class CreateSerie extends Component

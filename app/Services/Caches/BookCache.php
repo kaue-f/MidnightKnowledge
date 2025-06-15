@@ -31,7 +31,7 @@ class BookCache extends BaseCache
         return $this->remember(
             key: $this->authorsKey,
             callback: fn() => Book::selectRaw('TRIM(author) AS id, TRIM(author) AS name')
-                ->whereRaw("TRIM(author) != ''")
+                ->whereRaw("TRIM(author) <> ''")
                 ->groupByRaw('TRIM(author)')
                 ->orderByRaw('TRIM(author)')
                 ->get()
@@ -44,7 +44,7 @@ class BookCache extends BaseCache
         return $this->remember(
             key: $this->publishedKey,
             callback: fn() => Book::selectRaw('TRIM(published_by) AS id, TRIM(published_by) AS name')
-                ->whereRaw("TRIM(published_by) != ''")
+                ->whereRaw("TRIM(published_by) <> ''")
                 ->groupByRaw('TRIM(published_by)')
                 ->orderByRaw('TRIM(published_by)')
                 ->get()
@@ -65,7 +65,7 @@ class BookCache extends BaseCache
         return $this->remember(
             key: $this->seriesKey,
             callback: fn() => Book::selectRaw('TRIM(series) AS id, TRIM(series) AS name')
-                ->whereRaw("TRIM(series) != ''")
+                ->whereRaw("TRIM(series) <> ''")
                 ->groupByRaw('TRIM(series)')
                 ->orderByRaw('TRIM(series)')
                 ->get()

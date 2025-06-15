@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use App\Livewire\Forms\GameForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\GameService;
+use App\Services\Management\GameService;
 
 class CreateGame extends Component
 {

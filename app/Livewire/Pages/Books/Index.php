@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Books;
 
 use Livewire\Component;
 use App\Models\Book\Book;
+use App\Enums\ContentType;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use App\Services\Caches\BookCache;
@@ -16,17 +17,19 @@ class Index extends Component
     use WithPagination, WithoutUrlPagination;
     public string $search = '';
     public Collection $genres;
-    public array $genre = [];
     public array $authors;
-    public array $author = [];
     public array $publishedBy;
-    public array $published = [];
     public array $formats;
-    public array $format = [];
     public array $series;
-    public array $serie = [];
     public array $classifications;
-    public array $classification = [];
+    public array $filters = [
+        'genre' => [],
+        'author' => [],
+        'published' => [],
+        'format' => [],
+        'serie' => [],
+        'classification' => [],
+    ];
     public array $sortBy = ['column' => 'id', 'direction' => 'asc'];
     public array $numbersPage = [
         ['id' => 10, 'name' => 10],
@@ -67,32 +70,22 @@ class Index extends Component
             ->when($this->search, function ($query) {
                 $query->whereLike('title', "%$this->search%");
             })
-            ->when($this->author, function ($query) {
-                $query->whereIn('author', $this->author);
-            })
-            ->when($this->format, function ($query) {
-                $query->whereHas('formats', function ($query) {
-                    $query->whereIn('formats.id', $this->format);
-                });
-            })
-            ->when($this->genre, function ($query) {
+            ->when($this->filters['genre'], function ($query) {
                 $query->whereHas('genres', function ($query) {
-                    $query->whereIn('genres.id', $this->genre);
+                    $query->whereIn('genres.id', $this->filters['genre']);
                 });
             })
-            ->when($this->published, function ($query) {
-                $query->whereIn('published_by', $this->published);
+            ->when($this->filters['classification'], function ($query) {
+                $query->whereIn('classification_id', $this->filters['classification']);
             })
-            ->when($this->classification, function ($query) {
-                $query->whereIn('classification_id', $this->classification);
-            })
+            ->tap(fn($query) => ContentType::BOOK->applyFilters($query, $this->filters))
             ->orderBy(...array_values($this->sortBy))
             ->paginate($this->page);
     }
 
     public function resetFilter()
     {
-        $this->reset('search', 'author', 'format', 'genre', 'published', 'classification',);
+        $this->reset('search', 'filters');
         $this->resetPage();
     }
 }

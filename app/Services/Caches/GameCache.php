@@ -19,7 +19,7 @@ class GameCache extends BaseCache
             key: $this->developerKey,
             callback: fn() =>
             Game::selectRaw('TRIM(developed_by) AS id, TRIM(developed_by) AS name')
-                ->whereRaw("TRIM(developed_by) != ''")
+                ->whereRaw("TRIM(developed_by) <> ''")
                 ->groupByRaw('TRIM(developed_by)')
                 ->orderByRaw('TRIM(developed_by)')
                 ->get()->toArray()

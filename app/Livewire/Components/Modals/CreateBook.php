@@ -7,7 +7,7 @@ use Livewire\Component;
 use App\Livewire\Forms\BookForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\BookService;
+use App\Services\Management\BookService;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class CreateBook extends Component

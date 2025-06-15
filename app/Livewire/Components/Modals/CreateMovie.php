@@ -7,7 +7,7 @@ use Livewire\Component;
 use App\Livewire\Forms\MovieForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\MovieService;
+use App\Services\Management\MovieService;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class CreateMovie extends Component

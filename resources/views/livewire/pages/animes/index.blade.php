@@ -49,18 +49,18 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
-                            option-sub-label="description" :options="$genres" option-label="genre" wire:model="genre"
-                            searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            option-sub-label="description" :options="$genres" option-label="genre"
+                            wire:model="filters.genre" searchable no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Formato do anime" placeholder="Selecione o formato"
-                            option-sub-label="description" :options="$animeTypes" wire:model="animeType" searchable
+                            option-sub-label="description" :options="$animeTypes" wire:model="filters.animeType" searchable
                             no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
                             placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="classification" />
+                            :options="$classifications" wire:model="filters.classification" />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">

@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use App\Livewire\Forms\AnimeForm;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Modelable;
-use App\Services\Managements\AnimeService;
+use App\Services\Management\AnimeService;
 
 class CreateAnime extends Component
 {

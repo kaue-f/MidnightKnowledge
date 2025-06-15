@@ -7,7 +7,7 @@ use App\Models\Serie\Serie;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Caches\MovieSerieCache;
+use App\Services\Caches\GenreCache;
 use App\Services\Caches\ClassificationCache;
 
 class Index extends Component
@@ -38,7 +38,7 @@ class Index extends Component
     public function mount()
     {
         $this->classifications = app(ClassificationCache::class)->fetch();
-        $this->genres = app(MovieSerieCache::class)->getGenres();
+        $this->genres = app(GenreCache::class)->getMovieSerieGenres();
     }
 
     public function seriesQuery($assortment = NULL)

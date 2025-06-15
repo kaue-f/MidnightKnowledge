@@ -7,7 +7,7 @@ use App\Models\Movie\Movie;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
-use App\Services\Caches\MovieSerieCache;
+use App\Services\Caches\GenreCache;
 use App\Services\Caches\ClassificationCache;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 
@@ -42,7 +42,7 @@ class Index extends Component
     public function mount()
     {
         $this->classifications = app(ClassificationCache::class)->fetch();
-        $this->genres = app(MovieSerieCache::class)->getGenres();
+        $this->genres = app(GenreCache::class)->getMovieSerieGenres();
     }
 
     public function moviesQuery($assortment = NULL)
