@@ -7,19 +7,22 @@ use App\Enums\Status;
 use Livewire\Component;
 use App\Models\Book\Book;
 use App\Enums\ContentType;
-use App\Actions\Library\RateAction;
+use App\Services\RatingService;
+use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
-use App\Actions\Library\LibraryAction;
-use App\Actions\Library\FavoriteAction;
 
 class Show extends Component
 {
     public Book $book;
-    public array $ratings = ['avg' => 0, 'value' => 0];
-    public bool $favorite = false;
-    public bool $library = false;
-    public string $status = '';
+    public array $ratings = [];
+    public array $userLibraryEntry = [
+        'favorite' => false,
+        'library' => false,
+        'status' => ''
+    ];
     public ?User $user;
+    protected readonly LibraryService $libraryService;
+    protected readonly RatingService $ratingService;
 
     public function render()
     {
@@ -28,53 +31,44 @@ class Show extends Component
         ])->title($this->book->title);
     }
 
+    public function boot(LibraryService $libraryService, RatingService $ratingService)
+    {
+        $this->libraryService = $libraryService;
+        $this->ratingService = $ratingService;
+    }
+
     public function mount()
     {
         $this->user = Auth::user();
 
-        $userBook = $this->book->users()
-            ->where('user_id', $this->user->id ?? "")
-            ->first();
+        if ($this->user)
+            $this->userLibraryEntry = $this->libraryService->getUserContent(
+                $this->book,
+                $this->user,
+                ContentType::BOOK
+            );
 
-        if (!isNullOrEmpty($userBook)) {
-            $this->favorite = $userBook->pivot->favorite;
-            $this->library = $userBook->pivot->library;
-            $this->status = $userBook->pivot->status;
-        }
-
-        $userRating = $this->book->ratings()
-            ->where([
-                ['book_id', $this->book->id],
-                ['user_id', $this->user->id],
-            ])->first();
-
-        $this->ratings['avg'] = round($this->book->ratings()->avg('rating'), 2) ?? 0;
-
-        $this->ratings['value'] = (isNullOrEmpty($userBook) || ! $this->user->id)
-            ? (int) $this->book->ratings()->avg('rating') ?? 0
-            : $userRating->rating;
+        $this->ratings = $this->ratingService->getContentRating($this->book, $this->user);
     }
 
-    public function handleLibrary(LibraryAction $libraryAction, bool $library, string $status = "")
+    public function handleLibrary(bool $library, string $status = "")
     {
         if (isLogged($this)) {
-            $this->library = $library;
-            $this->status = Status::getDescription($status);
-            $libraryAction->execute($this->book, $this->user, $library, $status);
+            $this->userLibraryEntry['library'] = $library;
+            $this->userLibraryEntry['status'] = optional(Status::tryFrom($status))->getDescription() ?? "";
+            $this->libraryService->handleLibraryContent($this->book, $this->user, $library, $status);
         }
     }
 
-    public function updatedFavorite(FavoriteAction $favoriteAction)
+    public function updatedUserLibraryEntryFavorite()
     {
         if (isLogged($this))
-            $favoriteAction->execute($this->book, $this->user, $this->favorite);
+            $this->libraryService->toggleFavoriteStatus($this->book, $this->user, $this->favorite);
     }
 
-    public function updatedRatingsValue(RateAction $rateAction)
+    public function updatedRatingsValue()
     {
-        if (isLogged($this)) {
-            $rateAction->execute($this->book, $this->user, $this->ratings['value'], ContentType::BOOK);
-            $this->ratings['avg'] = $this->book->ratings()->avg('rating');
-        }
+        if (isLogged($this))
+            $this->ratings['avg'] = $this->ratingService->contentRating($this->book, $this->user, $this->ratings['value'], ContentType::BOOK);
     }
 }

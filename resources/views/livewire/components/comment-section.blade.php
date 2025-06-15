@@ -38,7 +38,7 @@
     <div class="flex flex-col gap-4" x-data="{ loaded: false }" x-init="window.onscroll = function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             if (@js(!$isLimit)) {
-                @this.loadPosts();
+                $wire.loadPosts();
             }
         }
     }">

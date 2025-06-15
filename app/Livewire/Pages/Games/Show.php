@@ -7,19 +7,22 @@ use App\Enums\Status;
 use Livewire\Component;
 use App\Models\Game\Game;
 use App\Enums\ContentType;
-use App\Actions\Library\RateAction;
+use App\Services\RatingService;
+use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
-use App\Actions\Library\LibraryAction;
-use App\Actions\Library\FavoriteAction;
 
 class Show extends Component
 {
     public Game $game;
-    public array $ratings = ['avg' => 0, 'value' => 0];
-    public bool $favorite = false;
-    public bool $library = false;
-    public string $status = '';
+    public array $ratings = [];
+    public array $userLibraryEntry = [
+        'favorite' => false,
+        'library' => false,
+        'status' => ''
+    ];
     public ?User $user;
+    protected readonly LibraryService $libraryService;
+    protected readonly RatingService $ratingService;
 
     public function render()
     {
@@ -28,53 +31,44 @@ class Show extends Component
         ])->title($this->game->title);
     }
 
+    public function boot(LibraryService $libraryService, RatingService $ratingService)
+    {
+        $this->libraryService = $libraryService;
+        $this->ratingService = $ratingService;
+    }
+
     public function mount()
     {
         $this->user = Auth::user();
 
-        $gameUser = $this->game->users()
-            ->where('user_id', $this->user->id ?? "")
-            ->first();
+        if ($this->user)
+            $this->userLibraryEntry = $this->libraryService->getUserContent(
+                $this->game,
+                $this->user,
+                ContentType::GAME
+            );
 
-        if (!isNullOrEmpty($gameUser)) {
-            $this->favorite = $gameUser->pivot->favorite;
-            $this->library =  $gameUser->pivot->library;
-            $this->status = $gameUser->pivot->status;
-        }
-
-        $userRating = $this->game->ratings()
-            ->where([
-                ['game_id', $this->game->id],
-                ['user_id', $this->user->id ?? ""],
-            ])->first();
-
-        $this->ratings['avg'] = round($this->game->ratings()->avg('rating'), 2) ?? 0;
-
-        $this->ratings['value'] = (isNullOrEmpty($userRating) || !$this->user->id)
-            ? (int) $this->game->ratings()->avg('rating') ?? 0
-            : $userRating->rating;
+        $this->ratings = $this->ratingService->getContentRating($this->game, $this->user);
     }
 
-    public function handleLibrary(LibraryAction $libraryAction, bool $library, string $status = "")
+    public function handleLibrary(bool $library, string $status = "")
     {
         if (isLogged($this)) {
-            $this->library = $library;
-            $this->status = Status::getDescription($status);
-            $libraryAction->execute($this->game, $this->user, $library, $status);
+            $this->userLibraryEntry['library'] = $library;
+            $this->userLibraryEntry['status'] = optional(Status::tryFrom($status))->getDescription() ?? "";
+            $this->libraryService->handleLibraryContent($this->game, $this->user, $library, $status);
         }
     }
 
-    public function updatedFavorite(FavoriteAction $favoriteAction)
+    public function updatedUserLibraryEntryFavorite()
     {
         if (isLogged($this))
-            $favoriteAction->execute($this->game, $this->user, $this->favorite);
+            $this->libraryService->toggleFavoriteStatus($this->game, $this->user, $this->favorite);
     }
 
-    public function updatedRatingsValue(RateAction $rateAction)
+    public function updatedRatingsValue()
     {
-        if (isLogged($this)) {
-            $rateAction->execute($this->game, $this->user, $this->ratings['value'], ContentType::GAME);
-            $this->ratings['avg'] = $this->game->ratings()->avg('rating');
-        }
+        if (isLogged($this))
+            $this->ratings['avg'] = $this->ratingService->contentRating($this->game, $this->user, $this->ratings['value'], ContentType::GAME);
     }
 }

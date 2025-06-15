@@ -7,19 +7,22 @@ use App\Enums\Status;
 use Livewire\Component;
 use App\Enums\ContentType;
 use App\Models\Serie\Serie;
-use App\Actions\Library\RateAction;
+use App\Services\RatingService;
+use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
-use App\Actions\Library\LibraryAction;
-use App\Actions\Library\FavoriteAction;
 
 class Show extends Component
 {
     public Serie $serie;
-    public array $ratings = ['avg' => 0, 'value' => 0];
-    public bool $favorite = false;
-    public bool $library = false;
-    public string $status = '';
+    public array $ratings = [];
+    public array $userLibraryEntry = [
+        'favorite' => false,
+        'library' => false,
+        'status' => ''
+    ];
     public ?User $user;
+    protected readonly LibraryService $libraryService;
+    protected readonly RatingService $ratingService;
 
     public function render()
     {
@@ -28,53 +31,44 @@ class Show extends Component
         ])->title($this->serie->title);
     }
 
+    public function boot(LibraryService $libraryService, RatingService $ratingService)
+    {
+        $this->libraryService = $libraryService;
+        $this->ratingService = $ratingService;
+    }
+
     public function mount()
     {
         $this->user = Auth::user();
 
-        $serieUser = $this->serie->users()
-            ->where('user_id', $this->user->id ?? "")
-            ->first();
+        if ($this->user)
+            $this->userLibraryEntry = $this->libraryService->getUserContent(
+                $this->serie,
+                $this->user,
+                ContentType::SERIE
+            );
 
-        if (!isNullOrEmpty($serieUser)) {
-            $this->favorite = $serieUser->pivot->favorite;
-            $this->library = $serieUser->pivot->library;
-            $this->status = $serieUser->pivot->status;
-        }
-
-        $userRating = $this->serie->ratings()
-            ->where([
-                ['serie_id', $this->serie->id],
-                ['user_id', $this->user->id ?? ""]
-            ])->first();
-
-        $this->ratings['avg'] = round($this->serie->ratings()->avg('rating'), 2);
-
-        $this->ratings['value'] = (isNullOrEmpty($userRating) || !$this->user->id)
-            ? (int) $this->serie->ratings()->avg('rating') ?? 0
-            : $userRating->rating;
+        $this->ratings = $this->ratingService->getContentRating($this->serie, $this->user);
     }
 
-    public function handleLibrary(LibraryAction $libraryAction, bool $library, string $status = "")
+    public function handleLibrary(bool $library, string $status = "")
     {
         if (isLogged($this)) {
-            $this->library = $library;
-            $this->status = Status::getDescription($status);
-            $libraryAction->execute($this->serie, $this->user, $library, $status);
+            $this->userLibraryEntry['library'] = $library;
+            $this->userLibraryEntry['status'] = optional(Status::tryFrom($status))->getDescription() ?? "";
+            $this->libraryService->handleLibraryContent($this->serie, $this->user, $library, $status);
         }
     }
 
-    public function updatedFavorite(FavoriteAction $favoriteAction)
+    public function updatedUserLibraryEntryFavorite()
     {
         if (isLogged($this))
-            $favoriteAction->execute($this->serie, $this->user, $this->favorite);
+            $this->libraryService->toggleFavoriteStatus($this->serie, $this->user, $this->favorite);
     }
 
-    public function updatedRatingsValue(RateAction $rateAction)
+    public function updatedRatingsValue()
     {
-        if (isLogged($this)) {
-            $rateAction->execute($this->serie, $this->user, $this->ratings['value'], ContentType::SERIE);
-            $this->ratings['avg'] = $this->serie->ratings()->avg('rating');
-        }
+        if (isLogged($this))
+            $this->ratings['avg'] = $this->ratingService->contentRating($this->serie, $this->user, $this->ratings['value'], ContentType::SERIE);
     }
 }
