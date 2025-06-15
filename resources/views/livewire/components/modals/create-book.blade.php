@@ -44,7 +44,7 @@
                         <div class="w-1/2" x-data="{ open: true }">
                             <div class="w-full" :class="{ 'hidden': !open }">
                                 <x-choices-offline label="Série" single placeholder="Selecione série" :options="$series"
-                                    searchable wire:model="gameForm.serie" values-as-string
+                                    searchable wire:model="bookForm.serie" values-as-string
                                     no-result-text="Nenhum resultado. Clique no botão + para adicionar uma série.">
                                     <x-slot:append>
                                         <x-button icon="o-plus" class="join-item btn-primary"
@@ -53,7 +53,7 @@
                                 </x-choices-offline>
                             </div>
                             <div class="w-full" :class="{ 'hidden': open }">
-                                <x-input label="Série" placeholder="Digite uma nova série" wire:model="gameForm.serie"
+                                <x-input label="Série" placeholder="Digite uma nova série" wire:model="bookForm.serie"
                                     autocomplete="off">
                                     <x-slot:append>
                                         <x-button icon="o-magnifying-glass" class="join-item btn-primary"
@@ -67,7 +67,7 @@
                         <div class="w-1/2" x-data="{ open: true }">
                             <div class="w-full" :class="{ 'hidden': !open }">
                                 <x-choices-offline label="Autor" single placeholder="Selecione autor" :options="$authors"
-                                    searchable wire:model="gameForm.author" values-as-string
+                                    searchable wire:model="bookForm.author" values-as-string
                                     no-result-text="Nenhum resultado. Clique no botão + para adicionar um autor.">
                                     <x-slot:append>
                                         <x-button icon="o-plus" class="join-item btn-primary"
@@ -76,7 +76,7 @@
                                 </x-choices-offline>
                             </div>
                             <div class="w-full" :class="{ 'hidden': open }">
-                                <x-input label="Autor" placeholder="Digite um novo autor" wire:model="gameForm.author"
+                                <x-input label="Autor" placeholder="Digite um novo autor" wire:model="bookForm.author"
                                     autocomplete="off">
                                     <x-slot:append>
                                         <x-button icon="o-magnifying-glass" class="join-item btn-primary"
@@ -88,7 +88,7 @@
                         <div class="w-1/2" x-data="{ open: true }">
                             <div class="w-full" :class="{ 'hidden': !open }">
                                 <x-choices-offline label="Editora" single placeholder="Selecione editora"
-                                    :options="$series" searchable wire:model="gameForm.published_by" values-as-string
+                                    :options="$series" searchable wire:model="bookForm.published_by" values-as-string
                                     no-result-text="Nenhum resultado. Clique no botão + para adicionar uma editora.">
                                     <x-slot:append>
                                         <x-button icon="o-plus" class="join-item btn-primary"
@@ -98,7 +98,7 @@
                             </div>
                             <div class="w-full" :class="{ 'hidden': open }">
                                 <x-input label="Editora" placeholder="Digite uma nova Editora"
-                                    wire:model="gameForm.published_by" autocomplete="off">
+                                    wire:model="bookForm.published_by" autocomplete="off">
                                     <x-slot:append>
                                         <x-button icon="o-magnifying-glass" class="join-item btn-primary"
                                             x-on:click="open = ! open" tooltip="Buscar" />
