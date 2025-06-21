@@ -14,7 +14,17 @@ class GenreCache extends BaseCache
     {
         return $this->remember(
             key: 'genres',
-            callback: fn() => Genre::orderBy('genre')->get()
+            callback: fn() => Genre::select('id', 'genre')
+                ->orderBy('genre')
+                ->get()
+                ->groupBy('genre')
+                ->map(function ($items, $genreName) {
+                    return [
+                        'id' => $items->pluck('id')->implode(','),
+                        'genre' => $genreName
+                    ];
+                })
+                ->values()
         );
     }
 

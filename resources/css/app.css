@@ -35,7 +35,7 @@ section {
 }
 
 article {
-    @apply grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 w-full gap-6;
+    @apply grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 grid-cols-3 w-full gap-6;
 }
 
 .input,
@@ -71,12 +71,22 @@ article {
     }
 }
 
-.spotlight .input {
-    @apply bg-base-100 border-0;
+.spotlight {
+    .input {
+        @apply bg-base-100 border-0;
+    }
+
+    img {
+        @apply rounded-xs border border-accent/75 h-16 w-12;
+    }
 }
 
 .content-title {
     @apply text-2xl font-false tracking-wider;
+}
+
+.grid-filter {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
 }
 
 @plugin "daisyui/theme" {

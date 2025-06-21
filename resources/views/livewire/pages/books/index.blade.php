@@ -8,18 +8,18 @@
             @endauth
         </div>
     </div>
-    <div x-data="{ open: false }" class="flex flex-col gap-4">
+    <div x-data="{ open: false }" class="flex flex-col">
         <div class="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center gap-4">
             <div class="w-full justify-center gap-4">
                 <div class="filter">
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="books"
-                        aria-label="Título" wire:click="booksQuery('title|asc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="books"
-                        aria-label="Classificação" wire:click="booksQuery('ratings_avg_rating|desc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="books"
-                        aria-label="Recentemente" wire:click="booksQuery('created_at|desc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="books"
-                        aria-label="Ano de Lançamento" wire:click="booksQuery('release_date|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="books" aria-label="Título" wire:click="booksQuery('title|asc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="books" aria-label="Classificação" wire:click="booksQuery('ratings_avg_rating|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="books" aria-label="Recentemente" wire:click="booksQuery('created_at|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="books" aria-label="Ano de Lançamento" wire:click="booksQuery('release_date|desc')" />
                     <input class="btn btn-neutral border-accent filter-reset" type="radio" name="books"
                         aria-label="All" wire:click="booksQuery"
                         x-on:click="$wire.sortBy = { column: 'id', direction: 'asc' }" />
@@ -50,37 +50,38 @@
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
                             option-sub-label="description" :options="$genres" option-label="genre"
-                            wire:model="filters.genre" searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            wire:model="filters.genre" searchable no-result-text="Ops! Nenhum resultado encontrado."
+                            clearable />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Formatos" option-sub-label="description"
                             placeholder="Selecione formato de livro" :options="$formats" wire:model="filters.format"
-                            searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            searchable no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Séries" placeholder="Selecione série" :options="$series"
                             wire:model="filters.serie" searchable values-as-string
-                            no-result-text="Ops! Nenhum resultado encontrado." />
+                            no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Autores" placeholder="Selecione autor"
                             :options="$authors" wire:model="filters.author" searchable values-as-string
-                            no-result-text="Ops! Nenhum resultado encontrado." />
+                            no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Editoras" placeholder="Selecione editora"
                             :options="$publishedBy" wire:model="filters.published" searchable values-as-string
-                            no-result-text="Ops! Nenhum resultado encontrado." />
+                            no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
                             placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="filters.classification" />
+                            :options="$classifications" wire:model="filters.classification" clearable />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">
-                    <x-button class="btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
-                    <x-button label="Filtrar" class="btn-success" type="submit" x-on:click="open = ! open" />
+                    <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
+                    <x-button label="Filtrar" class="btn-sm btn-success" type="submit" x-on:click="open = ! open" />
                 </div>
             </x-form>
         </div>
@@ -96,7 +97,7 @@
     <x-ui.loading-coffee except="booksQuery,resetFilter" />
 
     <div class="flex gap-6 w-full">
-        @if (!isNullOrEmpty($books->hasPages()))
+        @if ($books->hasPages())
             <div>
                 <x-select class="select-sm border-none!" :options="$numbersPage" wire:model.live="page" />
             </div>

@@ -8,18 +8,18 @@
             @endauth
         </div>
     </div>
-    <div x-data="{ open: false }" class="flex flex-col gap-4">
+    <div x-data="{ open: false }" class="flex flex-col">
         <div class="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center gap-4">
             <div class="w-full justify-center gap-4">
                 <div class="filter">
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="games"
-                        aria-label="Título" wire:click="gamesQuery('title|asc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="games"
-                        aria-label="Classificação" wire:click="gamesQuery('ratings_avg_rating|desc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="games"
-                        aria-label="Recentemente" wire:click="gamesQuery('created_at|desc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="games"
-                        aria-label="Ano de Lançamento" wire:click="gamesQuery('release_date|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="games" aria-label="Título" wire:click="gamesQuery('title|asc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="games" aria-label="Classificação" wire:click="gamesQuery('ratings_avg_rating|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="games" aria-label="Recentemente" wire:click="gamesQuery('created_at|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="games" aria-label="Ano de Lançamento" wire:click="gamesQuery('release_date|desc')" />
                     <input class="btn btn-neutral border-accent filter-reset" type="radio" name="games"
                         aria-label="All" wire:click="gamesQuery"
                         x-on:click="$wire.sortBy = { column: 'id', direction: 'asc' }" />
@@ -50,27 +50,28 @@
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
                             option-sub-label="description" :options="$genres" option-label="genre"
-                            wire:model="filters.genre" searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            wire:model="filters.genre" searchable clearable
+                            no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Plataformas" option-sub-label="category"
                             placeholder="Selecione plataforma" :options="$platforms" wire:model="filters.plataform"
-                            searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            searchable no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Desenvolvedoras" placeholder="Selecione desenvolvedora"
                             :options="$developers" wire:model="filters.developer" searchable values-as-string
-                            no-result-text="Ops! Nenhum resultado encontrado." />
+                            no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
                             placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="filters.classification" />
+                            :options="$classifications" wire:model="filters.classification" clearable />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">
-                    <x-button class="btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
-                    <x-button label="Filtrar" class="btn-success" type="submit" x-on:click="open = ! open" />
+                    <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
+                    <x-button label="Filtrar" class="btn-sm btn-success" type="submit" x-on:click="open = ! open" />
                 </div>
             </x-form>
         </div>
@@ -86,7 +87,7 @@
     <x-ui.loading-coffee except="gamesQuery,resetFilter" />
 
     <div class="flex gap-6 w-full">
-        @if (!isNullOrEmpty($games->hasPages()))
+        @if ($games->hasPages())
             <div>
                 <x-select class="select-sm border-none!" :options="$numbersPage" wire:model.live="page" />
             </div>

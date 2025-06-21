@@ -33,7 +33,8 @@
             <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Séries"
                 link="{{ route(name: 'series') }}" />
         </x-dropdown>
-        <x-button class="btn-ghost text-lg hover:text-primary hover:bg-transparent" label="Biblioteca" link="/" />
+        <x-button class="btn-ghost text-lg hover:text-primary hover:bg-transparent" label="Biblioteca"
+            link="{{ route(name: 'library') }}" />
     </div>
     <div class="flex justify-end gap-6 items-center">
         <div>
@@ -124,7 +125,8 @@
                     </ul>
                 </li>
             </ul>
-            <x-menu-item class="hover:text-primary hover:cursor-pointer" title="Biblioteca" link="/" />
+            <x-menu-item class="hover:text-primary hover:cursor-pointer" title="Biblioteca"
+                link="{{ route(name: 'library') }}" />
         </x-menu>
     </x-drawer>
 </nav>

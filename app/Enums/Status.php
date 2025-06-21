@@ -29,4 +29,17 @@ enum Status: string
             default => "",
         };
     }
+
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::PROGRESSO => 's-rocket-launch',
+            self::LISTA => 's-bookmark',
+            self::FINALIZADO => 's-sparkles',
+            self::PAUSADO => 's-pause',
+            self::DROPADO => 's-no-symbol',
+            default => 's-minus',
+        };
+    }
 }

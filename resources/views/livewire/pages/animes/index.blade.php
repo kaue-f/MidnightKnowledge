@@ -1,6 +1,6 @@
 <section>
     <div class="flex flex-row flex-1 justify-between items-center">
-        <h1 class="content-title">Animes</h1>
+        <h3 class="content-title">Animes</h3>
         <div class="px-4">
             @auth
                 <x-icon class="h-8 text-primary hover:text-primary/75 hover:cursor-pointer" name="m-plus"
@@ -8,19 +8,19 @@
             @endauth
         </div>
     </div>
-    <div x-data="{ open: false }" class="flex flex-col gap-4">
+    <div x-data="{ open: false }" class="flex flex-col">
         <div class="flex flex-col-reverse lg:flex-row lg:justify-between lg:items-center gap-4">
             <div class="w-full justify-center gap-4">
                 <div class="filter">
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="anime"
-                        aria-label="Título" wire:click="animesQuery('title|asc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="anime"
-                        aria-label="Classificação" wire:click="animesQuery('ratings_avg_rating|desc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="anime"
-                        aria-label="Recentemente" wire:click="animesQuery('created_at|desc')" />
-                    <input class="btn btn-neutral border-accent checked:btn-primary" type="radio" name="anime"
-                        aria-label="Ano de Lançamento" wire:click="animesQuery('release_date|desc')" />
-                    <input class="btn btn-neutral border-accent filter-reset" type="radio" name="anime"
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="anime" aria-label="Título" wire:click="animesQuery('title|asc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="anime" aria-label="Classificação" wire:click="animesQuery('ratings_avg_rating|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="anime" aria-label="Recentemente" wire:click="animesQuery('created_at|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent checked:btn-primary" type="radio"
+                        name="anime" aria-label="Ano de Lançamento" wire:click="animesQuery('release_date|desc')" />
+                    <input class="btn btn-sm btn-neutral border-accent filter-reset" type="radio" name="anime"
                         aria-label="All" wire:click="animesQuery"
                         x-on:click="$wire.sortBy = { column: 'id', direction: 'asc' }" />
                 </div>
@@ -45,27 +45,28 @@
             x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-90">
-            <x-form wire:submit="animesQuery" class="space-y-2">
+            <x-form wire:submit="animesQuery" class="space-y-2 pt-2.5">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                         <x-choices-offline class="w-full" label="Gêneros" placeholder="Selecione gênero"
                             option-sub-label="description" :options="$genres" option-label="genre"
-                            wire:model="filters.genre" searchable no-result-text="Ops! Nenhum resultado encontrado." />
+                            wire:model="filters.genre" clearable searchable
+                            no-result-text="Ops! Nenhum resultado encontrado." />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Formato do anime" placeholder="Selecione o formato"
                             option-sub-label="description" :options="$animeTypes" wire:model="filters.animeType" searchable
-                            no-result-text="Ops! Nenhum resultado encontrado." />
+                            no-result-text="Ops! Nenhum resultado encontrado."clearable />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
                             placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="filters.classification" />
+                            :options="$classifications" wire:model="filters.classification" clearable />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">
-                    <x-button class="btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
-                    <x-button label="Filtrar" class="btn-success" type="submit" x-on:click="open = ! open" />
+                    <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
+                    <x-button label="Filtrar" class="btn-sm btn-success" type="submit" x-on:click="open = ! open" />
                 </div>
             </x-form>
         </div>
@@ -81,7 +82,7 @@
     <x-ui.loading-coffee except="animesQuery, resetFilter" />
 
     <div class="flex gap-6 w-full">
-        @if (!isNullOrEmpty($animes->hasPages()))
+        @if ($animes->hasPages())
             <div>
                 <x-select class="select-sm border-none!" :options="$numbersPage" wire:model.live="page" />
             </div>

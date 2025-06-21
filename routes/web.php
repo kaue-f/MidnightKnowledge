@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pages\Home;
+use App\Livewire\Pages\Library;
 use App\Livewire\Pages\Welcome;
 use App\Livewire\Pages\Settings;
 use App\Livewire\Pages\UserProfile;
@@ -16,10 +17,6 @@ use App\Livewire\Pages\Series\Index as Series;
 use App\Livewire\Pages\Animes\Show as ShowAnime;
 use App\Livewire\Pages\Movies\Show as ShowMovie;
 use App\Livewire\Pages\Series\Show as ShowSerie;
-
-Route::get('/', function () {
-    return redirect()->route('home');
-});
 
 Route::get('/{welcome}', Welcome::class)->name('welcome')
     ->whereIn('welcome', ['login', 'sign'])
@@ -41,6 +38,8 @@ Route::get('/movie/{movie}/{title}', ShowMovie::class)->name('show.movie');
 
 Route::get('/series', Series::class)->name('series');
 Route::get('/serie/{serie}/{title}', ShowSerie::class)->name('show.serie');
+
+Route::get('/library', Library::class)->name('library');
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/user/profile', UserProfile::class)->name('user.profile');

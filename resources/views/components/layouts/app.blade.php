@@ -24,7 +24,7 @@
         <livewire:components.layouts.navbar />
     </div>
 
-    <main class="max-w-(--breakpoint-2xl) w-full mx-auto p-8 lg:px-10 lg:py-12">
+    <main class="max-w-(--breakpoint-2xl) w-full mx-auto p-8">
         {{ $slot }}
     </main>
 
