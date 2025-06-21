@@ -7,14 +7,13 @@ use App\Models\Book\Book;
 use App\Enums\ContentType;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
-use App\Services\Caches\BookCache;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Caches\ClassificationCache;
+use App\Traits\LoadsContentFilterData;
 
 class Index extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public string $search = '';
     public Collection $genres;
     public array $authors;
@@ -49,14 +48,9 @@ class Index extends Component
         return view('livewire.pages.books.index', ['books' => $this->booksQuery()]);
     }
 
-    public function mount(BookCache $bookCache)
+    public function mount()
     {
-        $this->authors = $bookCache->getAuthors();
-        $this->formats = $bookCache->getFormats();
-        $this->genres = $bookCache->getGenres();
-        $this->publishedBy = $bookCache->getPublishedBy();
-        $this->series = $bookCache->getSeries();
-        $this->classifications = app(ClassificationCache::class)->fetch();
+        $this->loadFiltersFor(ContentType::BOOK);
     }
 
     public function booksQuery($assortment = NULL)

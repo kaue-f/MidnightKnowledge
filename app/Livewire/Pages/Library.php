@@ -3,24 +3,19 @@
 namespace App\Livewire\Pages;
 
 use App\Models\User;
-use App\Enums\Status;
 use Livewire\Component;
 use App\Enums\ContentType;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use App\Services\LibraryService;
-use App\Services\Caches\BookCache;
-use App\Services\Caches\GameCache;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Caches\AnimeCache;
-use App\Services\Caches\GenreCache;
 use Illuminate\Support\Facades\Auth;
-use App\Services\Caches\ClassificationCache;
+use App\Traits\LoadsContentFilterData;
 
 class Library extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public User $user;
     public Collection $genres;
     public array $classifications;
@@ -80,24 +75,10 @@ class Library extends Component
         $this->libraryService = $libraryService;
     }
 
-    public function mount(AnimeCache $animeCache, BookCache $bookCache, GameCache $gameCache, GenreCache $genreCache)
+    public function mount()
     {
         $this->user = Auth::user();
-        $this->classifications = app(ClassificationCache::class)->fetch();
-        $this->genres = $genreCache->getGenres();
-        $this->animeTypes = $animeCache->getTypes();
-        $this->platforms = $gameCache->getPlatforms();
-        $this->developers = $gameCache->getDevelopers();
-        $this->authors = $bookCache->getAuthors();
-        $this->formats = $bookCache->getFormats();
-        $this->publishedBy = $bookCache->getPublishedBy();
-        $this->series = $bookCache->getSeries();
-        $this->allTypes();
-
-        $this->statuses = collect(Status::array())
-            ->map(fn(string $value, string $key) => ['id' => $key, 'name' => $value])
-            ->values()
-            ->toArray();
+        $this->loadAllFilters();
     }
 
     public function loadUserLibrary($assortment = NULL)
@@ -116,18 +97,10 @@ class Library extends Component
         );
     }
 
-    public function allTypes()
-    {
-        $this->types = array_merge(
-            $this->types,
-            array_map(fn($type) => $type->value, ContentType::filtered()),
-        );
-    }
-
     public function resetFilter()
     {
         $this->reset('search', 'filters', 'types', 'favorite');
-        $this->allTypes();
+        $this->loadAllTypes();
         $this->resetPage();
     }
 }

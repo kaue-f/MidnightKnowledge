@@ -3,17 +3,17 @@
 namespace App\Livewire\Pages\Movies;
 
 use Livewire\Component;
+use App\Enums\ContentType;
 use App\Models\Movie\Movie;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
-use App\Services\Caches\GenreCache;
-use App\Services\Caches\ClassificationCache;
+use App\Traits\LoadsContentFilterData;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 
 class Index extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public string $search = '';
     public Collection $genres;
     public array $genre = [];
@@ -41,8 +41,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->classifications = app(ClassificationCache::class)->fetch();
-        $this->genres = app(GenreCache::class)->getMovieSerieGenres();
+        $this->loadFiltersFor(ContentType::MOVIE_SERIE);
     }
 
     public function moviesQuery($assortment = NULL)

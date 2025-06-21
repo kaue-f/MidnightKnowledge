@@ -9,12 +9,11 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Caches\AnimeCache;
-use App\Services\Caches\ClassificationCache;
+use App\Traits\LoadsContentFilterData;
 
 class Index extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public string $search = '';
     public Collection $genres;
     public array $animeTypes;
@@ -42,11 +41,9 @@ class Index extends Component
         return view('livewire.pages.animes.index', ['animes' => $this->animesQuery()]);
     }
 
-    public function mount(AnimeCache $animeCache)
+    public function mount()
     {
-        $this->genres = $animeCache->getGenres();
-        $this->animeTypes = $animeCache->getTypes();
-        $this->classifications = app(ClassificationCache::class)->fetch();
+        $this->loadFiltersFor(ContentType::ANIME);
     }
 
     public function animesQuery($assortment = NULL)

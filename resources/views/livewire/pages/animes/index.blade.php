@@ -56,7 +56,7 @@
                     <div>
                         <x-choices-offline class="w-full" label="Formato do anime" placeholder="Selecione o formato"
                             option-sub-label="description" :options="$animeTypes" wire:model="filters.animeType" searchable
-                            no-result-text="Ops! Nenhum resultado encontrado."clearable />
+                            no-result-text="Ops! Nenhum resultado encontrado." clearable />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"

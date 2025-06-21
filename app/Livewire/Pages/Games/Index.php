@@ -7,14 +7,13 @@ use App\Models\Game\Game;
 use App\Enums\ContentType;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
-use App\Services\Caches\GameCache;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
-use App\Services\Caches\ClassificationCache;
+use App\Traits\LoadsContentFilterData;
 
 class Index extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public string $search = '';
     public Collection $genres;
     public array $platforms;
@@ -46,12 +45,9 @@ class Index extends Component
         ]);
     }
 
-    public function mount(GameCache $gameCache)
+    public function mount()
     {
-        $this->classifications = app(ClassificationCache::class)->fetch();
-        $this->genres = $gameCache->getGenres();
-        $this->platforms = $gameCache->getPlatforms();
-        $this->developers = $gameCache->getDevelopers();
+        $this->loadFiltersFor(ContentType::GAME);
     }
 
     public function gamesQuery($assortment = NULL)

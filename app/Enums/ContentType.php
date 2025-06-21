@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use App\Models\Genre;
 use App\Filters\BookFilter;
 use App\Filters\GameFilter;
 use App\Filters\AnimeFilter;
@@ -17,6 +18,10 @@ use App\Models\Anime\AnimeComment;
 use App\Models\Manga\MangaComment;
 use App\Models\Movie\MovieComment;
 use App\Models\Serie\SerieComment;
+use App\Services\Caches\BookCache;
+use App\Services\Caches\GameCache;
+use App\Services\Caches\AnimeCache;
+use App\Services\Caches\GenreCache;
 
 enum ContentType: string
 {
@@ -93,5 +98,16 @@ enum ContentType: string
     public static function filtered()
     {
         return array_filter(self::cases(), fn($type) => $type !== self::MOVIE_SERIE);
+    }
+
+    public function getGenreCache()
+    {
+        return match ($this) {
+            self::ANIME => app(AnimeCache::class)->getGenres(),
+            self::BOOK => app(BookCache::class)->getGenres(),
+            self::GAME => app(GameCache::class)->getGenres(),
+            // self::MANGA => app(MangaCache::class),
+            self::MOVIE_SERIE => app(GenreCache::class)->getMovieSerieGenres(),
+        };
     }
 }
