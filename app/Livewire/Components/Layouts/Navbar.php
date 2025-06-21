@@ -27,7 +27,7 @@ class Navbar extends Component
     public function logout(LogoutAction $logout)
     {
         $logout();
-        notyf()->info("Você foi desconectado com sucesso. Até logo!");
+        flash()->info("Você foi desconectado com sucesso. Até logo!");
     }
 
     #[On('updateAvatar')]

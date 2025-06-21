@@ -47,7 +47,7 @@ class CreateBook extends Component
             $book->create($this->bookForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do livro inserido. Veriique os dados e tente novamente.");
+            flash()->error("Falha no cadastramento do livro inserido. Veriique os dados e tente novamente.");
         }
     }
 

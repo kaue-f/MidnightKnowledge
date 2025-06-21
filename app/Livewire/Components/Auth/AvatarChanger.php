@@ -38,10 +38,10 @@ class AvatarChanger extends Component
         $path = "$this->path/{$this->user->id}.webp";
 
         if (!Storage::put($path, $imageWebp->toWebp(80)))
-            return notyf()->warning("Não foi possível atualizada imagem de perfil.");
+            return flash()->warning("Não foi possível atualizada imagem de perfil.");
 
         if (Auth::user()->update(['image' => $path]))
-            notyf()->success("Imagem de perfil atualizada.");
+            flash()->success("Imagem de perfil atualizada.");
 
         $this->dispatch('updateAvatar');
     }

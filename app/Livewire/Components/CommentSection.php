@@ -60,8 +60,8 @@ class CommentSection extends Component
             ]);
 
             (!isNullOrEmpty($post))
-                ? notyf()->success("Comentário publicado com sucesso.")
-                : notyf()->warning("Falha na publicação da comentário. Tente novamente.");
+                ? flash()->success("Comentário publicado com sucesso.")
+                : flash()->warning("Falha na publicação da comentário. Tente novamente.");
 
             $this->reset('comment');
             $this->showNewComment = false;
@@ -69,7 +69,7 @@ class CommentSection extends Component
             $this->getComments();
             $this->loadPosts();
         } catch (\Throwable $th) {
-            return notyf()->error("Erro ao realizar a publicação do comentário. Tente novamente mais tarde.");
+            return flash()->error("Erro ao realizar a publicação do comentário. Tente novamente mais tarde.");
         }
     }
 

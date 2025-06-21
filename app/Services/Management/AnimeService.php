@@ -32,9 +32,9 @@ class AnimeService
 
         if (!isNullOrEmpty($anime)) {
             $animeForm->resetForm();
-            return notyf()->success("O anime <strong>{$anime->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
+            return flash()->success("O anime <strong>{$anime->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
         }
 
-        return notyf()->warning("Não foi possível cadastrar o anime desejado. Verifique os dados e tente novamente.");
+        return flash()->warning("Não foi possível cadastrar o anime desejado. Verifique os dados e tente novamente.");
     }
 }

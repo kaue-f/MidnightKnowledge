@@ -29,9 +29,9 @@ class SerieService
 
         if (!isNullOrEmpty($serie)) {
             $serieForm->resetForm();
-            return notyf()->success("O série <strong>{$serie->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
+            return flash()->success("O série <strong>{$serie->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
         }
 
-        return notyf()->warning("Não foi possível cadastrar o série desejado. Verifique os dados e tente novamente.");
+        return flash()->warning("Não foi possível cadastrar o série desejado. Verifique os dados e tente novamente.");
     }
 }

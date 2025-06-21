@@ -15,14 +15,14 @@ class DeleteAccount extends Component
     public function deleteUser(LogoutAction $logout)
     {
         if (Auth::id() !== $this->user->id)
-            return notyf()->warning("Você não tem permissão para excluir esta conta.");
+            return flash()->warning("Você não tem permissão para excluir esta conta.");
 
         if ($this->user->delete()) {
             $logout();
-            notyf()->info("Conta excluída com sucesso. Sentiremos sua falta! 💙");
+            flash()->info("Conta excluída com sucesso. Sentiremos sua falta! 💙");
         }
 
         $this->modalUserDelete = false;
-        return notyf()->warning("Não foi possível excluir sua conta. Tente novamente mais tarde.");
+        return flash()->warning("Não foi possível excluir sua conta. Tente novamente mais tarde.");
     }
 }

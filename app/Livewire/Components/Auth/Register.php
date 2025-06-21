@@ -27,16 +27,16 @@ class Register extends Component
             ]);
 
             if (isNullOrEmpty($user)) {
-                notyf()->warning("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+                flash()->warning("Falha ao criar sua conta. Verifique os dados e tente novamente.");
                 return back();
             }
 
             Auth::login($user);
             Session::regenerate();
-            notyf()->success("Seja bem-vindo ao Midnight Knowledge! Prepare-se para explorar um vasto acervo de animes, filmes, séries, livros, games e muito mais.");
+            flash()->success("Seja bem-vindo ao Midnight Knowledge! Prepare-se para explorar um vasto acervo de animes, filmes, séries, livros, games e muito mais.");
             return redirect('/');
         } catch (\Throwable $th) {
-            notyf()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
+            flash()->error("Falha ao criar sua conta. Verifique os dados e tente novamente.");
             return back();
         }
     }

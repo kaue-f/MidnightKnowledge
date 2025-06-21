@@ -33,9 +33,9 @@ class GameService
         if (!isNullOrEmpty($game)) {
             app(GameCache::class)->clearDevelopers();
             $gameForm->resetForm();
-            return notyf()->success("Game <strong>{$game->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
+            return flash()->success("Game <strong>{$game->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
         }
 
-        return notyf()->warning("Não foi possível cadastrar o game desejado. Verifique os dados e tente novamente.");
+        return flash()->warning("Não foi possível cadastrar o game desejado. Verifique os dados e tente novamente.");
     }
 }

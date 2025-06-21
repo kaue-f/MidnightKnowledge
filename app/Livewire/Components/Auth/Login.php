@@ -32,7 +32,7 @@ class Login extends Component
             Auth::attempt(['nickname' => $this->loginForm->user, 'password' => $this->loginForm->password], $this->loginForm->remember)
         ) {
             Session::regenerate();
-            notyf()->success("Bem-vindo de volta ao Midnight Knowledge!");
+            flash()->success("Bem-vindo de volta ao Midnight Knowledge!");
             return redirect('/');
         } else {
             $this->addError(

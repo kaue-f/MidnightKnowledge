@@ -10,6 +10,6 @@ class AttachGenresAction
             return;
 
         if (!$content->genres()->syncWithoutDetaching($genres))
-            notyf()->warning("Não foi possível anexar os gêneros.");
+            flash()->warning("Não foi possível anexar os gêneros.");
     }
 }

@@ -19,11 +19,11 @@ class PasswordChanger extends Component
 
         if (!isNullOrEmpty($password)) {
             if (Auth::id() !== $this->user->id)
-                return notyf()->warning("Você não tem permissão alterar a senha dessa conta.");
+                return flash()->warning("Você não tem permissão alterar a senha dessa conta.");
 
             (Auth::user()->update(['password' => $password,]))
-                ? notyf()->success("Senha alterada com suceso.")
-                : notyf()->warning("Não foi possível alterar sua senha. Tente novamente mais tarde.");
+                ? flash()->success("Senha alterada com suceso.")
+                : flash()->warning("Não foi possível alterar sua senha. Tente novamente mais tarde.");
 
             $this->reset('passwordForm');
             $this->passwordModal = false;

@@ -45,7 +45,7 @@ class CreateGame extends Component
             $game->create($this->gameForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do game inserido. Verifique os dados e tente novamente.");
+            flash()->error("Falha no cadastramento do game inserido. Verifique os dados e tente novamente.");
         }
     }
 

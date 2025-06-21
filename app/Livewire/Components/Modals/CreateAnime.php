@@ -45,7 +45,7 @@ class CreateAnime extends Component
             $anime->create($this->animeForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do anime inserido. Verifique os dados e tente novamente.");
+            flash()->error("Falha no cadastramento do anime inserido. Verifique os dados e tente novamente.");
         }
     }
 

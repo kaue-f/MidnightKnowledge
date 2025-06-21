@@ -43,7 +43,7 @@ class CreateMovie extends Component
             $movie->create($this->movieForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento do filme inserido. Verifique os dados e tente novamente.");
+            flash()->error("Falha no cadastramento do filme inserido. Verifique os dados e tente novamente.");
         }
     }
 

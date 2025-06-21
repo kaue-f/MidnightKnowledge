@@ -29,13 +29,13 @@ class UpdateProfile extends Component
         $user = $this->validate();
 
         if (Auth::id() !== $this->user->id)
-            return notyf()->warning("Não foi possível encontra informações do usuário. Tente novamente mais tarde.");
+            return flash()->warning("Não foi possível encontra informações do usuário. Tente novamente mais tarde.");
 
         $this->user->fill($user);
 
         ($this->user->save())
-            ? notyf()->success("Informações atualizada com sucesso.")
-            : notyf()->warning("Não foi possível atualizar suas informações. Tente novamente mais tarde.");
+            ? flash()->success("Informações atualizada com sucesso.")
+            : flash()->warning("Não foi possível atualizar suas informações. Tente novamente mais tarde.");
 
         $this->modalUser = false;
     }

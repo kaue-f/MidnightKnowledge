@@ -22,7 +22,7 @@ class SaveCoverAction
 
             $content->update(['image' => $path]);
         } catch (\Throwable $th) {
-            notyf()->warning("Não foi possível salvar imagem de capa.");
+            flash()->warning("Não foi possível salvar imagem de capa.");
         }
     }
 }

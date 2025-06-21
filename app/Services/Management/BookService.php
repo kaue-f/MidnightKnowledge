@@ -37,9 +37,9 @@ class BookService
         if (!isNullOrEmpty($book)) {
             app(BookCache::class)->clearContentFilters();
             $bookForm->resetForm();
-            return notyf()->success("Livro <strong>{$book->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
+            return flash()->success("Livro <strong>{$book->title}</strong> foi adicionado ao acervo Midnight Knowledge.");
         }
 
-        return notyf()->warning("Não foi possível cadastrar o livro desejado. Verifique os dados e tente novamente.");
+        return flash()->warning("Não foi possível cadastrar o livro desejado. Verifique os dados e tente novamente.");
     }
 }

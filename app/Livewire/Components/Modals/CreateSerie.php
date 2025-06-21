@@ -43,7 +43,7 @@ class CreateSerie extends Component
             $serie->create($this->serieForm, $this->user);
             $this->close();
         } catch (\Throwable $th) {
-            notyf()->error("Falha no cadastramento da série inserido. Verifique os dados e tente novamente.");
+            flash()->error("Falha no cadastramento da série inserido. Verifique os dados e tente novamente.");
         }
     }
 
