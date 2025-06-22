@@ -6,7 +6,7 @@ use Flasher\Prime\Configuration;
 
 return Configuration::from([
     // Default notification library (e.g., 'flasher', 'toastr', 'noty', 'notyf', 'sweetalert')
-    'default' => 'flasher',
+    'default' => 'toastr',
 
     // Path to the main PHPFlasher JavaScript file
     'main_script' => '/vendor/flasher/flasher.min.js',
@@ -14,6 +14,26 @@ return Configuration::from([
     // List of CSS files to style your notifications
     'styles' => [
         '/vendor/flasher/flasher.min.css',
+    ],
+
+
+    'plugins' => [
+        'toastr' => [
+            'scripts' => [
+                '/vendor/flasher/jquery.min.js',
+                '/vendor/flasher/toastr.min.js',
+                '/vendor/flasher/flasher-toastr.min.js',
+            ],
+            'styles' => [
+                '/vendor/flasher/toastr.min.css',
+            ],
+            'options' => [
+                // Optional: Add global options here
+                // 'closeButton' => true
+                'positionClass' => 'toast-bottom-right',
+                'closeHtml' => '⛑'
+            ],
+        ],
     ],
 
     // Set global options for all notifications (optional)

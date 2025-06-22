@@ -17,7 +17,7 @@
         "mallardduck/blade-lucide-icons": "^1.23",
         "owenvoke/blade-fontawesome": "^2.9",
         "php-flasher/flasher-laravel": "^2.1",
-        "php-flasher/flasher-notyf-laravel": "^2.1",
+        "php-flasher/flasher-toastr-laravel": "^2.1",
         "robsontenorio/mary": "^2.4"
     },
     "require-dev": {
