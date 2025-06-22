@@ -15,7 +15,7 @@
                 class="flex flex-row space-x-1 items-center hover:cursor-pointer hover:text-primary">
                 <x-icon name="{{ $userLibraryEntry['library'] ? 's-bookmark' : 'o-bookmark' }}" class="h-7 w-7" />
                 <div class="font-medium items-center">
-                    {{ $userLibraryEntry['library'] ? $status : '' }}
+                    {{ $userLibraryEntry['library'] ? $userLibraryEntry['status'] : '' }}
                 </div>
             </div>
             <ul tabindex="0" class="dropdown-content menu bg-base-300 z-1 w-52 p-2 shadow shadow-white/10 rounded">

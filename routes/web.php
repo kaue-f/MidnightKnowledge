@@ -39,9 +39,9 @@ Route::get('/movie/{movie}/{title}', ShowMovie::class)->name('show.movie');
 Route::get('/series', Series::class)->name('series');
 Route::get('/serie/{serie}/{title}', ShowSerie::class)->name('show.serie');
 
-Route::get('/library', Library::class)->name('library');
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
+    Route::get('/library', Library::class)->name('library');
     Route::get('/user/profile', UserProfile::class)->name('user.profile');
     Route::get('/settings', Settings::class)->name('settings');
 });

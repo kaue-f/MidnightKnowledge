@@ -28,7 +28,7 @@ class Index extends Component
         ['id' => 75, 'name' => 75],
         ['id' => 100, 'name' => 100]
     ];
-    public int $page = 15;
+    public int $page = 24;
     public bool $modalMovie = false;
 
     #[Title('Filmes')]

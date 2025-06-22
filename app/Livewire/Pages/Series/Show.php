@@ -63,7 +63,7 @@ class Show extends Component
     public function updatedUserLibraryEntryFavorite()
     {
         if (isLogged($this))
-            $this->libraryService->toggleFavoriteStatus($this->serie, $this->user, $this->favorite);
+            $this->libraryService->toggleFavoriteStatus($this->serie, $this->user, $this->userLibraryEntry['favorite']);
     }
 
     public function updatedRatingsValue()

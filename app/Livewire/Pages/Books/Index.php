@@ -39,7 +39,7 @@ class Index extends Component
         ['id' => 100, 'name' => 100],
     ];
 
-    public int $page = 15;
+    public int $page = 24;
     public bool $modalBook = false;
 
     #[Title('Livros')]
