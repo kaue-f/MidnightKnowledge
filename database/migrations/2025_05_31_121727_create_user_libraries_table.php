@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('content_type', [
                 ContentType::ANIME->value,
                 ContentType::BOOK->value,
+                ContentType::CARTOON->value,
                 ContentType::GAME->value,
                 ContentType::MANGA->value,
                 ContentType::MOVIE->value,

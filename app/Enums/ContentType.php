@@ -2,7 +2,6 @@
 
 namespace App\Enums;
 
-use App\Models\Genre;
 use App\Filters\BookFilter;
 use App\Filters\GameFilter;
 use App\Filters\AnimeFilter;
@@ -22,11 +21,14 @@ use App\Services\Caches\BookCache;
 use App\Services\Caches\GameCache;
 use App\Services\Caches\AnimeCache;
 use App\Services\Caches\GenreCache;
+use App\Models\Cartoon\CartoonRating;
+use App\Models\Cartoon\CartoonComment;
 
 enum ContentType: string
 {
     case ANIME = 'anime';
     case BOOK = 'book';
+    case CARTOON = 'cartoon';
     case GAME = 'game';
     case MANGA = 'manga';
     case MOVIE = 'movie';
@@ -58,6 +60,7 @@ enum ContentType: string
             self::MANGA => \App\Models\Manga\Manga::class,
             self::MOVIE => \App\Models\Movie\Movie::class,
             self::SERIE => \App\Models\Serie\Serie::class,
+            self::CARTOON => \App\Models\Cartoon\Cartoon::class,
         };
     }
 
@@ -66,6 +69,7 @@ enum ContentType: string
         return match ($this) {
             self::ANIME => app(AnimeComment::class),
             self::BOOK => app(BookComment::class),
+            self::CARTOON => app(CartoonComment::class),
             self::GAME => app(GameComment::class),
             self::MANGA => app(MangaComment::class),
             self::MOVIE => app(MovieComment::class),
@@ -78,6 +82,7 @@ enum ContentType: string
         return match ($this) {
             self::ANIME => app(AnimeRating::class),
             self::BOOK => app(BookRating::class),
+            self::CARTOON => app(CartoonRating::class),
             self::GAME => app(GameRating::class),
             self::MANGA => app(MangaRating::class),
             self::MOVIE => app(MovieRating::class),
