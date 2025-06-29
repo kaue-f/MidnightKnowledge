@@ -1,4 +1,4 @@
-<x-layouts.view :title="$book->title" :synopsis="$book->synopsis">
+<x-layouts.view :title="$book->title" :synopsis="$book->synopsis" :$breadcrumbs>
     <x-slot:cover>
         <livewire:components.ui.image-viewer :image="$book->image" :title="$book->title" />
     </x-slot:cover>

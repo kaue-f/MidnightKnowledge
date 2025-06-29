@@ -78,3 +78,12 @@ if (!function_exists('isLogged')) {
         return false;
     }
 }
+
+if (!function_exists('whichLibrary')) {
+    function whichLibrary($url, $arr): array
+    {
+        return $url === '/library'
+            ? array_merge($arr, ['label' => 'Biblioteca', 'link' => $url, 'icon' => 'lucide.library-big'])
+            : $arr;
+    }
+}

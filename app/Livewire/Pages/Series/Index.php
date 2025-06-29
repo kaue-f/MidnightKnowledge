@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Enums\ContentType;
 use App\Models\Serie\Serie;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
 use App\Traits\LoadsContentFilterData;
@@ -30,6 +31,7 @@ class Index extends Component
     public int $page = 24;
     public bool $modalSerie = false;
 
+    #[Title('Séries')]
     public function render()
     {
         return view('livewire.pages.series.index', ['series' => $this->seriesQuery()]);

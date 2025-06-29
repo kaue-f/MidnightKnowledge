@@ -21,6 +21,21 @@ class Show extends Component
         'status' => ''
     ];
     public ?User $user;
+    public array $breadcrumbs = [
+        [
+            'link' => '/',
+            'icon' => 'c-home',
+        ],
+        [
+            'label' => 'Animes',
+            'link' => '/animes',
+            'icon' => 'lucide.layers',
+        ],
+        [
+            'label' => '',
+            'icon' => 'lucide.book',
+        ],
+    ];
     protected readonly LibraryService $libraryService;
     protected readonly RatingService $ratingService;
 
@@ -39,6 +54,9 @@ class Show extends Component
 
     public function mount()
     {
+        $this->breadcrumbs[1] = whichLibrary(url()->previousPath(), $this->breadcrumbs[1]);
+        $this->breadcrumbs[2]['label'] = $this->anime->title;
+
         $this->user = Auth::user();
 
         if ($this->user)

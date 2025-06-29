@@ -1,4 +1,8 @@
 <section>
+    <div class="flex flex-row justify-between -mt-5 -mb-3.5">
+        <x-breadcrumbs class="text-base-content/80" :items="$breadcrumbs" separator="lucide.chevron-right"
+            link-item-class="hover:text-secondary font-medium text-base-content" />
+    </div>
     <div class="flex flex-col lg:flex-row justify-center gap-6">
         <div class="flex flex-col gap-4 xl:w-2/6 lg:w-1/3">
             {{ $cover }}
