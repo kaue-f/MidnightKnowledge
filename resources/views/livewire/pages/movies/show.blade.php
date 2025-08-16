@@ -68,10 +68,10 @@
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$movie" :type="App\Enums\ContentType::MOVIE" />
+        <livewire:components.review-charts :content="$movie" :type="App\Enums\ContentTypeEnum::MOVIE" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$movie" :type="App\Enums\ContentType::MOVIE" />
+        <livewire:components.comment-section :content="$movie" :type="App\Enums\ContentTypeEnum::MOVIE" />
     </x-slot:comment>
 </x-layouts.view>

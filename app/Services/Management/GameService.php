@@ -4,7 +4,7 @@ namespace App\Services\Management;
 
 use App\Models\User;
 use App\Models\Game\Game;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\GameForm;
 use App\Services\Caches\GameCache;
@@ -28,7 +28,7 @@ class GameService
             $game->platforms()->syncWithoutDetaching($gameForm->platforms);
 
         app(AttachGenresAction::class)->execute($game, $gameForm->genres);
-        app(SaveCoverAction::class)->execute($game, $gameForm->image,  ContentType::GAME->value);
+        app(SaveCoverAction::class)->execute($game, $gameForm->image,  ContentTypeEnum::GAME->value);
 
         if (!isNullOrEmpty($game)) {
             app(GameCache::class)->clearDevelopers();

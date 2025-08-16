@@ -1,5 +1,5 @@
 @php
-    use App\Enums\Status;
+    use App\Enums\StatusEnum;
 @endphp
 <figure class="flex flex-col justify-start space-y-2">
     <a href="/{{ $content }}/{{ $item->id }}/{{ str_replace([' ', ':'], ['-', ''], $item->title) }}"
@@ -7,7 +7,7 @@
         @if ($item->status)
             <div
                 class="flex absolute top-0.5 right-0.5 opacity-0 group-hover:opacity-100 group-hover:z-10 transition-opacity duration-300">
-                <x-icon name="{{ Status::tryFrom($item->status)?->getIcon() }}" class="w-6 h-6 " />
+                <x-icon name="{{ StatusEnum::tryFrom($item->status)?->icon() }}" class="w-6 h-6 " />
             </div>
         @endif
         @if ($item->classification)

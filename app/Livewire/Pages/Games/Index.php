@@ -4,7 +4,7 @@ namespace App\Livewire\Pages\Games;
 
 use Livewire\Component;
 use App\Models\Game\Game;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
@@ -47,7 +47,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->loadFiltersFor(ContentType::GAME);
+        $this->loadFiltersFor(ContentTypeEnum::GAME);
     }
 
     public function gamesQuery($assortment = NULL)
@@ -69,7 +69,7 @@ class Index extends Component
             ->when($this->filters['classification'], function ($query) {
                 $query->whereIn('classification_id', $this->filters['classification']);
             })
-            ->tap(fn($query) => ContentType::GAME->applyFilters($query, $this->filters))
+            ->tap(fn($query) => ContentTypeEnum::GAME->applyFilters($query, $this->filters))
             ->orderBy(...array_values($this->sortBy))
             ->paginate($this->page);
     }

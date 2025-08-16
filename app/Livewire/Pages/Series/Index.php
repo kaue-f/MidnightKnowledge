@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Series;
 
 use Livewire\Component;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Serie\Serie;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
@@ -39,7 +39,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->loadFiltersFor(ContentType::MOVIE_SERIE);
+        $this->loadFiltersFor(ContentTypeEnum::MOVIE_SERIE);
     }
 
     public function seriesQuery($assortment = NULL)

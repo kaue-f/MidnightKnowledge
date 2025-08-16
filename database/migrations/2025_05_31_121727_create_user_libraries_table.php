@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\Status;
-use App\Enums\ContentType;
+use App\Enums\StatusEnum;
+use App\Enums\ContentTypeEnum;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,22 +18,22 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('content_id');
             $table->enum('content_type', [
-                ContentType::ANIME->value,
-                ContentType::BOOK->value,
-                ContentType::CARTOON->value,
-                ContentType::GAME->value,
-                ContentType::MANGA->value,
-                ContentType::MOVIE->value,
-                ContentType::SERIE->value,
+                ContentTypeEnum::ANIME->value,
+                ContentTypeEnum::BOOK->value,
+                ContentTypeEnum::CARTOON->value,
+                ContentTypeEnum::GAME->value,
+                ContentTypeEnum::MANGA->value,
+                ContentTypeEnum::MOVIE->value,
+                ContentTypeEnum::SERIE->value,
             ]);
             $table->boolean('library')->default(true);
             $table->boolean('favorite')->default(false);
             $table->enum('status', [
-                Status::PROGRESSO->value,
-                Status::LISTA->value,
-                Status::FINALIZADO->value,
-                Status::PAUSADO->value,
-                Status::DROPADO->value
+                StatusEnum::PROGRESS->value,
+                StatusEnum::PLANNED->value,
+                StatusEnum::COMPLETED->value,
+                StatusEnum::PAUSED->value,
+                StatusEnum::DROPPED->value
             ])->nullable();
             $table->timestamps();
             $table->softDeletes();

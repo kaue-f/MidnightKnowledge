@@ -4,7 +4,7 @@ namespace App\Services\Caches;
 
 use App\Models\Genre;
 use App\Models\Book\Book;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Book\Format;
 
 class BookCache extends BaseCache
@@ -19,7 +19,7 @@ class BookCache extends BaseCache
     {
         return $this->remember(
             key: $this->genreKey,
-            callback: fn() => Genre::where('category', ContentType::BOOK)
+            callback: fn() => Genre::where('category', ContentTypeEnum::BOOK)
                 ->orderBy('genre')
                 ->get()
 

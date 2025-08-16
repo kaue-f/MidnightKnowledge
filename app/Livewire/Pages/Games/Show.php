@@ -3,10 +3,10 @@
 namespace App\Livewire\Pages\Games;
 
 use App\Models\User;
-use App\Enums\Status;
+use App\Enums\StatusEnum;
 use Livewire\Component;
 use App\Models\Game\Game;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Services\RatingService;
 use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +42,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.pages.games.show', [
-            'statuses' => Status::array()
+            'statuses' => StatusEnum::array()
         ])->title($this->game->title);
     }
 
@@ -62,7 +62,7 @@ class Show extends Component
             $this->userLibraryEntry = $this->libraryService->getUserContent(
                 $this->game,
                 $this->user,
-                ContentType::GAME
+                ContentTypeEnum::GAME
             );
 
         $this->ratings = $this->ratingService->getContentRating($this->game, $this->user);
@@ -72,7 +72,7 @@ class Show extends Component
     {
         if (isLogged($this)) {
             $this->userLibraryEntry['library'] = $library;
-            $this->userLibraryEntry['status'] = optional(Status::tryFrom($status))->getDescription() ?? "";
+            $this->userLibraryEntry['status'] = optional(StatusEnum::tryFrom($status))->getDescription() ?? "";
             $this->libraryService->handleLibraryContent($this->game, $this->user, $library, $status);
         }
     }
@@ -86,6 +86,6 @@ class Show extends Component
     public function updatedRatingsValue()
     {
         if (isLogged($this))
-            $this->ratings['avg'] = $this->ratingService->contentRating($this->game, $this->user, $this->ratings['value'], ContentType::GAME);
+            $this->ratings['avg'] = $this->ratingService->contentRating($this->game, $this->user, $this->ratings['value'], ContentTypeEnum::GAME);
     }
 }

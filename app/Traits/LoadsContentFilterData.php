@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use App\Enums\Status;
-use App\Enums\ContentType;
+use App\Enums\StatusEnum;
+use App\Enums\ContentTypeEnum;
 use App\Services\Caches\BookCache;
 use App\Services\Caches\GameCache;
 use App\Services\Caches\AnimeCache;
@@ -29,9 +29,9 @@ trait LoadsContentFilterData
         $this->loadClassifications();
 
         match ($contentType) {
-            ContentType::ANIME => $this->loadAnimeFilters(),
-            ContentType::BOOK => $this->loadBookFilters(),
-            ContentType::GAME => $this->loadGameFilters(),
+            ContentTypeEnum::ANIME => $this->loadAnimeFilters(),
+            ContentTypeEnum::BOOK => $this->loadBookFilters(),
+            ContentTypeEnum::GAME => $this->loadGameFilters(),
             default => null,
         };
     }
@@ -45,13 +45,13 @@ trait LoadsContentFilterData
     {
         $this->types = array_merge(
             $this->types,
-            array_map(fn($type) => $type->value, ContentType::filtered()),
+            array_map(fn($type) => $type->value, ContentTypeEnum::filtered()),
         );
     }
 
     protected function loadStatus()
     {
-        $this->statuses = collect(Status::array())
+        $this->statuses = collect(StatusEnum::array())
             ->map(fn(string $value, string $key) => ['id' => $key, 'name' => $value])
             ->values()
             ->toArray();

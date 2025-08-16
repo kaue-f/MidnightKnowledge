@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\Status;
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -45,7 +45,7 @@ class UserLibrary extends Model
     protected function status(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => Status::tryFrom($value)->getDescription()
+            get: fn($value) => StatusEnum::tryFrom($value)->getDescription()
         );
     }
 

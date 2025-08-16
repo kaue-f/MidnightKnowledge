@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\Role;
+use App\Enums\RoleEnum;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -66,7 +66,7 @@ class User extends Authenticatable
     protected function role(): Attribute
     {
         return Attribute::make(
-            get: fn($value): string => Role::tryFrom($value)->name
+            get: fn($value): string => RoleEnum::tryFrom($value)->name
         );
     }
 

@@ -3,7 +3,7 @@
 namespace App\Services\Caches;
 
 use App\Models\Genre;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 
 class GenreCache extends BaseCache
 {
@@ -32,7 +32,7 @@ class GenreCache extends BaseCache
     {
         return $this->remember(
             key: $this->movie_serieKey,
-            callback: fn() => Genre::where('category', ContentType::MOVIE_SERIE)
+            callback: fn() => Genre::where('category', ContentTypeEnum::MOVIE_SERIE)
                 ->orderBy('genre')
                 ->get()
         );

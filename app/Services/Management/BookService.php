@@ -4,7 +4,7 @@ namespace App\Services\Management;
 
 use App\Models\User;
 use App\Models\Book\Book;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\BookForm;
 use App\Services\Caches\BookCache;
@@ -32,7 +32,7 @@ class BookService
             $book->formats()->syncWithoutDetaching($bookForm->formats);
 
         app(AttachGenresAction::class)->execute($book, $bookForm->genres);
-        app(SaveCoverAction::class)->execute($book, $bookForm->image,  ContentType::BOOK->value);
+        app(SaveCoverAction::class)->execute($book, $bookForm->image,  ContentTypeEnum::BOOK->value);
 
         if (!isNullOrEmpty($book)) {
             app(BookCache::class)->clearContentFilters();

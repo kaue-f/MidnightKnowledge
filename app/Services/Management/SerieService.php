@@ -3,7 +3,7 @@
 namespace App\Services\Management;
 
 use App\Models\User;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Serie\Serie;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\SerieForm;
@@ -25,7 +25,7 @@ class SerieService
         ]);
 
         app(AttachGenresAction::class)->execute($serie, $serieForm->genres);
-        app(SaveCoverAction::class)->execute($serie, $serieForm->image,  ContentType::SERIE->value);
+        app(SaveCoverAction::class)->execute($serie, $serieForm->image,  ContentTypeEnum::SERIE->value);
 
         if (!isNullOrEmpty($serie)) {
             $serieForm->resetForm();

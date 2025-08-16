@@ -68,10 +68,10 @@
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$serie" :type="App\Enums\ContentType::SERIE" />
+        <livewire:components.review-charts :content="$serie" :type="App\Enums\ContentTypeEnum::SERIE" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$serie" :type="App\Enums\ContentType::SERIE" />
+        <livewire:components.comment-section :content="$serie" :type="App\Enums\ContentTypeEnum::SERIE" />
     </x-slot:comment>
 </x-layouts.view>

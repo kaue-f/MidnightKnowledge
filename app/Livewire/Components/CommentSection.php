@@ -3,7 +3,7 @@
 namespace App\Livewire\Components;
 
 use Livewire\Component;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 

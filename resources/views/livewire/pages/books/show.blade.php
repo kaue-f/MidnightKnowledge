@@ -79,10 +79,10 @@
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$book" :type="App\Enums\ContentType::BOOK" />
+        <livewire:components.review-charts :content="$book" :type="App\Enums\ContentTypeEnum::BOOK" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$book" :type="App\Enums\ContentType::BOOK" />
+        <livewire:components.comment-section :content="$book" :type="App\Enums\ContentTypeEnum::BOOK" />
     </x-slot:comment>
 </x-layouts.view>

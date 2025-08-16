@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 
 class RatingService
 {

@@ -3,7 +3,7 @@
 namespace App\Services\Management;
 
 use App\Models\User;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Anime\Anime;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\AnimeForm;
@@ -28,7 +28,7 @@ class AnimeService
         ]);
 
         app(AttachGenresAction::class)->execute($anime, $animeForm->genres);
-        app(SaveCoverAction::class)->execute($anime, $animeForm->image,  ContentType::ANIME->value);
+        app(SaveCoverAction::class)->execute($anime, $animeForm->image,  ContentTypeEnum::ANIME->value);
 
         if (!isNullOrEmpty($anime)) {
             $animeForm->resetForm();

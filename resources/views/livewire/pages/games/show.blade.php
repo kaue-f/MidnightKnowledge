@@ -75,10 +75,10 @@
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$game" :type="App\Enums\ContentType::GAME" />
+        <livewire:components.review-charts :content="$game" :type="App\Enums\ContentTypeEnum::GAME" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$game" :type="App\Enums\ContentType::GAME" />
+        <livewire:components.comment-section :content="$game" :type="App\Enums\ContentTypeEnum::GAME" />
     </x-slot:comment>
 </x-layouts.view>

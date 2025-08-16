@@ -3,7 +3,7 @@
 namespace App\Services\Management;
 
 use App\Models\User;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Movie\Movie;
 use App\Actions\SaveCoverAction;
 use App\Livewire\Forms\MovieForm;
@@ -23,7 +23,7 @@ class MovieService
         ]);
 
         app(AttachGenresAction::class)->execute($movie, $movieForm->genres);
-        app(SaveCoverAction::class)->execute($movie, $movieForm->image,  ContentType::MOVIE->value);
+        app(SaveCoverAction::class)->execute($movie, $movieForm->image,  ContentTypeEnum::MOVIE->value);
 
         if (!isNullOrEmpty($movie)) {
             $movieForm->resetForm();

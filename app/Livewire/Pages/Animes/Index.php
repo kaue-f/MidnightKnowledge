@@ -3,7 +3,7 @@
 namespace App\Livewire\Pages\Animes;
 
 use Livewire\Component;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Anime\Anime;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
@@ -43,7 +43,7 @@ class Index extends Component
 
     public function mount()
     {
-        $this->loadFiltersFor(ContentType::ANIME);
+        $this->loadFiltersFor(ContentTypeEnum::ANIME);
     }
 
     public function animesQuery($assortment = NULL)
@@ -65,7 +65,7 @@ class Index extends Component
             ->when($this->filters['classification'], function ($query) {
                 $query->whereIn('classification_id', $this->filters['classification']);
             })
-            ->tap(fn($query) => ContentType::ANIME->applyFilters($query, $this->filters))
+            ->tap(fn($query) => ContentTypeEnum::ANIME->applyFilters($query, $this->filters))
             ->orderBy(...array_values($this->sortBy))
             ->paginate($this->page);
     }

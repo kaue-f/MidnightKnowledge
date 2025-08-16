@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Components\Auth;
 
-use App\Enums\Role;
 use App\Models\User;
+use App\Enums\RoleEnum;
 use Livewire\Component;
 use App\Livewire\Forms\RegisterForm;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class Register extends Component
                 'nickname' => $this->registerForm->nickname,
                 'email' => $this->registerForm->email,
                 'password' => $this->registerForm->password,
-                'role' => Role::Membro->value,
+                'role' => RoleEnum::MEMBER->value,
             ]);
 
             if (isNullOrEmpty($user)) {

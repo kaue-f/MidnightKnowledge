@@ -4,7 +4,7 @@ namespace App\Services\Caches;
 
 use App\Models\Genre;
 use App\Models\Game\Game;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Game\Platform;
 
 class GameCache extends BaseCache
@@ -30,7 +30,7 @@ class GameCache extends BaseCache
     {
         return $this->remember(
             key: $this->genreKey,
-            callback: fn() => Genre::where('category', ContentType::GAME)
+            callback: fn() => Genre::where('category', ContentTypeEnum::GAME)
                 ->orderBy('genre')
                 ->get()
         );

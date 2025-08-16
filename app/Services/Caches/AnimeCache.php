@@ -3,7 +3,7 @@
 namespace App\Services\Caches;
 
 use App\Models\Genre;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\Anime\AnimeType;
 
 class AnimeCache extends BaseCache
@@ -15,7 +15,7 @@ class AnimeCache extends BaseCache
     {
         return $this->remember(
             key: $this->genreKey,
-            callback: fn() => Genre::where('category', ContentType::ANIME)
+            callback: fn() => Genre::where('category', ContentTypeEnum::ANIME)
                 ->orderBy('genre')
                 ->get()
         );

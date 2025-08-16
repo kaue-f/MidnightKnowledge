@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Components;
 
-use App\Enums\Status;
+use App\Enums\StatusEnum;
 use Livewire\Component;
 use App\Models\UserLibrary;
 use Illuminate\Support\Arr;
@@ -13,11 +13,11 @@ class ReviewCharts extends Component
     public $content;
     public $type;
     public array $chartStatus  = [
-        Status::PROGRESSO->name => 0,
-        Status::LISTA->name => 0,
-        Status::FINALIZADO->name => 0,
-        Status::PAUSADO->name => 0,
-        Status::DROPADO->name => 0,
+        StatusEnum::PROGRESS->name => 0,
+        StatusEnum::PLANNED->name => 0,
+        StatusEnum::COMPLETED->name => 0,
+        StatusEnum::PAUSED->name => 0,
+        StatusEnum::DROPPED->name => 0,
         'FAVORITE' => 0,
     ];
     public array $chartRatings;
@@ -45,11 +45,11 @@ class ReviewCharts extends Component
 
         foreach ($arrStatus as $value) {
             match ($value->getRawOriginal('status')) {
-                Status::PROGRESSO->value => Arr::set($this->chartStatus, Status::PROGRESSO->name, $value->count),
-                Status::LISTA->value =>  Arr::set($this->chartStatus, Status::LISTA->name, $value->count),
-                Status::FINALIZADO->value => Arr::set($this->chartStatus, Status::FINALIZADO->name, $value->count),
-                Status::PAUSADO->value =>  Arr::set($this->chartStatus, Status::PAUSADO->name, $value->count),
-                Status::DROPADO->value =>  Arr::set($this->chartStatus, Status::DROPADO->name, $value->count),
+                StatusEnum::PROGRESS->value => Arr::set($this->chartStatus, StatusEnum::PROGRESS->name, $value->count),
+                StatusEnum::PLANNED->value =>  Arr::set($this->chartStatus, StatusEnum::PLANNED->name, $value->count),
+                StatusEnum::COMPLETED->value => Arr::set($this->chartStatus, StatusEnum::COMPLETED->name, $value->count),
+                StatusEnum::PAUSED->value =>  Arr::set($this->chartStatus, StatusEnum::PAUSED->name, $value->count),
+                StatusEnum::DROPPED->value =>  Arr::set($this->chartStatus, StatusEnum::DROPPED->name, $value->count),
             };
         }
     }

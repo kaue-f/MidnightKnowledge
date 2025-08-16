@@ -4,8 +4,8 @@ namespace App\Livewire\Pages;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Enums\ContentType;
 use Livewire\WithPagination;
+use App\Enums\ContentTypeEnum;
 use Livewire\Attributes\Title;
 use App\Services\LibraryService;
 use Illuminate\Support\Collection;
@@ -65,7 +65,7 @@ class Library extends Component
     public function render()
     {
         return view('livewire.pages.library', [
-            'contentTypes' => ContentType::array(),
+            'contentTypes' => ContentTypeEnum::array(),
             'contents' => $this->loadUserLibrary(),
         ]);
     }

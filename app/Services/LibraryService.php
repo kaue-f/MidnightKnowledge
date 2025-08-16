@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Enums\ContentType;
+use App\Enums\ContentTypeEnum;
 use App\Models\UserLibrary;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -155,7 +155,7 @@ class LibraryService
     private function resolveTypesToQuery(array $types, array $filters)
     {
         $validTypes = collect($types)
-            ->map(fn($type) => ContentType::tryFrom($type))
+            ->map(fn($type) => ContentTypeEnum::tryFrom($type))
             ->filter()
             ->values();
 

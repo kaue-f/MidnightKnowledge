@@ -72,10 +72,10 @@
     </x-slot:tags>
 
     <x-slot:chart>
-        <livewire:components.review-charts :content="$anime" :type="App\Enums\ContentType::ANIME" />
+        <livewire:components.review-charts :content="$anime" :type="App\Enums\ContentTypeEnum::ANIME" />
     </x-slot:chart>
 
     <x-slot:comment>
-        <livewire:components.comment-section :content="$anime" :type="App\Enums\ContentType::ANIME" />
+        <livewire:components.comment-section :content="$anime" :type="App\Enums\ContentTypeEnum::ANIME" />
     </x-slot:comment>
 </x-layouts.view>
