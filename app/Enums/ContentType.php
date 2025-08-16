@@ -4,6 +4,7 @@ namespace App\Enums;
 
 use App\Filters\BookFilter;
 use App\Filters\GameFilter;
+use Illuminate\Support\Arr;
 use App\Filters\AnimeFilter;
 use App\Models\Book\BookRating;
 use App\Models\Game\GameRating;
@@ -37,10 +38,23 @@ enum ContentType: string
 
     public static function array()
     {
-        return array_combine(
+        return Arr::sort(array_combine(
             array_map(fn($type) => $type->value, self::filtered()),
-            array_map(fn($type) => $type->name, self::filtered())
-        );
+            array_map(fn($type) => $type->getLabel(), self::filtered())
+        ));
+    }
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::ANIME => 'Animes',
+            self::BOOK => 'Livros',
+            self::GAME => 'Games',
+            self::MANGA => 'Mangás',
+            self::MOVIE => 'Filmes',
+            self::SERIE => 'Séries',
+            self::CARTOON => 'Desenhos',
+        };
     }
 
     public static function morphMap(): array
@@ -112,6 +126,7 @@ enum ContentType: string
             self::BOOK => app(BookCache::class)->getGenres(),
             self::GAME => app(GameCache::class)->getGenres(),
             // self::MANGA => app(MangaCache::class),
+            // self::CARTOON => app(CartoonCache::class),
             self::MOVIE_SERIE => app(GenreCache::class)->getMovieSerieGenres(),
         };
     }

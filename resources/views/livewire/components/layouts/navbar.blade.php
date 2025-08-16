@@ -7,34 +7,40 @@
             <img src="{{ asset('images/layouts/Logo3.png') }}" style="width:5rem">
         </a>
     </div>
-    <div class="hidden gap-4 text-lg font-semibold lg:flex items-center">
-        <x-button class="btn-ghost text-lg hover:text-primary hover:bg-transparent" label="Home" link="/" />
+    <div class="hidden gap-6 text-lg font-semibold lg:flex items-center">
+        <a class="flex hover:cursor-pointer justify-center items-center text-center text-lg {{ parse_url(url()->current(), PHP_URL_PATH) == '' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}"
+            wire:navigate href="/">
+            Home
+        </a>
         <x-dropdown>
             <x-slot:trigger>
                 <div class="py-0 gap-1 hover:text-primary hover:cursor-pointer">
                     Explorar
-                    <x-icon name="s-chevron-down" />
+                    <x-icon name="s-chevron-down"
+                        class="{{ in_array(parse_url(url()->current(), PHP_URL_PATH), ['/animes', '/movies', '/games', '/books', '/mangas', '/series', '/cartoon']) ? 'text-primary' : '' }}" />
                 </div>
             </x-slot:trigger>
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Animes"
-                link="{{ route(name: 'animes') }}" />
+            <x-menu-item title="Animes" link="{{ route(name: 'animes') }}"
+                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/animes' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
 
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Filmes"
-                link="{{ route(name: 'movies') }}" />
+            <x-menu-item title="Filmes" link="{{ route(name: 'movies') }}"
+                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/movies' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
 
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Games"
-                link="{{ route(name: 'games') }}" />
+            <x-menu-item title="Games" link="{{ route(name: 'games') }}"
+                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/games' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
 
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Mangás" link="/" />
+            <x-menu-item class="font-medium hover:bg-transparent" title="Mangás" link="/" />
 
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Livros"
-                link="{{ route(name: 'books') }}" />
+            <x-menu-item title="Livros" link="{{ route(name: 'books') }}"
+                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/books' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
 
-            <x-menu-item class="font-medium hover:text-primary hover:bg-transparent" title="Séries"
-                link="{{ route(name: 'series') }}" />
+            <x-menu-item title="Séries" link="{{ route(name: 'series') }}"
+                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/series' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
         </x-dropdown>
-        <x-button class="btn-ghost text-lg hover:text-primary hover:bg-transparent" label="Biblioteca"
-            link="{{ route(name: 'library') }}" />
+        <a class="flex hover:cursor-pointer justify-center items-center text-center text-lg {{ parse_url(url()->current(), PHP_URL_PATH) == '/library' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}"
+            wire:navigate href="{{ route('library') }}">
+            Biblioteca
+        </a>
     </div>
     <div class="flex justify-end gap-6 items-center">
         <div>
