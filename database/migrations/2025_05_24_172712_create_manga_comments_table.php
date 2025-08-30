@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('manga_comments', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->text('comment')->nullable();
             $table->integer('like')->nullable();
             $table->integer('dislike')->nullable();

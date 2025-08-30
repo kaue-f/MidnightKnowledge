@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('manga_ratings', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('manga_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
             $table->unique(['manga_id', 'user_id']);

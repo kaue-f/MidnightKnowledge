@@ -69,9 +69,10 @@ enum ContentTypeEnum: string
     }
 
     /**
-     * Get the description for the content type.
+     * Get the morph map for the content types.
+     * This is used for polymorphic relationships in Eloquent.
      *
-     * @return string
+     * @return array<string, string>
      */
     public static function morphMap(): array
     {

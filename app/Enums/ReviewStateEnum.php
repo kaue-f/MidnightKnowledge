@@ -6,7 +6,7 @@ enum ReviewStateEnum: string
 {
     case PENDING = 'pending';
     case APPROVED = 'approved';
-    case REJECTED = 'rejected';
+    case REPROVED = 'reproved';
     case ARCHIVED = 'archived';
     case AUTO_APPROVED = 'auto_approved';
     case NEEDS_REVISION = 'needs_revision';
@@ -38,7 +38,7 @@ enum ReviewStateEnum: string
         return match ($this) {
             self::PENDING => __('enums.reviewStateEnum.label.pending'),
             self::APPROVED => __('enums.reviewStateEnum.label.approved'),
-            self::REJECTED => __('enums.reviewStateEnum.label.rejected'),
+            self::REPROVED => __('enums.reviewStateEnum.label.reproved'),
             self::ARCHIVED => __('enums.reviewStateEnum.label.archived'),
             self::AUTO_APPROVED => __('enums.reviewStateEnum.label.auto_approved'),
             self::NEEDS_REVISION => __('enums.reviewStateEnum.label.needs_revision'),

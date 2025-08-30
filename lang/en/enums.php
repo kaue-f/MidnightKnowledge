@@ -64,7 +64,7 @@ return [
         'label' => [
             'pending' => 'Pending Review',
             'approved' => 'Approved',
-            'rejected' => 'Rejected',
+            'reproved' => 'Reproved',
             'archived' => 'Archived',
             'auto_approved' => 'Auto Approved',
             'needs_revision' => 'Needs Revision',
@@ -105,6 +105,19 @@ return [
             'completed' => 'Completed',
             'paused' => 'Paused',
             'dropped' => 'Dropped',
+        ],
+    ],
+
+    /*
+     * Enum for relation type with labels.
+     */
+    'RelationTypeEnum' => [
+        'label' => [
+            'adaptation' => 'Adaptation',
+            'sequel' => 'Sequence',
+            'prequel' => 'Prequel',
+            'inspiration' => 'Inspiration',
+            'shared_universe' => 'Shared universe',
         ],
     ],
 ];

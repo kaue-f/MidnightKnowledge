@@ -3,19 +3,66 @@
 namespace App\Models\Anime;
 
 use App\Models\User;
+use App\Models\Report;
+use App\Models\UserNotification;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class AnimeComment extends Model
 {
+    use HasUlids;
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * The attributes that are mass assignable.
+     * 
+     *
+     * @var array<int, string>
+     */
     protected $fillable = ['anime_id', 'user_id', 'comment', 'like', 'dislike'];
 
+    /**
+     * Summary of anime
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Anime, AnimeComment>
+     */
     public function anime()
     {
         return $this->belongsTo(Anime::class);
     }
 
+    /**
+     * Define the relationship with User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User>
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Define the relationship with UserNotification.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<UserNotification>
+     */
+    public function related()
+    {
+        return $this->morphMany(UserNotification::class, 'related');
+    }
+
+    /**
+     * Define the relationship with Report.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Report>
+     */
+    public function reported()
+    {
+        return $this->morphMany(Report::class, 'reported');
     }
 }

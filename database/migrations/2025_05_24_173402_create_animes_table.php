@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ReviewStateEnum;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,10 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('animes', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('title');
-            $table->text('image')->nullable();
-            $table->text('synopsis')->nullable();
+            $table->ulid('id')->primary();
+            $table->string('cover_id')->nullable();
+            $table->string('cover_url')->nullable();
             $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('episodes')->nullable();
             $table->integer('season')->nullable();
@@ -24,9 +24,19 @@ return new class extends Migration
             $table->integer('movie_count')->nullable();
             $table->foreignId('anime_type_id')->nullable()->constrained()->onDelete('set null');
             $table->date('release_date')->nullable();
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('status')->default(ReviewStateEnum::PENDING->value);
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::create('anime_translations', function (Blueprint $table) {
+            $table->ulid('id')->primary();
+            $table->foreignUlid('anime_id')->constrained()->onDelete('cascade');
+            $table->string('title')->index();
+            $table->text('synopsis')->nullable();
+            $table->string('locale', 5);
+            $table->unique(['anime_id', 'locale']);
         });
     }
 
@@ -36,5 +46,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('animes');
+        Schema::dropIfExists('anime_translations');
     }
 };

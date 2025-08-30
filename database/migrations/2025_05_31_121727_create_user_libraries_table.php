@@ -1,7 +1,5 @@
 <?php
 
-use App\Enums\StatusEnum;
-use App\Enums\ContentTypeEnum;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -14,27 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_libraries', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
-            $table->uuid('content_id');
-            $table->enum('content_type', [
-                ContentTypeEnum::ANIME->value,
-                ContentTypeEnum::BOOK->value,
-                ContentTypeEnum::CARTOON->value,
-                ContentTypeEnum::GAME->value,
-                ContentTypeEnum::MANGA->value,
-                ContentTypeEnum::MOVIE->value,
-                ContentTypeEnum::SERIE->value,
-            ]);
+            $table->ulid('id')->primary();
+            $table->foreignUlid('user_id')->constrained()->cascadeOnDelete();
+            $table->ulidMorphs('content');
             $table->boolean('library')->default(true);
             $table->boolean('favorite')->default(false);
-            $table->enum('status', [
-                StatusEnum::PROGRESS->value,
-                StatusEnum::PLANNED->value,
-                StatusEnum::COMPLETED->value,
-                StatusEnum::PAUSED->value,
-                StatusEnum::DROPPED->value
-            ])->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

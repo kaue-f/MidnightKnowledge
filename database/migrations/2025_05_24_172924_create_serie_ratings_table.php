@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('serie_ratings', function (Blueprint $table) {
-           $table->id();
-            $table->foreignUuid('serie_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->id();
+            $table->foreignUlid('serie_id')->constrained()->onDelete('cascade');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
             $table->unique(['serie_id', 'user_id']);

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('book_ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('book_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignUlid('book_id')->constrained()->onDelete('cascade');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
             $table->unique(['book_id', 'user_id']);

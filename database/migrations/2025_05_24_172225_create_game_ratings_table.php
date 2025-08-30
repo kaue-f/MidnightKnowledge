@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('game_ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('game_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignUlid('game_id')->constrained()->onDelete('cascade');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
             $table->unique(['game_id', 'user_id']);

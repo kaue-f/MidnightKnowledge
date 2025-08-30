@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('anime_ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('anime_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignUlid('anime_id')->constrained()->onDelete('cascade');
+            $table->foreignUlid('user_id')->nullable()->constrained()->onDelete('set null');
             $table->float('rating')->nullable();
             $table->timestamps();
             $table->unique(['anime_id', 'user_id']);

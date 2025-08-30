@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('classifications', function (Blueprint $table) {
             $table->id();
-            $table->string('classification')->unique();
-            $table->string('description');
-            $table->text('image');
+            $table->string('name', 2)->unique();
+            $table->string('image');
         });
     }
 

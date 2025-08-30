@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\RoleEnum;
+use App\Enums\ProfileVisibilityEnum;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,18 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->ulid('id')->primary();
             $table->string('nickname')->unique();
             $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->text('image')->nullable();
             $table->string('password');
-            $table->date('birthday')->nullable();
-            $table->enum('role', [
-                RoleEnum::MEMBER->value,
-                RoleEnum::VIP->value,
-            ])->nullable();
+            $table->string('visibility')->default(ProfileVisibilityEnum::PUBLIC);
+            $table->boolean('is_adult')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

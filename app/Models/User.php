@@ -3,18 +3,23 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\RoleEnum;
+use App\Enums\ProfileVisibilityEnum;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasUuids, Notifiable, SoftDeletes;
+    use HasFactory, HasUlids, Notifiable, SoftDeletes, HasRoles;
 
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
     protected $keyType = 'string';
 
     /**
@@ -26,10 +31,9 @@ class User extends Authenticatable
         'nickname',
         'username',
         'email',
-        'image',
         'password',
-        'birthday',
-        'role',
+        'visibility',
+        'is_adult',
     ];
 
     /**
@@ -51,33 +55,87 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'birthday' => 'datetime:Y-d-m',
             'password' => 'hashed',
+            'visibility' => ProfileVisibilityEnum::class,
         ];
     }
 
-    protected function username(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value): string => hasValue($value)
-        );
-    }
-
-    protected function role(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value): string => RoleEnum::tryFrom($value)->name
-        );
-    }
-
-    protected function birthday(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value): string => isDate($value)
-        );
-    }
+    /**
+     * Summary of library
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserLibrary, User>
+     */
     public function library()
     {
         return $this->hasMany(UserLibrary::class);
+    }
+
+    /**
+     * Get the profile associated with the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserProfile, User>
+     */
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    /**
+     * Get the follows where the user is the follower.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Follow, User>
+     */
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    /**
+     * Get the follows where the user is the followed.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Follow, User>
+     */
+    public function followed()
+    {
+        return $this->hasMany(Follow::class, 'followed_id');
+    }
+
+    /**
+     * Get the user links associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserLink, User>
+     */
+    public function links()
+    {
+        return $this->hasMany(UserLink::class);
+    }
+
+    /**
+     * Get the notifications for the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserNotification, User>
+     */
+    public function notifications()
+    {
+        return $this->hasMany(UserNotification::class);
+    }
+
+    /**
+     * Define the relationship with UserNotification.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<UserNotification>
+     */
+    public function related()
+    {
+        return $this->morphMany(UserNotification::class, 'related');
+    }
+
+    /**
+     * Define the relationship with Report.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Report>
+     */
+    public function reported()
+    {
+        return $this->morphMany(Report::class, 'reported');
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('game_platforms', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('game_id')->constrained()->onDelete('cascade');
+            $table->foreignUlid('game_id')->constrained()->onDelete('cascade');
             $table->foreignId('platform_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
