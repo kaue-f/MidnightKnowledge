@@ -16,7 +16,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->string('cover_id')->nullable();
             $table->string('cover_url')->nullable();
-            $table->foreignId('classificatio_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('classification_id')->nullable()->constrained()->onDelete('set null');
             $table->string('duration', 4)->nullable();
             $table->date('release_date')->nullable();
             $table->string('developed_by')->nullable();
