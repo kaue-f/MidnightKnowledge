@@ -28,7 +28,8 @@ class databaseSeeder extends Seeder
             GenresMangaSeeder::class,
             GenresMovieSerieSeeder::class,
             MangaTypesSeeder::class,
-            PlatformsSeeder::class
+            PlatformsSeeder::class,
+            PermissionsRolesSeeder::class
         ]);
     }
 }

@@ -18,6 +18,24 @@ enum PermissionEnum: string
     case REVOCATION_DENUNCIATION = 'revocation_denunciation';
     case SUSPENDED_ACCOUNT = 'suspended_account';
 
+    /**
+     * Get the array representation of the enum.
+     *
+     * @return array
+     */
+    public static function array(): array
+    {
+        return array_combine(
+            array_map(fn($permission) => $permission->value, self::cases()),
+            array_map(fn($permission) => $permission->label(), self::cases())
+        );
+    }
+
+    /**
+     * Get the label for the permission.
+     *
+     * @return string
+     */
     public function label(): string
     {
         return match ($this) {
