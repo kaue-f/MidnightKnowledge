@@ -10,12 +10,11 @@ class ClassificationCache extends BaseCache
 
     public function fetch()
     {
+        $this->ttl = now()->diffInSeconds(now()->addMonth());
+
         return $this->remember(
             key: $this->key,
-            callback: function () {
-                $this->ttl = now()->addMonth()->diffInSeconds();
-                return Classification::all()->toArray();
-            }
+            callback: fn() => Classification::get()
         );
     }
 

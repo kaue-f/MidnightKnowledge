@@ -55,13 +55,15 @@
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Formato do anime" placeholder="Selecione o formato"
-                            option-sub-label="description" :options="$animeTypes" wire:model="filters.animeType" searchable
-                            no-result-text="Ops! Nenhum resultado encontrado." clearable />
+                            option-label="label" option-sub-label="description" :options="$animeTypes"
+                            wire:model="filters.animeType" searchable no-result-text="Ops! Nenhum resultado encontrado."
+                            clearable />
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
-                            placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="filters.classification" clearable />
+                            placeholder="Selecione classificação" option-avatar="image" option-label="label"
+                            option-sub-label="description" :options="$classifications" wire:model="filters.classification"
+                            clearable />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">

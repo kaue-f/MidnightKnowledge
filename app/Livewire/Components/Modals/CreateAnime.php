@@ -18,8 +18,8 @@ class CreateAnime extends Component
     public AnimeForm $animeForm;
     public ?User $user;
     public Collection $genres;
-    public array $classifications;
-    public array $animeTypes;
+    public Collection $classifications;
+    public Collection $animeTypes;
 
     public array $config = [
         'dateFormat' => 'Y-m-d',

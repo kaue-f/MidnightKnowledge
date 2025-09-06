@@ -4,8 +4,8 @@ namespace App\Services\Caches;
 
 use App\Models\Genre;
 use App\Models\Book\Book;
-use App\Enums\ContentTypeEnum;
 use App\Models\Book\Format;
+use App\Enums\ContentTypeEnum;
 
 class BookCache extends BaseCache
 {
@@ -17,10 +17,12 @@ class BookCache extends BaseCache
 
     public function getGenres()
     {
+        $this->ttl = now()->diffInSeconds(now()->addMonth());
+
         return $this->remember(
             key: $this->genreKey,
             callback: fn() => Genre::where('category', ContentTypeEnum::BOOK)
-                ->orderBy('genre')
+                ->orderBy('name')
                 ->get()
 
         );
@@ -54,9 +56,11 @@ class BookCache extends BaseCache
 
     public function getFormats()
     {
+        $this->ttl = now()->diffInSeconds(now()->addMonth());
+
         return $this->remember(
             key: $this->formatsKey,
-            callback: fn() => Format::all()->toArray()
+            callback: fn() => Format::get()
         );
     }
 

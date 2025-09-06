@@ -16,7 +16,7 @@ class CreateMovie extends Component
     #[Modelable]
     public bool $modalMovie = false;
     public ?User $user;
-    public array $classifications;
+    public Collection $classifications;
     public MovieForm $movieForm;
     public Collection $genres;
     public array $config = [

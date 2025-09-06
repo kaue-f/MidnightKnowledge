@@ -15,7 +15,7 @@ class AnimeTypesSeeder extends Seeder
     {
         DB::table('anime_types')->insert([
             ['name' => 'TV'],
-            ['name' => 'Movies'],
+            ['name' => 'Movie'],
             ['name' => 'OVA'],
             ['name' => 'ONA'],
             ['name' => 'Music'],

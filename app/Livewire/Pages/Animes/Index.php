@@ -3,9 +3,9 @@
 namespace App\Livewire\Pages\Animes;
 
 use Livewire\Component;
-use App\Enums\ContentTypeEnum;
 use App\Models\Anime\Anime;
 use Livewire\WithPagination;
+use App\Enums\ContentTypeEnum;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
@@ -16,8 +16,8 @@ class Index extends Component
     use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public string $search = '';
     public Collection $genres;
-    public array $animeTypes;
-    public array $classifications;
+    public Collection $animeTypes;
+    public Collection $classifications;
     public array $filters = [
         'animeType' => [],
         'classification' => [],

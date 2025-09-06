@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Classification extends Model
@@ -17,17 +18,22 @@ class Classification extends Model
     public $timestamps = false;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['label', 'description'];
+
+    /**
      * Get the label for the classification.
      * 
      * @return string
      */
-    public function label()
+    protected function label(): Attribute
     {
-        $translation = __("classifications.label.{$this->name}");
-
-        return $translation !== "classifications.label.{$this->name}"
-            ? $this->name
-            : __("classifications.label.{$this->name}");
+        return Attribute::make(
+            get: fn() => $this->getTranslation('label')
+        );
     }
 
     /**
@@ -36,12 +42,26 @@ class Classification extends Model
      * @return string
      */
 
-    public function description()
+    protected function description(): Attribute
     {
-        $translation = __("classifications.description.{$this->name}");
+        return Attribute::make(
+            get: fn() => $this->getTranslation('description')
+        );
+    }
 
-        return $translation !== "classifications.description.{$this->name}"
-            ? $this->name
-            : __("classifications.description.{$this->name}");
+    /**
+     * Get the translation the classification
+     * 
+     * @param mixed $field
+     */
+    private function getTranslation($field)
+    {
+        $key = "classifications.{$field}.{$this->name}";
+        $translation = __($key);
+
+        if ($translation !== $key)
+            return  $translation;
+
+        return ($field == 'label') ? $this->name : "";
     }
 }

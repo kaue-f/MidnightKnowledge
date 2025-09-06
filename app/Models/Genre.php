@@ -10,6 +10,7 @@ use App\Models\Movie\Movie;
 use App\Models\Serie\Serie;
 use App\Enums\ContentTypeEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Genre extends Model
 {
@@ -31,6 +32,13 @@ class Genre extends Model
             'category' => ContentTypeEnum::class,
         ];
     }
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['genre', 'description'];
 
     /**
      * Summary of animes
@@ -97,13 +105,11 @@ class Genre extends Model
      * 
      * @return array|string|null
      */
-    public function label()
+    public function genre(): Attribute
     {
-        $translation = __("genres.{$this->category}.label.{$this->genre}");
-
-        return $translation !== "genres.{$this->category}.label.{$this->genre}"
-            ? $this->genre
-            : __("genres.{$this->category}.label.{$this->genre}");
+        return Attribute::make(
+            get: fn(): array|string|null => $this->getTranslation('label')
+        );
     }
 
     /**
@@ -111,12 +117,26 @@ class Genre extends Model
      * 
      * @return array|string|null
      */
-    public function description()
+    protected  function description(): Attribute
     {
-        $translation = __("genres.{$this->category}.description.{$this->genre}");
+        return Attribute::make(
+            get: fn(): array|string|null => $this->getTranslation('description')
+        );
+    }
 
-        return $translation !== "genres.{$this->category}.description.{$this->genre}"
-            ? ""
-            : __("genres.{$this->category}.description.{$this->genre}");
+    /**
+     * Get the translation the genre
+     * 
+     * @param mixed $field
+     */
+    private function getTranslation($field)
+    {
+        $key = "genres/{$this->category->value}.{$field}.{$this->name}";
+        $translation = __($key);
+
+        if ($translation !== $key)
+            return  $translation;
+
+        return ($field == 'label') ? $this->name : "";
     }
 }

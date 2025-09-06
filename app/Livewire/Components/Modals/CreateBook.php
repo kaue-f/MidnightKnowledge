@@ -16,11 +16,11 @@ class CreateBook extends Component
     public ?User $user;
     public BookForm $bookForm;
     public Collection $genres;
-    public array $classifications;
+    public Collection $classifications;
     public array $authors;
     public array $series;
     public array $publishedBy;
-    public array $formats;
+    public Collection $formats;
     #[Modelable]
     public bool $modalBook = false;
     public array $config = [

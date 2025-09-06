@@ -65,8 +65,9 @@
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
-                            placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="filters.classification" clearable />
+                            placeholder="Selecione classificação" option-avatar="image" option-label="label"
+                            option-sub-label="description" :options="$classifications" wire:model="filters.classification"
+                            clearable />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">

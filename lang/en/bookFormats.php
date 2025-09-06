@@ -2,7 +2,7 @@
 
 return [
     'label' => [
-        'audibook' => 'Audiobook',
+        'audiobook' => 'Audiobook',
         'braille' => 'Braille',
         'ebook' => 'E-book',
         'hybrid' => 'Hybrid',

@@ -4,8 +4,8 @@ namespace App\Livewire\Pages\Books;
 
 use Livewire\Component;
 use App\Models\Book\Book;
-use App\Enums\ContentTypeEnum;
 use Livewire\WithPagination;
+use App\Enums\ContentTypeEnum;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Collection;
 use Livewire\WithoutUrlPagination;
@@ -18,9 +18,9 @@ class Index extends Component
     public Collection $genres;
     public array $authors;
     public array $publishedBy;
-    public array $formats;
+    public Collection $formats;
     public array $series;
-    public array $classifications;
+    public Collection $classifications;
     public array $filters = [
         'genre' => [],
         'author' => [],

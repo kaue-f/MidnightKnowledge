@@ -15,7 +15,7 @@ class CreateGame extends Component
     use WithFileUploads;
     public ?User $user;
     public array $platforms;
-    public array $classifications;
+    public Collection $classifications;
     public GameForm $gameForm;
     public Collection $genres;
     public array $developers;

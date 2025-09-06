@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Cache;
 
 abstract class BaseCache
 {
-    protected int $ttl = 3600;
+    protected int $ttl = 172800;
 
     protected function remember(string $key, \Closure $callback): mixed
     {

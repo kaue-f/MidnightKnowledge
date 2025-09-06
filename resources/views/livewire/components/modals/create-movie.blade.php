@@ -13,7 +13,7 @@
                     </div>
                     <div class="w-full">
                         <x-choices label="Classificação" placeholder="Classificação" single option-avatar="image"
-                            option-label="classification" placeholder-value="" :options="$classifications"
+                            option-label="label" option-sub-label="description"placeholder-value="" :options="$classifications"
                             wire:model="movieForm.classification" />
                     </div>
                     <div class="flex space-x-4 w-full">

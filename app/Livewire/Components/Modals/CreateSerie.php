@@ -16,7 +16,7 @@ class CreateSerie extends Component
     #[Modelable]
     public bool $modalSerie = false;
     public ?User $user;
-    public array $classifications;
+    public Collection $classifications;
     public SerieForm $serieForm;
     public Collection $genres;
     public array $config = [

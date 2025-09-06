@@ -3,6 +3,7 @@
 namespace App\Models\Book;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Format extends Model
 {
@@ -12,6 +13,13 @@ class Format extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['label', 'description'];
 
     /**
      * Summary of book
@@ -27,13 +35,11 @@ class Format extends Model
      *
      * @return string
      */
-    public function label()
+    protected function label(): Attribute
     {
-        $translation = __("bookFormats.label.{$this->name}");
-
-        return $translation !== "bookFormats.label.{$this->name}"
-            ? $this->name
-            : __("bookFormats.label.{$this->name}");
+        return Attribute::make(
+            get: fn() => $this->getTranslation('label')
+        );
     }
 
     /**
@@ -41,12 +47,26 @@ class Format extends Model
      *
      * @return string
      */
-    public function description()
+    protected function description(): Attribute
     {
-        $translation = __("bookFormats.description.{$this->name}");
+        return Attribute::make(
+            get: fn() => $this->getTranslation('description')
+        );
+    }
 
-        return $translation !== "bookFormats.description.{$this->name}"
-            ? $this->name
-            : __("bookFormats.description.{$this->name}");
+    /**
+     * Get the translation the classification
+     * 
+     * @param mixed $field
+     */
+    private function getTranslation($field)
+    {
+        $key = "bookFormats.{$field}.{$this->name}";
+        $translation = __($key);
+
+        if ($translation !== $key)
+            return  $translation;
+
+        return ($field == 'label') ? $this->name : "";
     }
 }

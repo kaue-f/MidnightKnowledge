@@ -54,8 +54,8 @@
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
-                            placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="classification" clearable />
+                            placeholder="Selecione classificação" option-avatar="image" option-label="label"
+                            option-sub-label="description" :options="$classifications" wire:model="classification" clearable />
                     </div>
                     <div class="flex flex-row space-x-4 items-end lg:justify-end">
                         <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />

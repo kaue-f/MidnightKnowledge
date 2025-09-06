@@ -14,7 +14,7 @@ class GenresAnimeSeeder extends Seeder
     public function run(): void
     {
         DB::table('genres')->insert([
-            ['name' => '4-koma)', 'category' => ContentTypeEnum::ANIME],
+            ['name' => '4-koma', 'category' => ContentTypeEnum::ANIME],
             ['name' => 'action', 'category' => ContentTypeEnum::ANIME],
             ['name' => 'martial_arts', 'category' => ContentTypeEnum::ANIME],
             ['name' => 'adventure', 'category' => ContentTypeEnum::ANIME],

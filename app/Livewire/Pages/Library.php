@@ -18,13 +18,13 @@ class Library extends Component
     use WithPagination, WithoutUrlPagination, LoadsContentFilterData;
     public User $user;
     public Collection $genres;
-    public array $classifications;
+    public Collection $classifications;
     public array $statuses;
-    public array $animeTypes;
+    public Collection $animeTypes;
     public array $platforms;
     public array $authors;
     public array $publishedBy;
-    public array $formats;
+    public Collection $formats;
     public array $series;
     public array $developers = [];
     public string $search = '';

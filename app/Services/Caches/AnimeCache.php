@@ -13,10 +13,12 @@ class AnimeCache extends BaseCache
 
     public function getGenres()
     {
+        $this->ttl = now()->diffInSeconds(now()->addMonth());
+
         return $this->remember(
             key: $this->genreKey,
             callback: fn() => Genre::where('category', ContentTypeEnum::ANIME)
-                ->orderBy('genre')
+                ->orderBy('name')
                 ->get()
         );
     }
@@ -25,7 +27,7 @@ class AnimeCache extends BaseCache
     {
         return $this->remember(
             key: $this->typeKey,
-            callback: fn() => AnimeType::all()->toArray()
+            callback: fn() => AnimeType::get()
         );
     }
 }

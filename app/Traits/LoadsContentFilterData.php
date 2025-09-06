@@ -23,7 +23,7 @@ trait LoadsContentFilterData
         $this->loadGameFilters();
     }
 
-    public function loadFiltersFor(ContentType $contentType): void
+    public function loadFiltersFor(ContentTypeEnum $contentType): void
     {
         $this->genres = $contentType->getGenreCache();
         $this->loadClassifications();
@@ -67,16 +67,16 @@ trait LoadsContentFilterData
         $cache = app(BookCache::class);
 
         $this->authors = $cache->getAuthors();
-        $this->formats = $cache->getFormats();
         $this->publishedBy = $cache->getPublishedBy();
         $this->series = $cache->getSeries();
+        $this->formats = $cache->getFormats();
     }
 
     protected function loadGameFilters()
     {
         $cache = app(GameCache::class);
 
-        $this->platforms = $cache->getPlatforms();
         $this->developers = $cache->getDevelopers();
+        $this->platforms = $cache->getPlatforms();
     }
 }

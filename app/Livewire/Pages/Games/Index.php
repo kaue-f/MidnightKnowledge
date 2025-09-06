@@ -17,7 +17,7 @@ class Index extends Component
     public string $search = '';
     public Collection $genres;
     public array $platforms;
-    public array $classifications;
+    public Collection $classifications;
     public array $developers = [];
     public array $filters = [
         'genre' => [],

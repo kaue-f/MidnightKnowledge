@@ -54,9 +54,10 @@
                             clearable />
                     </div>
                     <div>
-                        <x-choices-offline class="w-full" label="Formatos" option-sub-label="description"
-                            placeholder="Selecione formato de livro" :options="$formats" wire:model="filters.format"
-                            searchable no-result-text="Ops! Nenhum resultado encontrado." clearable />
+                        <x-choices-offline class="w-full" label="Formatos" option-label="label"
+                            option-sub-label="description" placeholder="Selecione formato de livro" :options="$formats"
+                            wire:model="filters.format" searchable no-result-text="Ops! Nenhum resultado encontrado."
+                            clearable />
                     </div>
                     <div>
                         <x-choices-offline class="w-full" label="Séries" placeholder="Selecione série" :options="$series"
@@ -75,13 +76,15 @@
                     </div>
                     <div>
                         <x-choices class="w-full" label="Classificação de conteúdo"
-                            placeholder="Selecione classificação" option-avatar="image" option-label="classification"
-                            :options="$classifications" wire:model="filters.classification" clearable />
+                            placeholder="Selecione classificação" option-avatar="image" option-label="label"
+                            option-sub-label="description" :options="$classifications" wire:model="filters.classification"
+                            clearable />
                     </div>
                 </div>
                 <div class="flex flex-row space-x-4 lg:justify-end">
                     <x-button class="btn-sm btn-error" label="Redefinir Filtros" wire:click='resetFilter' spinner />
-                    <x-button label="Filtrar" class="btn-sm btn-success" type="submit" x-on:click="open = ! open" />
+                    <x-button label="Filtrar" class="btn-sm btn-success" type="submit"
+                        x-on:click="open = ! open" />
                 </div>
             </x-form>
         </div>

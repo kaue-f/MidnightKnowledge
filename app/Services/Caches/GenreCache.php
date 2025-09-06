@@ -12,10 +12,12 @@ class GenreCache extends BaseCache
 
     public function getGenres()
     {
+        $this->ttl = now()->diffInSeconds(now()->addMonth());
+
         return $this->remember(
             key: 'genres',
             callback: fn() => Genre::select('id', 'genre')
-                ->orderBy('genre')
+                ->orderBy('name')
                 ->get()
                 ->groupBy('genre')
                 ->map(function ($items, $genreName) {
@@ -30,10 +32,12 @@ class GenreCache extends BaseCache
 
     public function getMovieSerieGenres()
     {
+        $this->ttl = now()->diffInSeconds(now()->addMonth());
+
         return $this->remember(
             key: $this->movie_serieKey,
             callback: fn() => Genre::where('category', ContentTypeEnum::MOVIE_SERIE)
-                ->orderBy('genre')
+                ->orderBy('name')
                 ->get()
         );
     }

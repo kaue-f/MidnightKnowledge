@@ -3,6 +3,7 @@
 namespace App\Models\Anime;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class AnimeType extends Model
 {
@@ -14,18 +15,23 @@ class AnimeType extends Model
     public $timestamps = false;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['label', 'description'];
+
+    /**
      * Get the label for the anime type.
      * 
      * @return string
      */
 
-    public function label()
+    public function label(): Attribute
     {
-        $translation = __("animeTypes.label.{$this->name}");
-
-        return $translation !== "animeTypes.label.{$this->name}"
-            ? $this->name
-            : __("animeTypes.label.{$this->name}");
+        return Attribute::make(
+            get: fn() => $this->getTranslation('label')
+        );
     }
 
     /**
@@ -33,12 +39,26 @@ class AnimeType extends Model
      * 
      * @return string
      */
-    public function description()
+    public function description(): Attribute
     {
-        $tranlsation = __("animeTypes.description.{$this->name}");
+        return Attribute::make(
+            get: fn(): array|string|null => $this->getTranslation('description')
+        );
+    }
 
-        return $tranlsation !== "animeTypes.description.{$this->name}"
-            ? $this->name
-            : __("animeTypes.description.{$this->name}");
+    /**
+     * Get the translation the anime
+     * 
+     * @param mixed $field
+     */
+    private function getTranslation($field)
+    {
+        $key = "animeTypes.{$field}.{$this->name}";
+        $translation = __($key);
+
+        if ($translation !== $key)
+            return  $translation;
+
+        return ($field == 'label') ? $this->name : "";
     }
 }

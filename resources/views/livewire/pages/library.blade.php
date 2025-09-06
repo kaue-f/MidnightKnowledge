@@ -80,8 +80,8 @@
                             </div>
                             <div>
                                 <x-choices class="w-full" label="Classificação de conteúdo"
-                                    placeholder="Selecione classificação" option-avatar="image"
-                                    option-label="classification" :options="$classifications" wire:model="filters.classification"
+                                    placeholder="Selecione classificação" option-avatar="image" option-label="label"
+                                    option-sub-label="description" :options="$classifications" wire:model="filters.classification"
                                     clearable />
                             </div>
                         </div>
@@ -159,9 +159,9 @@
                         </x-slot:label>
                         <div class="grid-filter">
                             <div>
-                                <x-choices-offline class="w-full" label="Formatos" option-sub-label="description"
-                                    placeholder="Selecione formato de livro" :options="$formats"
-                                    wire:model="filters.book.format" searchable
+                                <x-choices-offline class="w-full" label="Formatos" option-label="label"
+                                    option-sub-label="description" placeholder="Selecione formato de livro"
+                                    :options="$formats" wire:model="filters.book.format" searchable
                                     no-result-text="Ops! Nenhum resultado encontrado." clearable />
                             </div>
                             <div>

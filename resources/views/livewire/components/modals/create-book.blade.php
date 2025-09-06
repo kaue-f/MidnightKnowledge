@@ -13,13 +13,14 @@
                     </div>
                     <div class="w-full">
                         <x-choices label="Formato de livro" placeholder="Selecione o formato" placeholder-value=""
-                            :options="$formats" option-sub-label="description" wire:model="bookForm.formats" />
+                            :options="$formats" option-label="label" option-sub-label="description"
+                            wire:model="bookForm.formats" />
                     </div>
                     <div class="flex space-x-4 w-full">
                         <div class="w-1/2">
                             <x-choices label="Classificação" placeholder="Classificação" single option-avatar="image"
-                                option-label="classification" placeholder-value="" :options="$classifications"
-                                wire:model="bookForm.classification" />
+                                option-label="label" option-sub-label="description"placeholder-value=""
+                                :options="$classifications" wire:model="bookForm.classification" />
                         </div>
                         <div class="w-1/2">
                             <x-datepicker label="Lançamento" placeholder="Lançamento do livro"
