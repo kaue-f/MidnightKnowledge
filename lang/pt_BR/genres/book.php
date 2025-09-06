@@ -35,7 +35,7 @@ return [
         'science_fiction' => 'Ficção Científica',
         'gastronomy' => 'Gastronomia',
         'business_management' => 'Gestão de negócios',
-        'gothic' => 'Gótica',
+        'gothic' => 'Gótico',
         'self-help_guide' => 'Guia de Autoajuda',
         'career_guides' => 'Guias de carreira',
         'historical' => 'Histórica',

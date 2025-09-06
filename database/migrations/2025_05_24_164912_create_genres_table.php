@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('category');
+            $table->boolean('is_adult')->default(false);
             $table->unique(['name', 'category']);
         });
     }

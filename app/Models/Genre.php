@@ -10,7 +10,9 @@ use App\Models\Movie\Movie;
 use App\Models\Serie\Serie;
 use App\Enums\ContentTypeEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 
 class Genre extends Model
 {
@@ -30,6 +32,7 @@ class Genre extends Model
     {
         return [
             'category' => ContentTypeEnum::class,
+            'is_adult' => 'boolean'
         ];
     }
 
@@ -138,5 +141,17 @@ class Genre extends Model
             return  $translation;
 
         return ($field == 'label') ? $this->name : "";
+    }
+
+    /**
+     * Scope a query to not include adult genres.
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return void
+     */
+    #[Scope]
+    protected function notAdult(Builder $query): void
+    {
+        $query->where('is_adult', false);
     }
 }
