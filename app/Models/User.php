@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\LanguageEnum;
 use App\Enums\ProfileVisibilityEnum;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -34,6 +36,7 @@ class User extends Authenticatable
         'password',
         'visibility',
         'is_adult',
+        'language',
     ];
 
     /**
@@ -57,6 +60,8 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'visibility' => ProfileVisibilityEnum::class,
+            'language' => LanguageEnum::class,
+            'is_adult' => 'boolean',
         ];
     }
 

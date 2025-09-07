@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('visibility')->default(ProfileVisibilityEnum::PUBLIC);
+            $table->string('language', 10)->default(app()->getLocale());
             $table->boolean('is_adult')->default(false);
             $table->rememberToken();
             $table->timestamps();

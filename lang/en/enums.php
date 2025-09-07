@@ -120,4 +120,14 @@ return [
             'shared_universe' => 'Shared universe',
         ],
     ],
+
+    /**
+     * Enum for languages with labels.
+     */
+    'LanguageEnum' => [
+        'label' => [
+            'pt_BR' => 'Portuguese',
+            'en' => 'English'
+        ],
+    ],
 ];
