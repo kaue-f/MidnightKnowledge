@@ -26,6 +26,10 @@
 
     <main class="max-w-(--breakpoint-2xl) w-full mx-auto p-8">
         {{ $slot }}
+
+        @if (!Cookie::has('cookie_consent'))
+            <livewire:components.ui.cookie-consent />
+        @endif
     </main>
 
     <x-modals.is-logged-user />

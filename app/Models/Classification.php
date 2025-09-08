@@ -56,7 +56,7 @@ class Classification extends Model
      */
     private function getTranslation($field)
     {
-        $key = "classifications.{$field}.{$this->name}";
+        $key = "database/classifications.{$field}.{$this->name}";
         $translation = __($key);
 
         if ($translation !== $key)

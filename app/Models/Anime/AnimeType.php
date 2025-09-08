@@ -53,7 +53,7 @@ class AnimeType extends Model
      */
     private function getTranslation($field)
     {
-        $key = "animeTypes.{$field}.{$this->name}";
+        $key = "database/animeTypes.{$field}.{$this->name}";
         $translation = __($key);
 
         if ($translation !== $key)

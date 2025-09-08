@@ -134,7 +134,7 @@ class Genre extends Model
      */
     private function getTranslation($field)
     {
-        $key = "genres/{$this->category->value}.{$field}.{$this->name}";
+        $key = "database/genres/{$this->category->value}.{$field}.{$this->name}";
         $translation = __($key);
 
         if ($translation !== $key)

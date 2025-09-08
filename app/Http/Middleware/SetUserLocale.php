@@ -17,9 +17,13 @@ class SetUserLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $consent = Cookie::get('cookie_consent', false);
+
         $language = (Auth::check())
             ? Auth::user()->language->value
-            : Cookie::get('language', config('app.locale'));
+            : ($consent
+                ? Cookie::get('language', config('app.locale'))
+                : config('app.locale'));
 
         app()->setLocale($language);
 

@@ -61,7 +61,7 @@ class Format extends Model
      */
     private function getTranslation($field)
     {
-        $key = "bookFormats.{$field}.{$this->name}";
+        $key = "database/bookFormats.{$field}.{$this->name}";
         $translation = __($key);
 
         if ($translation !== $key)
