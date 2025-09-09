@@ -17,10 +17,14 @@ use App\Livewire\Pages\Series\Index as Series;
 use App\Livewire\Pages\Animes\Show as ShowAnime;
 use App\Livewire\Pages\Movies\Show as ShowMovie;
 use App\Livewire\Pages\Series\Show as ShowSerie;
+use App\Livewire\Pages\Signup;
 
-Route::get('/{welcome}', Welcome::class)->name('welcome')
-    ->whereIn('welcome', ['login', 'sign'])
+Route::get('/login', Welcome::class)->name('welcome')
     ->middleware(CheckIfLoggedIn::class);
+
+Route::get('/signup', Signup::class)->name('signup')
+    ->middleware(CheckIfLoggedIn::class);
+
 
 Route::get('/', Home::class)->name('home');
 

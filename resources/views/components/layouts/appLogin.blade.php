@@ -12,7 +12,7 @@
 </head>
 
 <body
-    class="flex flex-col w-screen h-screen antialiased bg-linear-to-b/decreasing from-base-100 from-5% to-base-300 to-90%">
+    class="flex flex-col w-screen h-screen antialiased bg-linear-to-b/decreasing">
 
     <main class="w-full flex h-full justify-center items-center">
         {{ $slot }}
