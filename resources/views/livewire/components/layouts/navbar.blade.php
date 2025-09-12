@@ -97,7 +97,7 @@
                     <x-menu-item icon="lucide.log-in" title="{{ __('components/layouts/navbar.dropdown.login') }}"
                         link="/login" />
                     <x-menu-item icon="lucide.pen-square" title="{{ __('components/layouts/navbar.dropdown.register') }}"
-                        link="/sign" />
+                        link="/signup" />
                 @endauth
             </x-dropdown>
         </div>

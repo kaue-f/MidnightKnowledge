@@ -3,7 +3,7 @@
         <p class="w-full text-center font-light">
             Para deixar um avaliação, você precisa estar logado.
             Faça <a class="link link-primary" href="/login" wire:navigate>login</a> ou
-            <a class="link link-primary" href="/sign" wire:navigate>cadastre-se</a> para continuar.
+            <a class="link link-primary" href="/signup" wire:navigate>cadastre-se</a> para continuar.
         </p>
     @else
         <div class="flex flex-col gap-3">
@@ -17,7 +17,7 @@
                     <div class="flex justify-between">
                         @error('comment')
                             <div class="text-red-500 label-text-alt p-1 w-full">{{ $message }}</div>
-                        @enderror
+                        @enderrorE
                         <small class="w-full text-end text-xs opacity-80 font-light">
                             Limite: <span
                                 :class="{
