@@ -16,7 +16,10 @@ enum LanguageEnum: string
     {
         return array_combine(
             array_map(fn($language) => $language->value, self::cases()),
-            array_map(fn($language) => $language->label(), self::cases())
+            array_map(fn($language) => [
+                'label' => $language->label(),
+                'flag' => $language->flag()
+            ], self::cases())
         );
     }
 
@@ -33,7 +36,7 @@ enum LanguageEnum: string
         };
     }
 
-    public function image()
+    public function flag()
     {
         return match ($this) {
             self::PT_BR => '/images/languages/pt_BR.svg',

@@ -1,60 +1,47 @@
-<nav class="flex justify-between items-center max-w-(--breakpoint-2xl) mx-auto py-3 px-6 navbar-dropdown">
+<nav class="flex justify-between items-center max-w-(--breakpoint-2xl) mx-auto py-1.5 px-6 navbar-dropdown">
     <div class="flex w-1/2 items-center lg:w-auto">
-        <a class="lg:hidden justify-start">
-            <img src="{{ asset('images/layouts/Logo3.png') }}" wire:click="$toggle('showDrawer')" style="width:6rem">
-        </a>
+        <div class="lg:hidden justify-start hover:cursor-pointer items-center" wire:click="$toggle('showDrawer')">
+            <img class="h-14 w-auto block sm:hidden" src="{{ asset('images/midnight/midnight-simples.png') }}"
+                alt="Midnight Knowledge">
+            <img class="h-16 w-auto hidden sm:block" src="{{ asset('images/midnight/midnight-compacta.png') }}"
+                alt="Midnight Knowledge">
+        </div>
         <a href="/" wire:navigate class="hidden lg:flex">
-            <img src="{{ asset('images/layouts/Logo3.png') }}" style="width:5rem">
+            <img class="h-16 w-auto" src="{{ asset('images/midnight/midnight-compacta.png') }}"
+                alt="Midnight Knowledge">
         </a>
     </div>
-    <div class="hidden gap-6 text-lg font-semibold lg:flex items-center">
-        <a class="flex hover:cursor-pointer justify-center items-center text-center text-lg {{ parse_url(url()->current(), PHP_URL_PATH) == '' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}"
+
+    <div class="hidden gap-3 xl:gap-6 lg:flex mt-2.5 text-lg font-false tracking-wider">
+        <a class="flex justify-center items-center text-center hover:text-primary {{ parse_url(url()->current(), PHP_URL_PATH) == '' ? 'border-b-2 border-b-primary' : '' }}"
             wire:navigate href="/">
-            Home
+            {{ __('components/layouts/navbar.navigation.home') }}
         </a>
-        <x-dropdown>
-            <x-slot:trigger>
-                <div class="py-0 gap-1 hover:text-primary hover:cursor-pointer">
-                    Explorar
-                    <x-icon name="s-chevron-down"
-                        class="{{ in_array(parse_url(url()->current(), PHP_URL_PATH), ['/animes', '/movies', '/games', '/books', '/mangas', '/series', '/cartoon']) ? 'text-primary' : '' }}" />
-                </div>
-            </x-slot:trigger>
-            <x-menu-item title="Animes" link="{{ route(name: 'animes') }}"
-                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/animes' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
 
-            <x-menu-item title="Filmes" link="{{ route(name: 'movies') }}"
-                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/movies' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
-
-            <x-menu-item title="Games" link="{{ route(name: 'games') }}"
-                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/games' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
-
-            <x-menu-item class="font-medium hover:bg-transparent" title="Mangás" link="/" />
-
-            <x-menu-item title="Livros" link="{{ route(name: 'books') }}"
-                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/books' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
-
-            <x-menu-item title="Séries" link="{{ route(name: 'series') }}"
-                class="font-medium hover:bg-transparent {{ parse_url(url()->current(), PHP_URL_PATH) == '/series' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}" />
-        </x-dropdown>
-        <a class="flex hover:cursor-pointer justify-center items-center text-center text-lg {{ parse_url(url()->current(), PHP_URL_PATH) == '/library' ? 'text-primary font-bold hover:text-primary/75' : 'hover:text-primary' }}"
-            wire:navigate href="{{ route('library') }}">
-            Biblioteca
-        </a>
+        @foreach ($navigationItems as $item)
+            <a class="flex justify-center items-center text-center hover:text-primary {{ parse_url(url()->current(), PHP_URL_PATH) == $item['path'] ? 'border-b-2 border-b-primary' : '' }}"
+                wire:navigate href="{{ $item['route'] }}">
+                {{ $item['label'] }}
+            </a>
+        @endforeach
     </div>
-    <div class="flex justify-end gap-6 items-center">
+    <div class="flex justify-end gap-3 xl:gap-6 items-center">
         <div>
             <x-button
-                class="btn-sm text-base xl:w-60 justify-between text-white btn-primary max-sm:hidden shadow-sm shadow-white/30"
+                class="btn-sm text-sm xl:w-64 justify-between text-white bg-gradient-to-b from-primary to-secondary hover:bg-gradient-to-t hover:from-primary/75 hover:to-secondary/75 max-lg:hidden shadow-xs shadow-white/20"
                 @click.stop="$dispatch('mary-search-open')">
                 <x-icon name="c-magnifying-glass" />
-                Search
+                <p class="hidden xl:block">{{ __('components/layouts/navbar.filter.search') }}</p>
                 <div class="space-x-0.5">
-                    <x-kbd class="kbd-sm bg-base-100 border-base-300">Shift</x-kbd>
-                    <x-kbd class="kbd-sm bg-base-100 border-base-300">Espaço</x-kbd>
+                    <x-kbd class="kbd-sm bg-gradient-to-b from-bg-base-100 to-base-300 border-base-300">
+                        Shift
+                    </x-kbd>
+                    <x-kbd class="kbd-sm bg-gradient-to-b from-bg-base-100 to-base-300 border-base-300">
+                        {{ __('components/layouts/navbar.filter.space') }}
+                    </x-kbd>
                 </div>
             </x-button>
-            <x-button class="btn-circle text-white btn-ghost sm:hidden" @click.stop="$dispatch('mary-search-open')">
+            <x-button class="btn-circle text-white btn-ghost lg:hidden" @click.stop="$dispatch('mary-search-open')">
                 <x-icon class="w-8 h-8" name="c-magnifying-glass" />
             </x-button>
         </div>
@@ -64,75 +51,79 @@
                     <img src="{{ asset($avatar) }}" class="size-14 rounded-full hover:cursor-pointer" />
                 </x-slot:trigger>
                 <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-64 w-52" @click.stop="">
-                    <img src="{{ asset($avatar) }}" class="lg:size-40 size-32 rounded-full" />
+                    <img src="{{ asset($avatar) }}" class="lg:size-40 size-32rounded-full" />
                     <div class="font-semibold text-lg text-center pt-3">
                         {{ $name }}
                     </div>
                 </x-menu-item>
-                <x-menu-separator />
+
                 @auth
-                    <x-menu-item icon="o-user" title="Meu Perfil" link="/user/profile" />
-                    <x-menu-item icon="o-cog-8-tooth" title="Configurações" link="/settings" />
-                    <x-menu-item icon="o-arrow-right-end-on-rectangle" title="Logout" wire:click="logout" spinner
-                        @click.stop="" />
+                    <x-menu-item icon="lucide.user" title="{{ __('components/layouts/navbar.dropdown.profile') }}"
+                        link="/user/profile" />
+                    <x-menu-item icon="lucide.library-big" title="{{ __('components/layouts/navbar.dropdown.library') }}"
+                        link="/library" />
+                    <x-menu-separator />
+                    <x-menu-sub icon="lucide.languages" title="{{ __('components/layouts/navbar.dropdown.languages') }}">
+                        @foreach ($languages as $key => $language)
+                            <x-menu-item wire:click="changeLanguage('{{ $key }}')"
+                                class="{{ config('app.locale') === $key ? 'font-bold bg-neutral hover:bg-neutral/75' : '' }}">
+                                <div class="flex flex-row items-center gap-2">
+                                    <img class="w-6 h-auto" src="{{ asset($language['flag']) }}"
+                                        alt="{{ $language['label'] }}">
+                                    {{ $language['label'] }}
+                                </div>
+                            </x-menu-item>
+                        @endforeach
+                    </x-menu-sub>
+                    <x-menu-item icon="lucide.cog" title="{{ __('components/layouts/navbar.dropdown.settings') }}"
+                        link="/settings" />
+                    <x-menu-item icon="lucide.log-out" title="{{ __('components/layouts/navbar.dropdown.logout') }}"
+                        wire:click="logout" spinner @click.stop="" />
                 @else
-                    <x-menu-item class="justify-center!" title="Entrar" link="/login" />
-                    <x-menu-item class="justify-center!" title="Cadastrar" link="/sign" />
+                    <x-menu-separator />
+                    <x-menu-sub icon="lucide.languages" title="{{ __('components/layouts/navbar.dropdown.languages') }}">
+                        @foreach ($languages as $key => $language)
+                            <x-menu-item wire:click="changeLanguage('{{ $key }}')"
+                                class="{{ config('app.locale') === $key ? 'font-bold bg-neutral hover:bg-neutral/75' : '' }}">
+                                <div class="flex flex-row items-center gap-2">
+                                    <img class="w-6 h-auto" src="{{ asset($language['flag']) }}"
+                                        alt="{{ $language['label'] }}">
+                                    {{ $language['label'] }}
+                                </div>
+                            </x-menu-item>
+                        @endforeach
+                    </x-menu-sub>
+                    <x-menu-separator />
+                    <x-menu-item icon="lucide.log-in" title="{{ __('components/layouts/navbar.dropdown.login') }}"
+                        link="/login" />
+                    <x-menu-item icon="lucide.pen-square" title="{{ __('components/layouts/navbar.dropdown.register') }}"
+                        link="/sign" />
                 @endauth
             </x-dropdown>
         </div>
     </div>
-    <x-drawer wire:model="showDrawer" class="w-1/3 gap-4 px-4!">
+
+    <x-drawer wire:model="showDrawer" class="w-1/3 gap-4 px-4! bg-base-100">
         <div class="flex justify-center">
-            <img src="{{ asset('images/layouts/Logo3.png') }}" @click="$wire.showDrawer = false" style="width:75%">
+            <img class="h-36" src="{{ asset('images/midnight/midnight-horizontal.png') }}"
+                @click="$wire.showDrawer = false" alt="Midnight Knowledge">
         </div>
-        <x-menu class="w-full">
-            <x-menu-item class="hover:text-primary hover:cursor-pointer navbar-dropdown" title="Home"
-                link="/" />
-            <ul class="menu">
+        <ul class="flex flex-col items-center flex-wrap gap-2 w-full p-3 font-false tracking-wider">
+            <li>
+                <a class="flex justify-start items-center hover:text-primary py-1 px-1.5 {{ parse_url(url()->current(), PHP_URL_PATH) == '' ? 'border-l-2 border-b-2 border-primary rounded-bl' : '' }}"
+                    wire:navigate href="/">
+                    {{ __('components/layouts/navbar.navigation.home') }}
+                </a>
+            </li>
+
+            @foreach ($navigationItems as $item)
                 <li>
-                    <h2 class="menu-title">Explorar</h2>
-                    <ul>
-                        <li>
-                            <a href="{{ route(name: 'animes') }}" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">
-                                Animes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route(name: 'movies') }}" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">
-                                Filmes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route(name: 'games') }}" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">
-                                Games
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/" wire:navigate class="font-medium hover:text-primary hover:bg-transparent">
-                                Mangás
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route(name: 'books') }}" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">
-                                Livros
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route(name: 'series') }}" wire:navigate
-                                class="font-medium hover:text-primary hover:bg-transparent">
-                                Séries
-                            </a>
-                        </li>
-                    </ul>
+                    <a class="flex justify-start items-center hover:text-primary py-1 px-1.5 {{ parse_url(url()->current(), PHP_URL_PATH) == $item['path'] ? 'border-l-2 border-b-2 border-primary rounded-bl' : '' }}"
+                        wire:navigate href="{{ $item['route'] }}">
+                        {{ $item['label'] }}
+                    </a>
                 </li>
-            </ul>
-            <x-menu-item class="hover:text-primary hover:cursor-pointer" title="Biblioteca"
-                link="{{ route(name: 'library') }}" />
-        </x-menu>
+            @endforeach
+        </ul>
     </x-drawer>
 </nav>

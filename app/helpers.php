@@ -4,10 +4,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
-if (!function_exists('imageNoneUser')) {
-    function imageNoneUser(): string
+if (!function_exists('noneImage')) {
+    function noneImage(): string
     {
-        return asset('images/none-user.jpg');
+        return asset('images/midnight/midnight-picture-guest.png');
     }
 }
 

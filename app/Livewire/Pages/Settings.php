@@ -22,6 +22,6 @@ class Settings extends Component
     public function mount()
     {
         $this->user = Auth::user();
-        $this->avatar = $this->user->image ?? imageNoneUser();
+        $this->avatar = $this->user->image ?? noneImage();
     }
 }

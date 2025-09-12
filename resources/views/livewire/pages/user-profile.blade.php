@@ -2,8 +2,7 @@
     <div class="flex flex-row gap-10">
         <div class="flex flex-col gap-2 py-2">
             <div>
-                <img src="{{ asset($user->image ?? imageNoneUser()) }}"
-                    class="size-64 border border-accent rounded-full" />
+                <img src="{{ asset($user->image ?? noneImage()) }}" class="size-64 border border-accent rounded-full" />
             </div>
             <div class="flex justify-center text-2xl font-semibold">
                 {{ $user->nickname }}

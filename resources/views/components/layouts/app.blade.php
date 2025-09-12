@@ -20,7 +20,8 @@
 
 <body class="min-h-screen antialiased text-base-content bg-base-200">
 
-    <div class="w-full bg-base-100 border-b-2 border-b-secondary sticky top-0 z-10">
+    <div
+        class="w-full bg-gradient-to-b from-base-300 via-base-200 to-base-100 border-b-[3px] border-solid [border-image:linear-gradient(to_right,#0008A4,#180047)_1] sticky top-0 z-10">
         <livewire:components.layouts.navbar />
     </div>
 

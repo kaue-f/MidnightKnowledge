@@ -23,7 +23,7 @@ class SetUserLocale
             ? Auth::user()->language->value
             : ($consent
                 ? Cookie::get('language', config('app.locale'))
-                : config('app.locale'));
+                : session('language', config('app.locale')));
 
         app()->setLocale($language);
 

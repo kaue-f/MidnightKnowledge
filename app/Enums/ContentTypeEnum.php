@@ -65,6 +65,7 @@ enum ContentTypeEnum: string
             self::MANGA => __('enums.contentTypeEnum.label.manga'),
             self::MOVIE => __('enums.contentTypeEnum.label.movie'),
             self::SERIE => __('enums.contentTypeEnum.label.serie'),
+            self::MOVIE_SERIE => __('enums.contentTypeEnum.label.movie_serie'),
         };
     }
 
@@ -178,5 +179,54 @@ enum ContentTypeEnum: string
             // self::CARTOON => app(CartoonCache::class),
             self::MOVIE_SERIE => app(GenreCache::class)->getMovieSerieGenres(),
         };
+    }
+
+    /**
+     * Get the navigation items for the content type.
+     * 
+     * @return array
+     */
+    public static function navigationItems(): array
+    {
+        return collect([
+            [
+                'label' => __('components/layouts/navbar.navigation.anime'),
+                'path' => '/animes',
+                'route' => route('animes.index'),
+            ],
+            [
+                'label' => __('components/layouts/navbar.navigation.book'),
+                'path' => '/books',
+                'route' => route('books.index'),
+            ],
+            [
+                'label' => __('components/layouts/navbar.navigation.cartoon'),
+                'path' => '/cartoons',
+                'route' => '/',
+            ],
+            [
+                'label' => __('components/layouts/navbar.navigation.game'),
+                'path' => '/games',
+                'route' => route('games.index'),
+            ],
+            [
+                'label' => __('components/layouts/navbar.navigation.manga'),
+                'path' => '/mangas',
+                'route' => '/',
+            ],
+            [
+                'label' => __('components/layouts/navbar.navigation.movie'),
+                'path' => '/movies',
+                'route' => route('movies.index'),
+            ],
+            [
+                'label' => __('components/layouts/navbar.navigation.serie'),
+                'path' => '/series',
+                'route' => route('series.index'),
+            ],
+
+        ])
+            ->sortBy('label')
+            ->toArray();
     }
 }
