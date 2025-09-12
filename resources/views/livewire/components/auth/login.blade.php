@@ -11,7 +11,7 @@
         <x-button label="Entrar" class="w-full btn-success" type="submit" spinner="login" />
         <span class="text-xs flex justify-center items-center">
             Ou</span >
-        <a href="#" class="hover:underline text-xs flex justify-center items-center">
+        <a href="{{ route('signup') }}" class="hover:underline text-xs flex justify-center items-center">
             Crie uma conta
         </a>
     </div>

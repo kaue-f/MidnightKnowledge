@@ -9,8 +9,9 @@
 
             <!-- Logo -->
             <div class="flex justify-center">
-                <img src="{{ asset('images/layouts/logoSeila.png') }}" 
-                     alt="Midnight Knowledge Logo">
+                <img src="{{ asset('images/midnight/midnight-vertical.png') }}" 
+                     alt="Midnight Knowledge Logo"
+                     class="w-70 h-100">
             </div>
         </div>
     </div>

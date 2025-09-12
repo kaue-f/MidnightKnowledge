@@ -12,7 +12,7 @@
 </head>
 
 <body
-    class="flex flex-col w-screen h-screen antialiased bg-linear-to-b/decreasing">
+    class="flex flex-col w-screen h-screen body-login">
 
     <main class="w-full flex h-full justify-center items-center">
         {{ $slot }}
