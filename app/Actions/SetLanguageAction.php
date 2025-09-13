@@ -24,14 +24,16 @@ class SetLanguageAction
             Cookie::forget('language');
             session()->forget('language');
         } else {
-            if (Cookie::get('cookie_consent', false)) {
-                Cookie::queue('language', $language->value, 60 * 24 * 365);
-                return response()->redirectTo(url()->previous());
-            } else {
-                session(['language' => $language->value]);
-            };
+            (Cookie::get('cookie_consent', false))
+                ? Cookie::queue('language', $language->value, 60 * 24 * 365)
+                : session(['language' => $language->value]);
         }
 
-        return app()->setLocale($language->value);
+        $msg = match ($language) {
+            LanguageEnum::PT_BR => 'Idioma foi alterado para <strong>Português</strong>',
+            LanguageEnum::EN => 'Language was changed to <strong>English<strong>',
+        };
+
+        return flash()->info("{$msg}");
     }
 }

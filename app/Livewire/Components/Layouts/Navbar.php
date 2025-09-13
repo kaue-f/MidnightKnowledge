@@ -43,12 +43,8 @@ class Navbar extends Component
     {
         if (config('app.locale') !== $language->value) {
             app()->make(SetLanguageAction::class)->execute(Auth::user(), $language);
-            $msg = match ($language) {
-                LanguageEnum::PT_BR => 'Idioma foi alterado para <strong>Português</strong>',
-                LanguageEnum::EN => 'Language was changed to <strong>English<strong>',
-            };
 
-            return flash()->info(" {$msg}");
+            return response()->redirectTo(url()->previous());
         }
     }
 
