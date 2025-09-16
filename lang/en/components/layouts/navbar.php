@@ -21,7 +21,7 @@ return [
         'guest' => 'Guest',
         'login' => 'Login',
         'register' => 'Register',
-        'logout' => 'Logout',
+        'logout' => 'Log Out',
         'settings' => 'Settings',
         'profile' => 'Profile',
         'library' => 'Library',

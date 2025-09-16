@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('user_id')->constrained()->onDelete('cascade');
-            $table->string('avatar')->default('images/midnight/midnight-picture-user.png');;
+            $table->string('avatar');
             $table->string('cover_id')->nullable();
             $table->string('cover_url')->nullable();
             $table->text('bio')->nullable();

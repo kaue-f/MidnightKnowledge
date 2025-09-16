@@ -7,29 +7,25 @@ use Livewire\Attributes\Validate;
 
 class RegisterForm extends Form
 {
-    #[Validate('required', message: 'Nickname obrigatório.')]
-    #[Validate('min:3', message: 'Nickname deve ter no minimo 3 caracteres.')]
-    #[Validate('max:20', message: 'Nickname deve ter no máximo 20 caracteres.')]
-    #[Validate('unique:users,username', message: 'Nickname já está cadastrado.')]
+    #[Validate('required', message: 'components/auth/register.form.nickname.required')]
+    #[Validate('min:3', message: 'components/auth/register.form.nickname.min')]
+    #[Validate('max:20', message: 'components/auth/register.form.nickname.max')]
+    #[Validate('unique:users,username', message: 'components/auth/register.form.nickname.unique')]
     public string $nickname = '';
 
-    #[Validate('required', message: 'E-mail obrigatório.')]
-    #[Validate('email', message: 'Padrão de email inválido.')]
-    #[Validate('unique:users,email', message: 'Este email já está cadastrado.')]
+    #[Validate('required', message: 'components/auth/register.form.email.required')]
+    #[Validate('email', message: 'components/auth/register.form.email.email')]
+    #[Validate('unique:users,email', message: 'components/auth/register.form.email.unique')]
     public string $email = '';
 
-    #[Validate('required', message: 'Senha obrigatório.')]
-    #[Validate('min:8', message: 'Sua senha deve ter no minimo 8 caracteres.')]
-    #[Validate('max:25', message: 'Sua senha deve ter no máximo 25 caracteres.')]
-    #[Validate('regex:/[a-z]/', message: 'Sua senha precisa conter pelo menos uma letra minúscula.')]
-    #[Validate('regex:/[A-Z]/', message: 'Sua senha precisa conter pelo menos uma letra maiúscula.')]
-    #[Validate('regex:/[0-9]/', message: 'Sua senha precisa conter pelo menos um número.')]
-    #[Validate('regex:/[@$!%*?&]/', message: 'Sua senha precisa conter pelo menos um caractere especial.')]
+    #[Validate('required', message: 'components/auth/register.form.password.required')]
+    #[Validate('min:8', message: 'components/auth/register.form.password.min')]
+    #[Validate('max:25', message: 'components/auth/register.form.password.max')]
+    #[Validate('regex:/[a-z]/', message: 'components/auth/register.form.password.regex_lowercase')]
+    #[Validate('regex:/[A-Z]/', message: 'components/auth/register.form.password.regex_uppercase')]
+    #[Validate('regex:/[0-9]/', message: 'components/auth/register.form.password.regex_number')]
+    #[Validate('regex:/[@$!%*?&]/', message: 'components/auth/register.form.password.regex_special_character')]
+    #[Validate('confirmed', 'components/auth/register.form.password.confirmed')]
     public string $password = '';
-
-    #[Validate('required', message: 'Confirmar senha obrigatório.')]
-    #[Validate('min:8', message: 'Sua senha deve ter no minimo 8 caracteres.')]
-    #[Validate('max:25', message: 'Sua senha deve ter no máximo 25 caracteres.')]
-    #[Validate('same:password', message: 'Senha não coincide.')]
-    public string $confirmPassword = '';
+    public string $password_confirmation = '';
 }

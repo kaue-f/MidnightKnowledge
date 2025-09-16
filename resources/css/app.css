@@ -27,7 +27,7 @@
 @import "./loadingCoffee.css";
 
 body {
-    @apply font-noto;
+    @apply font-noto antialiased;
 }
 
 section {
@@ -69,13 +69,6 @@ article {
             @apply active:bg-transparent;
         }
     }
-}
-
-.body-login {
-  background-image: url('../../public/images/layouts/imagem_login.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .spotlight {

@@ -7,12 +7,12 @@ use Livewire\Attributes\Validate;
 
 class LoginForm extends Form
 {
-    #[Validate('required', message: 'Insira Username ou e-mail')]
-    #[Validate('min:3', message: 'Minimo 3 caracteres.')]
+    #[Validate('required', message: 'components/auth/login.form.user.required')]
+    #[Validate('min:3', message: 'components/auth/login.form.user.min')]
     public string $user = '';
 
-    #[Validate('required', message: 'Insira senha.')]
-    #[Validate('min:8', message: 'Minimo 8 caracteres.')]
+    #[Validate('required', message: 'components/auth/login.form.password.required')]
+    #[Validate('min:8', message: 'components/auth/login.form.password.min')]
     public string $password = '';
 
     public bool $remember = false;

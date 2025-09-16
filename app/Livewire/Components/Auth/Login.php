@@ -23,7 +23,7 @@ class Login extends Component
         if (isNullOrEmpty($user)) {
             return $this->addError(
                 'loginForm.user',
-                'Parece que esse e-mail ou nickname não está cadastrado. Verifique e tente novamente.'
+                trans('components/auth/login.form.unregistered')
             );
         }
 
@@ -31,17 +31,24 @@ class Login extends Component
             Auth::attempt(['email' => $this->loginForm->user, 'password' => $this->loginForm->password], $this->loginForm->remember) ||
             Auth::attempt(['nickname' => $this->loginForm->user, 'password' => $this->loginForm->password], $this->loginForm->remember)
         ) {
+
+            if (!Auth::user()->hasVerifiedEmail()) {
+                Auth::user()->sendEmailVerificationNotification();
+                flash()->warning(trans('components/auth/verify-email.alert'));
+                return redirect()->route('verification.notice');
+            }
+
             Session::regenerate();
-            flash()->success("Bem-vindo de volta ao Midnight Knowledge!");
+            flash()->success(trans('components/auth/login.messages.success'));
             return redirect('/');
         } else {
             $this->addError(
                 'loginForm.user',
-                'Usuário ou senha inválidos. Verifique e tente novamente.'
+                trans('components/auth/login.form.invalid')
             );
             $this->addError(
                 'loginForm.password',
-                'Usuário ou senha inválidos. Verifique e tente novamente.'
+                trans('components/auth/login.form.invalid')
             );
         }
     }

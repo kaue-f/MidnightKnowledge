@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Pages\Home;
+use Illuminate\Http\Request;
+use App\Actions\LogoutAction;
 use App\Livewire\Pages\Signup;
 use App\Livewire\Pages\Library;
 use App\Livewire\Pages\Welcome;
@@ -15,37 +17,56 @@ use App\Livewire\Pages\Books\Show as ShowBook;
 use App\Livewire\Pages\Games\Show as ShowGame;
 use App\Livewire\Pages\Movies\Index as Movies;
 use App\Livewire\Pages\Series\Index as Series;
+use App\Livewire\Components\Auth\ResetPassword;
+use App\Livewire\Components\Auth\ForgotPassword;
 use App\Livewire\Pages\Animes\Show as ShowAnime;
 use App\Livewire\Pages\Movies\Show as ShowMovie;
 use App\Livewire\Pages\Series\Show as ShowSerie;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::get('/login', Welcome::class)->name('welcome')
-    ->middleware(CheckIfLoggedIn::class);
+Route::middleware(CheckIfLoggedIn::class)->group(function () {
+    Route::get('/login', Welcome::class)->name('welcome');
+    Route::get('/signup', Signup::class)->name('signup');
+});
 
-Route::get('/signup', Signup::class)->name('signup')
-    ->middleware(CheckIfLoggedIn::class);
-
+Route::post('/logout', LogoutAction::class)
+    ->middleware('auth')->name('logout');
 
 Route::get('/', Home::class)->name('home');
-
 Route::get('/animes', Animes::class)->name('animes.index');
 Route::get('/anime/{anime}/{title}', ShowAnime::class)->name('show.anime');
-
 Route::get('/books', Books::class)->name('books.index');
 Route::get('/book/{book}/{title}', ShowBook::class)->name('show.book');
-
 Route::get('/games', Games::class)->name('games.index');
 Route::get('/game/{game}/{title}', ShowGame::class)->name('show.game');
-
 Route::get('/movies', Movies::class)->name('movies.index');
 Route::get('/movie/{movie}/{title}', ShowMovie::class)->name('show.movie');
-
 Route::get('/series', Series::class)->name('series.index');
 Route::get('/serie/{serie}/{title}', ShowSerie::class)->name('show.serie');
 
-
-Route::middleware(['auth', 'auth.session'])->group(function () {
+Route::middleware(['auth', 'auth.session', 'verified'])->group(function () {
     Route::get('/library', Library::class)->name('library');
     Route::get('/user/profile', UserProfile::class)->name('user.profile');
     Route::get('/settings', Settings::class)->name('settings');
 });
+
+Route::get('/email/verify', fn() => view('components.auth.verify-email'))
+    ->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    flash()->success(trans('components/auth/verify-email.checked'));
+    return redirect()->route('home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    flash()->success(trans('components/auth/verify-email.sent_link'));
+    return back();
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/forgot-password', ForgotPassword::class)
+    ->middleware('guest')->name('password.request');
+
+Route::get('/reset-password/{token}', ResetPassword::class)
+    ->middleware('guest')->name('password.reset');

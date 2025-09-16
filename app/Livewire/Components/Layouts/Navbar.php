@@ -25,11 +25,11 @@ class Navbar extends Component
 
         if (Auth::check()) {
             $user = Auth::user();
-            $this->avatar = $user->image;
+            $this->avatar = $user->profile->avatar;
             $this->name =  $user->nickname;
         } else {
             $this->avatar = noneImage();
-            $this->name = __('components/layouts/navbar.dropdown.guest');
+            $this->name = trans('components/layouts/navbar.dropdown.guest');
         }
     }
 
@@ -51,6 +51,6 @@ class Navbar extends Component
     #[On('updateAvatar')]
     public function changeAvatar()
     {
-        $this->avatar = Auth::user()->image;
+        $this->avatar = Auth::user()->profile->avatar;
     }
 }

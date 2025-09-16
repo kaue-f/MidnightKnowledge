@@ -2,16 +2,15 @@
 
 namespace App\Livewire\Pages;
 
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
 
 class Signup extends Component
 {
-     #[Layout('components.layouts.appLogin')]
-     #[Title('Signup')]
+    #[Layout('components.layouts.appLogin')]
     public function render()
     {
-        return view('livewire.pages.signup');
+        return view('livewire.pages.signup')
+            ->title(trans('titles.signup'));
     }
 }
