@@ -1,8 +1,10 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Services\User\NotificationService;
 
 if (!function_exists('noneImage')) {
     function noneImage(): string
@@ -15,15 +17,6 @@ if (!function_exists('isNullOrEmpty')) {
     function isNullOrEmpty($value): bool
     {
         return empty($value) || !isset($value);
-    }
-}
-
-if (!function_exists('hasValue')) {
-    function hasValue($value): string
-    {
-        return isNullOrEmpty($value)
-            ? 'N/A'
-            : $value;
     }
 }
 
@@ -85,5 +78,12 @@ if (!function_exists('whichLibrary')) {
         return $url === '/library'
             ? array_merge($arr, ['label' => 'Biblioteca', 'link' => $url, 'icon' => 'lucide.library-big'])
             : $arr;
+    }
+}
+
+if (!function_exists('notify')) {
+    function notify(User $user): NotificationService
+    {
+        return new NotificationService($user);
     }
 }

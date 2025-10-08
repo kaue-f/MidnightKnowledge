@@ -15,6 +15,8 @@ class Navbar extends Component
     public bool $showDrawer = false;
     public string $avatar;
     public string $name;
+    public bool $hasNotification = false;
+    public int $notificationUnread = 0;
     public array $languages;
     public array $navigationItems;
 
@@ -27,6 +29,8 @@ class Navbar extends Component
             $user = Auth::user();
             $this->avatar = $user->profile->avatar;
             $this->name =  $user->nickname;
+            $this->hasNotification = $user->notifications()->getUnread()->count() > 0;
+            $this->notificationUnread = $user->notifications()->getUnread()->count();
         } else {
             $this->avatar = noneImage();
             $this->name = trans('components/layouts/navbar.dropdown.guest');

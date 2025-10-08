@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CommentSection extends Component
 {
     public $content;
-    public ContentType $type;
+    public ContentTypeEnum $type;
 
     #[Validate('required', message: 'O comentário é obrigatório.')]
     #[Validate('min:10', message: 'O comentário deve conter no mínimo 10 caracteres.')]

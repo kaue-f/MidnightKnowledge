@@ -18,14 +18,15 @@ class Register extends Component
             $user = app()->make(UserService::class)->create($this->registerForm);
 
             if (!$user) {
-                flash()->warning(trans('components/auth/register/messages.warning'));
+                flash()->warning(trans('components/auth/register.messages.warning'));
                 return back();
             }
 
-            flash()->success(trans('components/auth/register/messages.success'));
+            flash()->success(trans('components/auth/register.messages.success'));
             return redirect()->route('verification.notice');
         } catch (\Throwable $th) {
-            flash()->error(trans('components/auth/register/messages.error'));
+            dd($th->getMessage());
+            flash()->error(trans('components/auth/register.messages.error'));
             return back();
         }
     }

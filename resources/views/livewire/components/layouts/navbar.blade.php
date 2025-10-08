@@ -6,7 +6,7 @@
             <img class="h-16 w-auto hidden sm:block" src="{{ asset('images/midnight/midnight-compacta.png') }}"
                 alt="Midnight Knowledge">
         </div>
-        <a href="/" wire:navigate class="hidden lg:flex">
+        <a href="{{ route('home') }}" wire:navigate class="hidden lg:flex">
             <img class="h-16 w-auto" src="{{ asset('images/midnight/midnight-compacta.png') }}"
                 alt="Midnight Knowledge">
         </a>
@@ -14,8 +14,8 @@
 
     <div class="hidden gap-3 xl:gap-6 lg:flex mt-2.5 text-lg font-false tracking-wider">
         <a class="flex justify-center items-center text-center hover:text-primary {{ parse_url(url()->current(), PHP_URL_PATH) == '' ? 'border-b-2 border-b-primary' : '' }}"
-            wire:navigate href="/">
-            {{ __('components/layouts/navbar.navigation.home') }}
+            wire:navigate href="{{ route('home') }}">
+            {{ trans('components/layouts/navbar.navigation.home') }}
         </a>
 
         @foreach ($navigationItems as $item)
@@ -28,16 +28,16 @@
     <div class="flex justify-end gap-3 xl:gap-6 items-center">
         <div>
             <x-button
-                class="btn-sm text-sm xl:w-64 justify-between text-white bg-gradient-to-b from-primary to-secondary hover:bg-gradient-to-t hover:from-primary/75 hover:to-secondary/75 max-lg:hidden shadow-xs shadow-white/20"
+                class="btn-sm text-sm xl:w-64 justify-between text-white transition-colors bg-gradient-to-b from-primary to-secondary hover:bg-gradient-to-t hover:from-primary/75 hover:to-secondary/75 max-lg:hidden shadow-xs shadow-white/20"
                 @click.stop="$dispatch('mary-search-open')">
                 <x-icon name="c-magnifying-glass" />
-                <p class="hidden xl:block">{{ __('components/layouts/navbar.filter.search') }}</p>
+                <p class="hidden xl:block">{{ trans('components/layouts/navbar.filter.search') }}</p>
                 <div class="space-x-0.5">
                     <x-kbd class="kbd-sm bg-gradient-to-b from-bg-base-100 to-base-300 border-base-300">
                         Shift
                     </x-kbd>
                     <x-kbd class="kbd-sm bg-gradient-to-b from-bg-base-100 to-base-300 border-base-300">
-                        {{ __('components/layouts/navbar.filter.space') }}
+                        {{ trans('components/layouts/navbar.filter.space') }}
                     </x-kbd>
                 </div>
             </x-button>
@@ -47,23 +47,39 @@
         </div>
         <div>
             <x-dropdown right>
-                <x-slot:trigger>
+                <x-slot:trigger class="relative">
                     <img src="{{ asset($avatar) }}" class="size-14 rounded-full hover:cursor-pointer" />
+                    @if ($hasNotification)
+                        <div class="absolute top-0.5 right-0.5 inline-grid *:[grid-area:1/1]">
+                            <div class="status w-2.5 h-2.5 status-secondary animate-ping"></div>
+                            <div class="status w-2.5 h-2.5 status-info"></div>
+                        </div>
+                    @endif
                 </x-slot:trigger>
                 <x-menu-item class="flex flex-col items-center hover:bg-transparent lg:w-64 w-52" @click.stop="">
-                    <img src="{{ asset($avatar) }}" class="lg:size-40 size-32rounded-full" />
+                    <img src="{{ asset($avatar) }}" class="lg:size-40 size-32 rounded-full" />
                     <div class="font-semibold text-lg text-center pt-3">
                         {{ $name }}
                     </div>
                 </x-menu-item>
 
                 @auth
-                    <x-menu-item icon="lucide.user" title="{{ __('components/layouts/navbar.dropdown.profile') }}"
-                        link="/user/profile" />
-                    <x-menu-item icon="lucide.library-big" title="{{ __('components/layouts/navbar.dropdown.library') }}"
-                        link="/library" />
+                    <x-menu-item icon="lucide.user" title="{{ trans('components/layouts/navbar.dropdown.profile') }}"
+                        link="{{ route('my.profile') }}" />
+
+                    <x-menu-item icon="lucide.library-big"
+                        title="{{ trans('components/layouts/navbar.dropdown.library') }}"
+                        link="{{ route('my.library') }}" />
+
                     <x-menu-separator />
-                    <x-menu-sub icon="lucide.languages" title="{{ __('components/layouts/navbar.dropdown.languages') }}">
+
+                    <x-menu-item icon="lucide.message-square-text"
+                        title="{{ trans('components/layouts/navbar.dropdown.notification') }}"
+                        badge="{{ $notificationUnread }}" link="{{ route('my.notifications') }}"
+                        badge-classes="float-right rounded-full text-white bg-gradient-to-bl from-primary to-secondary hover:bg-gradient-to-tr hover:from-primary/75 shadow-sm shadow-white/30" />
+
+                    <x-menu-sub icon="lucide.languages"
+                        title="{{ trans('components/layouts/navbar.dropdown.languages') }}">
                         @foreach ($languages as $key => $language)
                             <x-menu-item wire:click="changeLanguage('{{ $key }}')"
                                 class="{{ config('app.locale') === $key ? 'font-bold bg-neutral hover:bg-neutral/75' : '' }}">
@@ -75,13 +91,17 @@
                             </x-menu-item>
                         @endforeach
                     </x-menu-sub>
-                    <x-menu-item icon="lucide.cog" title="{{ __('components/layouts/navbar.dropdown.settings') }}"
-                        link="/settings" />
-                    <x-menu-item icon="lucide.log-out" title="{{ __('components/layouts/navbar.dropdown.logout') }}"
+
+                    <x-menu-item icon="lucide.cog" title="{{ trans('components/layouts/navbar.dropdown.settings') }}"
+                        link="{{ route('my.settings') }}" />
+                    <x-menu-separator />
+
+                    <x-menu-item icon="lucide.log-out" title="{{ trans('components/layouts/navbar.dropdown.logout') }}"
                         wire:click="logout" spinner @click.stop="" />
                 @else
                     <x-menu-separator />
-                    <x-menu-sub icon="lucide.languages" title="{{ __('components/layouts/navbar.dropdown.languages') }}">
+                    <x-menu-sub icon="lucide.languages"
+                        title="{{ trans('components/layouts/navbar.dropdown.languages') }}">
                         @foreach ($languages as $key => $language)
                             <x-menu-item wire:click="changeLanguage('{{ $key }}')"
                                 class="{{ config('app.locale') === $key ? 'font-bold bg-neutral hover:bg-neutral/75' : '' }}">
@@ -94,10 +114,10 @@
                         @endforeach
                     </x-menu-sub>
                     <x-menu-separator />
-                    <x-menu-item icon="lucide.log-in" title="{{ __('components/layouts/navbar.dropdown.login') }}"
-                        link="/login" />
-                    <x-menu-item icon="lucide.pen-square" title="{{ __('components/layouts/navbar.dropdown.register') }}"
-                        link="/signup" />
+                    <x-menu-item icon="lucide.log-in" title="{{ trans('components/layouts/navbar.dropdown.login') }}"
+                        link="{{ route('welcome') }}" />
+                    <x-menu-item icon="lucide.pen-square"
+                        title="{{ trans('components/layouts/navbar.dropdown.register') }}" link="{{ route('signup') }}" />
                 @endauth
             </x-dropdown>
         </div>
@@ -111,8 +131,8 @@
         <ul class="flex flex-col items-center flex-wrap gap-2 w-full p-3 font-false tracking-wider">
             <li>
                 <a class="flex justify-start items-center hover:text-primary py-1 px-1.5 {{ parse_url(url()->current(), PHP_URL_PATH) == '' ? 'border-l-2 border-b-2 border-primary rounded-bl' : '' }}"
-                    wire:navigate href="/">
-                    {{ __('components/layouts/navbar.navigation.home') }}
+                    wire:navigate href="{{ route('home') }}">
+                    {{ trans('components/layouts/navbar.navigation.home') }}
                 </a>
             </li>
 

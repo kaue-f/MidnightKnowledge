@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Auth;
 
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
-class UserProfile extends Component
+class Profile extends Component
 {
     public ?User $user;
 
     public function render()
     {
-        return view('livewire.pages.user-profile');
+        return view('livewire.pages.auth.profile');
         // ->title($this->user->username); #Não sei qual title colocar
     }
 

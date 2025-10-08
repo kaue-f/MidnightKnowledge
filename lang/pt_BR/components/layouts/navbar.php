@@ -21,6 +21,7 @@ return [
         'guest' => 'Convidado',
         'profile' => 'Perfil',
         'library' => 'Biblioteca',
+        'notification' => 'Notificações',
         'settings' => 'Configurações',
         'logout' => 'Sair',
         'login' => 'Entrar',

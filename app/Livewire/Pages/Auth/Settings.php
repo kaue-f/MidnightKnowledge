@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Auth;
 
 use App\Models\User;
 use Livewire\Component;
@@ -16,7 +16,7 @@ class Settings extends Component
     #[Title('Configurações')]
     public function render()
     {
-        return view('livewire.pages.settings');
+        return view('livewire.pages.auth.settings');
     }
 
     public function mount()

@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Enums\RoleEnum;
+use App\Events\UserRegistered;
 use App\Livewire\Forms\RegisterForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
@@ -26,6 +27,7 @@ class UserService
             ]);
 
             event(new Registered($user));
+            event(new UserRegistered($user));
             Auth::login($user);
         }
 

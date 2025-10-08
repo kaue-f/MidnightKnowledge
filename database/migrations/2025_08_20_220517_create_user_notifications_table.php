@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('type');
             $table->string('title');
             $table->text('message')->nullable();
-            $table->morphs('related');
+            $table->json('params')->nullable();
+            $table->nullableUlidMorphs('related');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

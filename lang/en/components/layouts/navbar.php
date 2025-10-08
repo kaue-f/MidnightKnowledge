@@ -19,12 +19,13 @@ return [
 
     'dropdown' => [
         'guest' => 'Guest',
-        'login' => 'Login',
-        'register' => 'Register',
-        'logout' => 'Log Out',
-        'settings' => 'Settings',
         'profile' => 'Profile',
         'library' => 'Library',
+        'notification' => 'Notifications',
+        'settings' => 'Settings',
+        'logout' => 'Log Out',
+        'register' => 'Register',
+        'login' => 'Login',
         'languages' => 'Interface Language'
     ]
 ];

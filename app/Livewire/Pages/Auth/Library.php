@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Auth;
 
 use App\Models\User;
 use Livewire\Component;
@@ -64,7 +64,7 @@ class Library extends Component
     #[Title('Minha Biblioteca')]
     public function render()
     {
-        return view('livewire.pages.library', [
+        return view('livewire.pages.auth.library', [
             'contentTypes' => ContentTypeEnum::array(),
             'contents' => $this->loadUserLibrary(),
         ]);
