@@ -12,11 +12,12 @@ return [
     | outcome such as failure due to an invalid password / reset token.
     |
     */
-
+    
+    'password' => 'Password fields must be the same and have at least 8 characters.',
     'reset' => 'Your password has been reset.',
     'sent' => 'We have emailed your password reset link.',
     'throttled' => 'Please wait before retrying.',
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that email address.",
-
+    'alert-capslock' => "CapsLock ON"
 ];

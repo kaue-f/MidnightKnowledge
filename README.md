@@ -1,5 +1,5 @@
 <div align="center">
-<img src="/public/images/layouts/Logo2.png" width="350" alt="Laravel Logo">
+<img src="/public/images/midnight/midnight-compacta.png" width="350" alt="Laravel Logo">
 </div>
 
 <p align="center">
