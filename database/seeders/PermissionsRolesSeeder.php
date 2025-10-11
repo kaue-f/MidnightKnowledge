@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\RoleEnum;
+use App\Helpers\EnumHelper;
 use App\Enums\PermissionEnum;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -17,13 +18,13 @@ class PermissionsRolesSeeder extends Seeder
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        foreach (PermissionEnum::array() as $key => $value) {
+        foreach (EnumHelper::arraySimple(PermissionEnum::class) as $key => $value) {
             Permission::create(['name' => $key]);
         }
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        foreach (RoleEnum::array() as $key => $value) {
+        foreach (EnumHelper::arraySimple(RoleEnum::class) as $key => $value) {
             Role::create(['name' => $key])->givePermissionTo(match ($key) {
                 'manager' => ['report_review_users', 'report_review_comments', 'report_review_contents', 'content_review_new', 'content_review_update', 'grant_ban_user', 'bypass_content_review', 'update_profile'],
                 'moderator' => ['report_review_comments', 'report_review_contents', 'content_review_new', 'content_review_update', 'bypass_content_review', 'update_profile'],

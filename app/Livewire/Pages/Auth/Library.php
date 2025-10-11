@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Auth;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Helpers\EnumHelper;
 use Livewire\WithPagination;
 use App\Enums\ContentTypeEnum;
 use Livewire\Attributes\Title;
@@ -65,7 +66,7 @@ class Library extends Component
     public function render()
     {
         return view('livewire.pages.auth.library', [
-            'contentTypes' => ContentTypeEnum::array(),
+            'contentTypes' => EnumHelper::arraySimple(ContentTypeEnum::class),
             'contents' => $this->loadUserLibrary(),
         ]);
     }

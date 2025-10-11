@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\DateHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -52,7 +53,7 @@ class UserProfile extends Model
     protected function birthday(): Attribute
     {
         return Attribute::make(
-            get: fn($value): string => isDate($value)
+            get: fn($value): string => DateHelper::formatDate($value)
         );
     }
 

@@ -3,9 +3,10 @@
 namespace App\Livewire\Pages\Games;
 
 use App\Models\User;
-use App\Enums\StatusEnum;
 use Livewire\Component;
+use App\Enums\StatusEnum;
 use App\Models\Game\Game;
+use App\Helpers\EnumHelper;
 use App\Enums\ContentTypeEnum;
 use App\Services\RatingService;
 use App\Services\LibraryService;
@@ -42,7 +43,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.pages.games.show', [
-            'statuses' => StatusEnum::array()
+            'statuses' => EnumHelper::arraySimple(StatusEnum::class, 'description')
         ])->title($this->game->title);
     }
 

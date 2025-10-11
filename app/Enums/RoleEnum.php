@@ -11,19 +11,6 @@ enum RoleEnum: string
     case MEMBER = 'member';
 
     /**
-     * Get the array representation of the enum.
-     *
-     * @return array
-     */
-    public static function array(): array
-    {
-        return array_combine(
-            array_map(fn($role) => $role->value, self::cases()),
-            array_map(fn($role) => $role->label(), self::cases())
-        );
-    }
-
-    /**
      * Get the label for the role.
      *
      * @return string

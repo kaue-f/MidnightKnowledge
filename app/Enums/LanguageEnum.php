@@ -36,6 +36,11 @@ enum LanguageEnum: string
         };
     }
 
+    /**
+     * Get the flag for the language.
+     *
+     * @return string
+     */
     public function flag()
     {
         return match ($this) {

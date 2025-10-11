@@ -4,6 +4,8 @@ namespace App\Models\Serie;
 
 use App\Models\Genre;
 use App\Models\Report;
+use App\Helpers\StrHelper;
+use App\Helpers\DateHelper;
 use App\Models\UserLibrary;
 use App\Enums\ReviewStateEnum;
 use App\Models\Classification;
@@ -111,7 +113,7 @@ class Serie extends Model
     protected function releaseDate(): Attribute
     {
         return Attribute::make(
-            get: fn($value): string => isDate($value)
+            get: fn($value): string => DateHelper::formatDate($value)
         );
     }
 
@@ -123,7 +125,7 @@ class Serie extends Model
     protected function synopsis(): Attribute
     {
         return Attribute::make(
-            get: fn($value): string => isMarkdown($value)
+            get: fn($value): string => StrHelper::formatMarkdown($value)
         );
     }
 

@@ -11,19 +11,6 @@ enum StatusEnum: string
     case DROPPED = 'dropped';
 
     /**
-     * Get the array representation of the enum.
-     *
-     * @return array
-     */
-    public static function array(): array
-    {
-        return array_combine(
-            array_map(fn($status) => $status->value, self::cases()),
-            array_map(fn($status) => $status->description(), self::cases())
-        );
-    }
-
-    /**
      * Get the label for the status.
      *
      * @return string

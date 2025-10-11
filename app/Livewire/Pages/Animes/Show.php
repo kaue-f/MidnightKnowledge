@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Animes;
 use App\Models\User;
 use Livewire\Component;
 use App\Enums\StatusEnum;
+use App\Helpers\EnumHelper;
 use App\Models\Anime\Anime;
 use App\Enums\ContentTypeEnum;
 use App\Services\RatingService;
@@ -42,7 +43,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.pages.animes.show', [
-            'statuses' => StatusEnum::array()
+            'statuses' => EnumHelper::arraySimple(StatusEnum::class, 'description')
         ])->title($this->anime->title);
     }
 

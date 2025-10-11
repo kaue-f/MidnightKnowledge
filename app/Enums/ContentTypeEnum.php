@@ -4,7 +4,6 @@ namespace App\Enums;
 
 use App\Filters\BookFilter;
 use App\Filters\GameFilter;
-use Illuminate\Support\Arr;
 use App\Filters\AnimeFilter;
 use App\Models\Book\BookRating;
 use App\Models\Game\GameRating;
@@ -35,20 +34,6 @@ enum ContentTypeEnum: string
     case MOVIE = 'movie';
     case SERIE = 'serie';
     case MOVIE_SERIE = 'movie_serie';
-
-    /*
-     * Returns an array of content types with their labels.
-     * The array is sorted by the label.
-     * 
-     * @return array<string, string>
-     */
-    public static function array()
-    {
-        return Arr::sort(array_combine(
-            array_map(fn($type) => $type->value, self::filtered()),
-            array_map(fn($type) => $type->label(), self::filtered())
-        ));
-    }
 
     /**
      * Get the label for the content type.

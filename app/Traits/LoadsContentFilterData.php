@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Enums\StatusEnum;
+use App\Helpers\EnumHelper;
 use App\Enums\ContentTypeEnum;
 use App\Services\Caches\BookCache;
 use App\Services\Caches\GameCache;
@@ -51,10 +52,7 @@ trait LoadsContentFilterData
 
     protected function loadStatus()
     {
-        $this->statuses = collect(StatusEnum::array())
-            ->map(fn(string $value, string $key) => ['id' => $key, 'name' => $value])
-            ->values()
-            ->toArray();
+        $this->statuses = EnumHelper::array(StatusEnum::class, 'description');
     }
 
     protected function loadAnimeFilters(): void

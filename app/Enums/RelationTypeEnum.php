@@ -10,6 +10,11 @@ enum RelationTypeEnum: string
     case INSPIRATION  = 'inspiration';
     case SHARED_UNIVERSE = 'shared_universe';
 
+    /**
+     * Get the array representation of the enum.
+     *
+     * @return array
+     */
     public function label(): string
     {
         return match ($this) {

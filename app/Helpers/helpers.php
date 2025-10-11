@@ -49,18 +49,6 @@ if (!function_exists('isMarkdown')) {
     }
 }
 
-if (!function_exists('isTime')) {
-    function isTime($value): string
-    {
-        if (isNullOrEmpty($value))
-            return 'N/A';
-
-        $time = Carbon::parse($value);
-
-        return "{$time->format('G')}h {$time->format('i')}m";
-    }
-}
-
 if (!function_exists('isLogged')) {
     function isLogged($component): bool
     {

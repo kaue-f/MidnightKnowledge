@@ -3,10 +3,11 @@
 namespace App\Livewire\Pages\Series;
 
 use App\Models\User;
-use App\Enums\StatusEnum;
 use Livewire\Component;
-use App\Enums\ContentTypeEnum;
+use App\Enums\StatusEnum;
+use App\Helpers\EnumHelper;
 use App\Models\Serie\Serie;
+use App\Enums\ContentTypeEnum;
 use App\Services\RatingService;
 use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.pages.series.show', [
-            'statuses' => StatusEnum::array()
+            'statuses' => EnumHelper::arraySimple(StatusEnum::class, 'description')
         ])->title($this->serie->title);
     }
 

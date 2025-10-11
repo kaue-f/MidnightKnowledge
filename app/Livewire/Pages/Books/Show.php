@@ -3,9 +3,10 @@
 namespace App\Livewire\Pages\Books;
 
 use App\Models\User;
-use App\Enums\StatusEnum;
 use Livewire\Component;
+use App\Enums\StatusEnum;
 use App\Models\Book\Book;
+use App\Helpers\EnumHelper;
 use App\Enums\ContentTypeEnum;
 use App\Services\RatingService;
 use App\Services\LibraryService;
@@ -42,7 +43,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.pages.books.show', [
-            'statuses' => StatusEnum::array()
+            'statuses' => EnumHelper::arraySimple(StatusEnum::class, 'description')
         ])->title($this->book->title);
     }
 

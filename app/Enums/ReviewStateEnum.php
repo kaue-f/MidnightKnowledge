@@ -16,19 +16,6 @@ enum ReviewStateEnum: string
     case DELETED = 'deleted';
 
     /**
-     * Get the array representation of the enum.
-     *
-     * @return array
-     */
-    public static function array(): array
-    {
-        return array_combine(
-            array_map(fn($case) => $case->name, self::cases()),
-            array_map(fn($case) => $case->value, self::cases())
-        );
-    }
-
-    /**
      * Get the label for the enum value.
      *
      * @return string

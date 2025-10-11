@@ -3,10 +3,11 @@
 namespace App\Livewire\Pages\Movies;
 
 use App\Models\User;
-use App\Enums\StatusEnum;
 use Livewire\Component;
-use App\Enums\ContentTypeEnum;
+use App\Enums\StatusEnum;
+use App\Helpers\EnumHelper;
 use App\Models\Movie\Movie;
+use App\Enums\ContentTypeEnum;
 use App\Services\RatingService;
 use App\Services\LibraryService;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.pages.movies.show', [
-            'statuses' => StatusEnum::array()
+            'statuses' => EnumHelper::arraySimple(StatusEnum::class, 'description')
         ])->title($this->movie->title);
     }
 

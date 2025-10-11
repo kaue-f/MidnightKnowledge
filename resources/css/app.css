@@ -1,6 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap"); */
-
-@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wdth,wght@0,50..125,100..900;1,50..125,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Saira:ital,wdth,wght@0,50..125,100..900;1,50..125,100..900&display=swap");
 
 @font-face {
     font-family: "False";
@@ -22,8 +20,7 @@
 @source "../**/*.vue";
 
 @theme {
-    /* --font-noto: "Noto Sans", sans-serif; */
-    --font-noto: "saira", sans-serif;
+    --font-saira: "saira", sans-serif;
     --font-false: "False";
 }
 
@@ -66,7 +63,7 @@
 }
 
 body {
-    @apply font-noto antialiased;
+    @apply font-saira antialiased;
 }
 
 section {
