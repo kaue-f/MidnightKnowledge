@@ -31,6 +31,10 @@
         @if (!Cookie::has('cookie_consent'))
             <livewire:components.ui.cookie-consent />
         @endif
+
+        @auth
+            <x-ui.fab-create-content />
+        @endauth
     </main>
 
     <x-modals.is-logged-user />

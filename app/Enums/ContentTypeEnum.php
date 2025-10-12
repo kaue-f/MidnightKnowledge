@@ -43,14 +43,14 @@ enum ContentTypeEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::ANIME => __('enums.contentTypeEnum.label.anime'),
-            self::BOOK => __('enums.contentTypeEnum.label.book'),
-            self::CARTOON => __('enums.contentTypeEnum.label.cartoon'),
-            self::GAME => __('enums.contentTypeEnum.label.game'),
-            self::MANGA => __('enums.contentTypeEnum.label.manga'),
-            self::MOVIE => __('enums.contentTypeEnum.label.movie'),
-            self::SERIE => __('enums.contentTypeEnum.label.serie'),
-            self::MOVIE_SERIE => __('enums.contentTypeEnum.label.movie_serie'),
+            self::ANIME => trans('enums.contentTypeEnum.label.anime'),
+            self::BOOK => trans('enums.contentTypeEnum.label.book'),
+            self::CARTOON => trans('enums.contentTypeEnum.label.cartoon'),
+            self::GAME => trans('enums.contentTypeEnum.label.game'),
+            self::MANGA => trans('enums.contentTypeEnum.label.manga'),
+            self::MOVIE => trans('enums.contentTypeEnum.label.movie'),
+            self::SERIE => trans('enums.contentTypeEnum.label.serie'),
+            self::MOVIE_SERIE => trans('enums.contentTypeEnum.label.movie_serie'),
         };
     }
 
@@ -175,41 +175,77 @@ enum ContentTypeEnum: string
     {
         return collect([
             [
-                'label' => __('components/layouts/navbar.navigation.anime'),
+                'label' => trans('components/layouts/navbar.navigation.anime'),
                 'path' => '/animes',
                 'route' => route('animes.index'),
             ],
             [
-                'label' => __('components/layouts/navbar.navigation.book'),
+                'label' => trans('components/layouts/navbar.navigation.book'),
                 'path' => '/books',
                 'route' => route('books.index'),
             ],
             [
-                'label' => __('components/layouts/navbar.navigation.cartoon'),
+                'label' => trans('components/layouts/navbar.navigation.cartoon'),
                 'path' => '/cartoons',
                 'route' => '/',
             ],
             [
-                'label' => __('components/layouts/navbar.navigation.game'),
+                'label' => trans('components/layouts/navbar.navigation.game'),
                 'path' => '/games',
                 'route' => route('games.index'),
             ],
             [
-                'label' => __('components/layouts/navbar.navigation.manga'),
+                'label' => trans('components/layouts/navbar.navigation.manga'),
                 'path' => '/mangas',
                 'route' => '/',
             ],
             [
-                'label' => __('components/layouts/navbar.navigation.movie'),
+                'label' => trans('components/layouts/navbar.navigation.movie'),
                 'path' => '/movies',
                 'route' => route('movies.index'),
             ],
             [
-                'label' => __('components/layouts/navbar.navigation.serie'),
+                'label' => trans('components/layouts/navbar.navigation.serie'),
                 'path' => '/series',
                 'route' => route('series.index'),
             ],
 
+        ])
+            ->sortBy('label')
+            ->toArray();
+    }
+
+    public static function fabItems(): array
+    {
+        return collect([
+            [
+                'label' => trans('components/ui/fab-create-content.anime'),
+                'route' => route('home')
+            ],
+            [
+                'label' => trans('components/ui/fab-create-content.book'),
+                'route' => route('home')
+            ],
+            [
+                'label' => trans('components/ui/fab-create-content.cartoon'),
+                'route' => route('home')
+            ],
+            [
+                'label' => trans('components/ui/fab-create-content.game'),
+                'route' => route('home')
+            ],
+            [
+                'label' => trans('components/ui/fab-create-content.manga'),
+                'route' => route('home')
+            ],
+            [
+                'label' => trans('components/ui/fab-create-content.movie'),
+                'route' => route('home')
+            ],
+            [
+                'label' => trans('components/ui/fab-create-content.serie'),
+                'route' => route('home')
+            ],
         ])
             ->sortBy('label')
             ->toArray();
