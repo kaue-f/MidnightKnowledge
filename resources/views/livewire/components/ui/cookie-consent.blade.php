@@ -4,7 +4,7 @@
             {{ __('components/ui/cookie-consent.message') }}
             <span>
                 {{ __('components/ui/cookie-consent.read') }}
-                <a class="font-semibold hover:text-primary underline" href="{{ route('home') }}" target="_blank"
+                <a class="font-semibold hover:text-primary underline" href="{{ route('privacy') }}" target="_blank"
                     rel="noopener noreferrer">
                     {{ __('components/ui/cookie-consent.privacy_policy') }}
                 </a>

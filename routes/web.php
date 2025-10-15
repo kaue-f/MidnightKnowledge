@@ -33,6 +33,9 @@ Route::middleware(CheckIfLoggedIn::class)->group(function () {
 Route::post('/logout', LogoutAction::class)
     ->middleware('auth')->name('logout');
 
+Route::get('/privacy-policy', fn() => view('pages.privacy-policy'))->name('privacy');
+Route::get('/terms-of-use', fn() => view('pages.terms-of-use'))->name('terms');
+
 Route::get('', Home::class)->name('home');
 Route::get('animes', Animes::class)->name('animes.index');
 Route::get('anime/{anime}/{title}', ShowAnime::class)->name('show.anime');
